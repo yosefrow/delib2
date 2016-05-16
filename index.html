@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>דליב: מחליטים ביחד</title>
-    <meta charset="utf-8">  
+    <meta charset="utf-8">
     <!-- Material Ripple CSS -->
     <link rel="stylesheet" href="css/ripple.min.css">
 
@@ -12,63 +13,119 @@
     <!-- Material Ripple JS -->
     <script src="js/jquery-epulse.min.js"></script>
 
-    
+
     <link rel="stylesheet" href="css/font-awesome-4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css"> 
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> 
-    
-    
-  </head>
-  <body dir ="rtl">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+</head>
+
+<body dir="rtl">
     <div id="container">
-    <wrapper>gdf</wrapper>
-    <footer>
-      <div class="footer-btn material-ripple" onclick="showPublicGroups()"><span>קבוצות פומביות</span></div>
-      <div class="footer-btn material-ripple" onclick="showMemberGroupsPage()"><span>הקבוצות שלי</span></div>
-      <div class="footer-btn material-ripple" onclick="showOwnedGroupsPage()"><span>הקבוצות שאני מנהל</span></div>     
-    </footer>
+        <header>
+            <headerTitle></headerTitle>
+            <headerBreadCrumbs></headerBreadCrumbs>
+            <headerMenu></headerMenu>
+        </header>
+        <!--        //todo: add header-->
+        <wrapper>gdf</wrapper>
+        <footer>
+            <div class="footer-btn material-ripple" onclick="showPublicGroups()"><span>קבוצות פומביות</span></div>
+            <div class="footer-btn material-ripple" onclick="showMemberGroupsPage()"><span>הקבוצות שלי</span></div>
+            <div class="footer-btn material-ripple" onclick="showOwnedGroupsPage()"><span>הקבוצות שאני מנהל</span></div>
+        </footer>
     </div>
-    
+
     <script type="text/javascript" src="js/app.js"></script>
-    
+
     <script type="text/x-handlebars-template" id="groupsGeneral-tmpl">
-      {{#each groups}}
+        {{#each groups}}
         <div id={{uuid}} class="card">
-          <h4>קבוצה: {{title}}</h4>
-          <p>תיאור: {{description}}</p> 
+            <h4>קבוצה: {{title}}</h4>
+            <p>תיאור: {{description}}</p>
         </div>
-      {{/each}}
-      
+        {{/each}}
+
     </script>
     <script type="text/x-handlebars-template" id="groupsMember-tmpl">
-      {{#each groups}}
+        {{#each groups}}
         <div id={{uuid}} class="card">
-          <h4>קבוצה: {{title}}</h4>
-          <p>תיאור: {{description}}</p> 
+            <h4>קבוצה: {{title}}</h4>
+            <p>תיאור: {{description}}</p>
         </div>
-      {{/each}}
-      
+        {{/each}}
+
     </script>
-    <script type="text/x-handlebars-template" id="ownedGroups-tmpl">
-      {{#each groups}}
-        <div id={{uuid}} class="card">
-          <h4>קבוצה: {{title}}</h4>
-          <p>תיאור: {{description}}</p> 
-        </div>
-      {{/each}}
-      
-    </script>
-    
+
     <script type="text/javascript" src="js/mainScreenGroups.js"></script>
-    
+
+
+    <!-- meta templates-->
+    <!--      header s -->
+    <script type="text/x-handlebars-template" id="headerTitle-tmpl">
+        <div id={{uuid}} class="card">
+            <h4>קבוצה: {{group}}</h4>
+        </div>
+    </script>
+    <script type="text/x-handlebars-template" id="headerBreadCrumbs-tmpl">
+        <div id="#headerBreadCrumbs" class="">
+            <span>url > sub > sub</span>
+        </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="headerMenu-tmpl">
+        <div id=headerMenu class="">
+            <ul>
+                <li onclick="someFunction()"><i class="fa fa-home fa-3x"></i></li>
+                <li onclick="someFunction()"><i class="fa fa-info-circle fa-3x"></i></li>
+                <li onclick="someFunction()"><i class="fa fa-comments-o fa-3x"></i></li>
+                <li onclick="someFunction()"><i class="fa fa-share-alt fa-3x"></i></li>
+                <li onclick="someFunction()"><i class="fa fa-bell-o fa-3x"></i></li>
+                <li onclick="someFunction()"><i class="fa fa-search fa-3x"></i></li>
+            </ul>
+        </div>
+    </script>
+
+    <!--    cards-->
+    <script type="text/x-handlebars-template" id="cards-tmpl">
+        {{#each groups}}
+        <div id={{uuid}} class="card">
+            <img src={{imgUrl}}>
+            <h4>{{type}} : {{title}}</h4>
+            <p>תיאור: {{description}}</p>
+            <hr>
+            <div>
+                <span>
+                </span></div>
+        </div>
+
+        {{/each}}
+    </script>
     <!--- pages ------->
+
+    <script type="text/x-handlebars-template" id="login-tmpl">
+
+        <div class="card">
+            <h4>התחברות</h4>
+            <div>
+                <label>שם משתמש:
+                    <input type="text">
+                </label>
+                <br>
+                <label>סיסמה:
+                    <input type="text">
+                </label>
+            </div>
+            <input type="button" onclick="loginMe()" value="התחברות">
+            <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית">
+        </div>
+
+
+    </script>
     <!-- footer ---->
-    
-  </body>
+
+</body>
+
 </html>
-    
-    
-    
-    
-  

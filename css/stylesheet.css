@@ -130,3 +130,15 @@ footer{
   padding: 5px;
   margin-bottom: 5px;
 }
+
+#headerMenu{
+    width:100%;
+}
+#headerMenu ul {
+    width:100%;
+    display: inline-flex;
+    justify-content: space-between;
+}
+#headerMenu ul li{
+    list-style-type: none;
+}
