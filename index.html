@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>דליב: מחליטים ביחד</title>
+    <meta charset="utf-8">  
+    <!-- Material Ripple CSS -->
+    <link rel="stylesheet" href="css/ripple.min.css">
+
+    <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
+    <script type="text/javascript" src="js/firebase.js"></script>
+    <!-- Material Ripple JS -->
+    <script src="js/jquery-epulse.min.js"></script>
+
+    
+    <link rel="stylesheet" href="css/font-awesome-4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css"> 
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> 
+    
+    
+  </head>
+  <body dir ="rtl">
+    <div id="container">
+    <wrapper>gdf</wrapper>
+    <footer>
+      <div class="footer-btn material-ripple" onclick="showPublicGroups()"><span>קבוצות פומביות</span></div>
+      <div class="footer-btn material-ripple" onclick="showMemberGroupsPage()"><span>הקבוצות שלי</span></div>
+      <div class="footer-btn material-ripple" onclick="showOwnedGroupsPage()"><span>הקבוצות שאני מנהל</span></div>     
+    </footer>
+    </div>
+    
+    <script type="text/javascript" src="js/app.js"></script>
+    
+    <script type="text/x-handlebars-template" id="groupsGeneral-tmpl">
+      {{#each groups}}
+        <div id={{uuid}} class="card">
+          <h4>קבוצה: {{title}}</h4>
+          <p>תיאור: {{description}}</p> 
+        </div>
+      {{/each}}
+      
+    </script>
+    <script type="text/x-handlebars-template" id="groupsMember-tmpl">
+      {{#each groups}}
+        <div id={{uuid}} class="card">
+          <h4>קבוצה: {{title}}</h4>
+          <p>תיאור: {{description}}</p> 
+        </div>
+      {{/each}}
+      
+    </script>
+    <script type="text/x-handlebars-template" id="ownedGroups-tmpl">
+      {{#each groups}}
+        <div id={{uuid}} class="card">
+          <h4>קבוצה: {{title}}</h4>
+          <p>תיאור: {{description}}</p> 
+        </div>
+      {{/each}}
+      
+    </script>
+    
+    <script type="text/javascript" src="js/mainScreenGroups.js"></script>
+    
+    <!--- pages ------->
+    <!-- footer ---->
+    
+  </body>
+</html>
+    
+    
+    
+    
+  

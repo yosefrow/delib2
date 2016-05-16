@@ -1,0 +1,16 @@
+
+
+body{
+  font-family: "Alef", “Helvetica Neue”, Helvetica, Arial, sans-serif;
+}
+
+footer{
+  display: flex;
+  justify-content:space-between;
+    
+  background-color: blueviolet;
+  
+  position: fixed;
+  bottom: 0px;
+    
+}

@@ -1,0 +1,2 @@
+ripple effects: jquery-epulse.min.js
+http://www.jqueryscript.net/animation/jQuery-Plugin-To-Create-Material-Style-Ripple-Effects-ePulse.html
