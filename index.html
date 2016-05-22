@@ -18,14 +18,17 @@
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+    <link href='https://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
 
 
 </head>
 
 <body dir="rtl">
+<!--  <div id="logo"><img src="img/logo.png"></div>-->
     <div id="container">
         <header>
-            <headerTitle></headerTitle>
+            <div id="headerTitle"></div>
             <headerBreadCrumbs></headerBreadCrumbs>
             <headerMenu></headerMenu>
         </header>
@@ -64,17 +67,16 @@
 
     <!-- meta templates-->
     <!--      header s -->
-    <script type="text/x-handlebars-template" id="headerTitle-tmpl">
-        <div id={{uuid}} class="card">
-            <h4>קבוצה: {{group}}</h4>
-        </div>
+    <script type="text/x-handlebars-template" id="headerTitle-tmpl">        
+      <i class="fa fa-users fa-1x"></i>: <span>{{group}}</span>       
     </script>
     <script type="text/x-handlebars-template" id="headerBreadCrumbs-tmpl">
-        <div id="#headerBreadCrumbs" class="">
+        <div id="headerBreadCrumbs" class="">
             <span>url > sub > sub</span>
         </div>
     </script>
 
+<!--
     <script type="text/x-handlebars-template" id="headerMenu-tmpl">
         <div id=headerMenu class="">
             <ul>
@@ -85,6 +87,19 @@
                 <li onclick="someFunction()"><i class="fa fa-bell-o fa-3x"></i></li>
                 <li onclick="someFunction()"><i class="fa fa-search fa-3x"></i></li>
             </ul>
+        </div>
+    </script>
+-->
+  <script type="text/x-handlebars-template" id="headerMenu-tmpl">
+        <div id="headerMenu" class="">
+            
+                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-home fa-3x"></i></div>
+                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-3x"></i></div>
+                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-comments-o fa-3x"></i></div>
+                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-3x"></i></div>
+                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-bell-o fa-3x"></i></div>
+                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-search fa-3x"></i></div>
+            
         </div>
     </script>
 

@@ -7,6 +7,8 @@ $(function(){
     
   });
   
+  
+  
    
 //  showPublicGroups();
 //
@@ -14,9 +16,14 @@ $(function(){
 
     //convertTemplate("#login-tmpl",{},"#container"  );
     //convertTemplate("#header-tmpl",{group: "My Group"},"header"  );
-    convertTemplate("#headerTitle-tmpl",{group: "My Group"},"headerTitle");
+    convertTemplate("#headerTitle-tmpl",{group: "להציל את הים"},"#headerTitle");
     convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
     convertTemplate("#headerMenu-tmpl",{},"headerMenu");
+  $(".headerMenuBtn").ePulse({
+    bgColor: "#ded9d9",
+    size: 'medium'
+    
+  });
   
 })
 
