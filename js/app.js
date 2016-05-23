@@ -30,7 +30,7 @@ $(function(){
 var g_user = "talyaron"
 
 //connect to DB
-var DB = new Firebase("https://synthesistalyaron.firebaseio.com/");
+const DB = new Firebase("https://synthesistalyaron.firebaseio.com/");
 
 function convertTemplate (template, context, destination){
   var groupsPublicTmpl = $(template).html();
