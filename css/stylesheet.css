@@ -195,6 +195,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc2424', end
   margin-bottom: 5px;
   background-color: white;
 }
+#btnAdd{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: fixed;
+    bottom: 13%;
+    right: 13%;
+}
+#btnAdd:hover{
+    cursor: pointer;
+}
 
 
     

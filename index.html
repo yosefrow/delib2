@@ -18,14 +18,14 @@
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  
-    <link href='https://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
 
+    <link href='https://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
 
 </head>
 
 <body dir="rtl">
-<!--  <div id="logo"><img src="img/logo.png"></div>-->
+    <div id="createGroupPopup"></div>
+    <!--  <div id="logo"><img src="img/logo.png"></div>-->
     <div id="container">
         <header>
             <div id="headerTitle"></div>
@@ -40,6 +40,7 @@
             <div class="footer-btn material-ripple" onclick="showOwnedGroupsPage()"><span>הקבוצות שאני מנהל</span></div>
         </footer>
     </div>
+    <div id="btnAdd" hidden></div>
 
     <script type="text/javascript" src="js/app.js"></script>
 
@@ -61,14 +62,23 @@
         {{/each}}
 
     </script>
+    <script type="text/x-handlebars-template" id="groupsOwned-tmpl">
+        {{#each groups}}
+        <div id={{uuid}} class="card">
+            <h4>קבוצה: {{title}}</h4>
+            <p>תיאור: {{description}}</p>
+        </div>
+        {{/each}}
+
+    </script>
 
     <script type="text/javascript" src="js/mainScreenGroups.js"></script>
 
 
     <!-- meta templates-->
     <!--      header s -->
-    <script type="text/x-handlebars-template" id="headerTitle-tmpl">        
-      <i class="fa fa-users fa-1x"></i>: <span>{{group}}</span>       
+    <script type="text/x-handlebars-template" id="headerTitle-tmpl">
+        <i class="fa fa-users fa-1x"></i>: <span>{{group}}</span>
     </script>
     <script type="text/x-handlebars-template" id="headerBreadCrumbs-tmpl">
         <div id="headerBreadCrumbs" class="">
@@ -76,30 +86,16 @@
         </div>
     </script>
 
-<!--
     <script type="text/x-handlebars-template" id="headerMenu-tmpl">
-        <div id=headerMenu class="">
-            <ul>
-                <li onclick="someFunction()"><i class="fa fa-home fa-3x"></i></li>
-                <li onclick="someFunction()"><i class="fa fa-info-circle fa-3x"></i></li>
-                <li onclick="someFunction()"><i class="fa fa-comments-o fa-3x"></i></li>
-                <li onclick="someFunction()"><i class="fa fa-share-alt fa-3x"></i></li>
-                <li onclick="someFunction()"><i class="fa fa-bell-o fa-3x"></i></li>
-                <li onclick="someFunction()"><i class="fa fa-search fa-3x"></i></li>
-            </ul>
-        </div>
-    </script>
--->
-  <script type="text/x-handlebars-template" id="headerMenu-tmpl">
         <div id="headerMenu" class="">
-            
-                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-home fa-2x"></i></div>
-                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-2x"></i></div>
-                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-comments-o fa-2x"></i></div>
-                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-2x"></i></div>
-                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-bell-o fa-2x"></i></div>
-                <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-search fa-2x"></i></div>
-            
+
+            <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-home fa-2x"></i></div>
+            <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-2x"></i></div>
+            <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-comments-o fa-2x"></i></div>
+            <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-2x"></i></div>
+            <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-bell-o fa-2x"></i></div>
+            <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-search fa-2x"></i></div>
+
         </div>
     </script>
 
@@ -138,6 +134,15 @@
             <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית">
         </div>
 
+        <script type="text/x-handlebars-template" id="createGroupPopup-tmpl">
+            <div id="createGroupPopup1">
+                <form>
+                    <h4>צור קבוצה</h4>
+                    <input name="groupName" type="text" placeholder="שם הקבוצה">
+                    <input name="groupDescription" type="text" placeholder="תיאור הקבוצה">
+                </form>
+            </div>
+        </script>
 
     </script>
     <!-- footer ---->

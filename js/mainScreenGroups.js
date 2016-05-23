@@ -17,7 +17,9 @@ function showPublicGroups(){
 }
 
 function showOwnedGroupsPage(){
-  startListeningToPageDB("secret", "ownedGroups-tmpl")   
+  startListeningToPageDB("secret", "ownedGroups-tmpl");
+    convertTemplate("#groupsOwned-tmpl", {groups:[{uuid: "uuiduuid"}, {title:"titletitle"}, {description: "descriptiondescription"}]}, "wrapper");
+    $("#btnAdd").show();
 }
 
 // ------------------------------------
@@ -57,12 +59,21 @@ function startListeningToPageDB (type, template){
 
 function showUserGroups(){
   
-  var context = {"groups": groupsArray};; 
+  var context = {"groups": groupsArray};
     
   convertTemplate("#groupsMember-tmpl", context,"wrapper" )
   
 }
 
+$("#btnAdd").click(function(){
+    //showCreateGroupPopup();
+    convertTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
+    alert("creating");
+});
+
+function showCreateGroupPopup(){
+   convertTemplate("#createGroupPopup-tmpl",{},"#createGroupPopup");
+}
 
 
 var userGroupsArray = new Array();
