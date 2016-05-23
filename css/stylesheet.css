@@ -204,6 +204,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc2424', end
 }
 #btnAdd:hover{
     cursor: pointer;
+/*    cursor: pointer;*/
 }
 
 
