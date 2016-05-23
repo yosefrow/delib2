@@ -1,4 +1,4 @@
-var groupsDB = DB.child("groups");
+const groupsDB = DB.child("groups");
 
 function showMemberGroupsPage(){
   

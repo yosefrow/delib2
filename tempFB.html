@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Temp FB</title>
+    <script type="text/javascript" src="js/firebase.js"></script>
+  </head>
+  <body>
+    <script>
+      const DB = new Firebase("https://synthesistalyaron.firebaseio.com/");
+      
+      const carsDB = DB.child("cars");
+      
+      carsDB.orderByChild("price").on("value", function(data){
+        console.log(JSON.stringify(data.val()));
+        data.forEach(function(data2){
+          console.log("a: "+data2.key());
+        })
+      })
+      
+    </script>
+  </body>
+</html>
+<script type="text/javascript" src="js/firebase.js"></script>
