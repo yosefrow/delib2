@@ -17,9 +17,13 @@ function showPublicGroups(){
 }
 
 function showOwnedGroupsPage(){
+<<<<<<< Updated upstream
   startListeningToPageDB("secret", "ownedGroups-tmpl");
     convertTemplate("#groupsOwned-tmpl", {groups:[{uuid: "uuiduuid"}, {title:"titletitle"}, {description: "descriptiondescription"}]}, "wrapper");
     $("#btnAdd").show();
+=======
+  startListeningToPageDB("secret", "ownedGroups-tmpl");
+>>>>>>> Stashed changes
 }
 
 // ------------------------------------
