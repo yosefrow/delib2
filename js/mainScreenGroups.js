@@ -2,39 +2,29 @@ const groupsDB = DB.child("groups");
 
 function showMemberGroupsPage(){
   
-  var groupsPublicTmpl = $("#groupsMember-tmpl").html();
-  var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
-  var groupPublicHTML = groupPublicHandl(memberContext);    
-    $("wrapper").html(groupPublicHTML); 
-      
+  listenToOwned_MemberGroups("member");
     
 }
 
 function showPublicGroups(){  
   
-  startListeningToPageDB("public", "groupsGeneral-tmpl");
+  listenToGeneralGroups("public");
 
 }
 
-function showOwnedGroupsPage(){
-<<<<<<< Updated upstream
-  startListeningToPageDB("secret", "ownedGroups-tmpl");
-    convertTemplate("#groupsOwned-tmpl", {groups:[{uuid: "uuiduuid"}, {title:"titletitle"}, {description: "descriptiondescription"}]}, "wrapper");
-    $("#btnAdd").show();
-=======
-  startListeningToPageDB("secret", "ownedGroups-tmpl");
->>>>>>> Stashed changes
+function showOwnedGroups(){
+
+  listenToOwned_MemberGroups("owner");
+
 }
 
-// ------------------------------------
 function stopListeningToPageDB (page){
   
 }
 
-function startListeningToPageDB (type, template){
-  
-//  var groupsPublicTmpl = $("#"+template).html();
-//  var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
+function listenToGeneralGroups (type){
+  //type: secret, public, close
+   
   
   groupsDB.orderByChild("type").equalTo(type).on("value", function(groups){
     var groupsArray = new Array();
@@ -49,16 +39,69 @@ function startListeningToPageDB (type, template){
       };
       
       groupsArray.push(groupDetials);
-    })    
+    });    
     
     var context = {"groups": groupsArray}
-    
-//    var groupPublicHTML = groupPublicHandl(context);    
-//    $("wrapper").html(groupPublicHTML); 
-    
-    convertTemplate("#"+template, context, "wrapper")
+
+    convertTemplate("#groupsGeneral-tmpl", context, "wrapper")
     
   })
+}
+
+function listenToOwned_MemberGroups (role){
+  //role: owned, member
+  
+  if (role == "owner" || role == "member"){
+    var userDB = DB.child("users/"+userUuid);
+    
+    //update groups details every time the user changes his groups
+
+    userDB.child("role").on("value", function(groupsUnderRole){
+     
+      var groupsArray = new Array();
+
+      //start counting the number of groups.
+      var groupsUnderRoleLng = groupsUnderRole.val();
+      var numberOfGroups = Object.keys(groupsUnderRoleLng).length;
+      console.log("numberOfGroups: "+ numberOfGroups);
+      var i = 1;
+
+      groupsUnderRole.forEach(function(groupOwned){
+        console.log("st");
+        var isGroupOwned = groupOwned.val();
+        console.log("isGroupOwned: "+ isGroupOwned+ "we have a problem.... when 'role' .. alot of groups :-(")
+        if (isGroupOwned == role){
+          console.log("st2");
+          var preContext = new Object();
+          console.log("g: "+ groupOwned.key());
+          DB.child("groups/"+groupOwned.key()).once("value", function(data){
+            console.log("st");
+            var title = data.val().title;
+            var description = data.val().description;
+
+            preContext = {
+              uuid: groupOwned.key(),
+              title: title,
+              description: description
+            }
+
+            groupsArray.push(preContext);
+            
+            console.log("fffffffffff");
+            if (i === numberOfGroups){
+              console.log("sdfsdfsdfsdfs");
+              
+              var context = {groups: groupsArray};
+              console.log("total 4: " + JSON.stringify(context));
+              
+              convertTemplate("#groups_"+role+"-tmpl", context, "wrapper");
+            }
+            i++; 
+          })
+        }
+          })
+        })
+  } else {console.log("type of role is not recognized")}
 }
 
 function showUserGroups(){

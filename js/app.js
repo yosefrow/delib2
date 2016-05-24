@@ -6,28 +6,20 @@ $(function(){
     size: 'medium'
     
   });
-  
-  
-  
-   
-//  showPublicGroups();
-//
-//  getUserGroups(g_user);
-
-    //convertTemplate("#login-tmpl",{},"#container"  );
-    //convertTemplate("#header-tmpl",{group: "My Group"},"header"  );
-    convertTemplate("#headerTitle-tmpl",{group: "להציל את הים"},"#headerTitle");
-    convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
-    convertTemplate("#headerMenu-tmpl",{},"headerMenu");
   $(".headerMenuBtn").ePulse({
     bgColor: "#ded9d9",
     size: 'medium'
     
   });
+    
+    convertTemplate("#headerTitle-tmpl",{group: "להציל את הים"},"#headerTitle");
+    convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
+    convertTemplate("#headerMenu-tmpl",{},"headerMenu");
+  
   
 })
 
-var g_user = "talyaron"
+var userUuid = "-KIUArWGBpO4c2t5m-5c";
 
 //connect to DB
 const DB = new Firebase("https://synthesistalyaron.firebaseio.com/");
