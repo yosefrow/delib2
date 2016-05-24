@@ -33,7 +33,7 @@ function listenToGeneralGroups (type){
     groups.forEach(function(group){
       var newGroup = group.val();
       var groupDetials = {
-        "uuid": group.key(),
+        "uuid": group.key,
         "title": newGroup.title,
         "description": newGroup.description
       };
@@ -56,51 +56,44 @@ function listenToOwned_MemberGroups (role){
     
     //update groups details every time the user changes his groups
 
-    userDB.child("role").on("value", function(groupsUnderRole){
+    userDB.child("role").orderByValue().equalTo(role).on("value", function(groupsUnderRole){
      
       var groupsArray = new Array();
 
       //start counting the number of groups.
       var groupsUnderRoleLng = groupsUnderRole.val();
       var numberOfGroups = Object.keys(groupsUnderRoleLng).length;
-      console.log("numberOfGroups: "+ numberOfGroups);
+
       var i = 1;
 
       groupsUnderRole.forEach(function(groupOwned){
-        console.log("st");
+
         var isGroupOwned = groupOwned.val();
-        console.log("isGroupOwned: "+ isGroupOwned+ "we have a problem.... when 'role' .. alot of groups :-(")
-        if (isGroupOwned == role){
-          console.log("st2");
-          var preContext = new Object();
-          console.log("g: "+ groupOwned.key());
-          DB.child("groups/"+groupOwned.key()).once("value", function(data){
-            console.log("st");
-            var title = data.val().title;
-            var description = data.val().description;
+        var preContext = new Object();
 
-            preContext = {
-              uuid: groupOwned.key(),
-              title: title,
-              description: description
-            }
+        DB.child("groups/"+groupOwned.key).once("value", function(data){
 
-            groupsArray.push(preContext);
+          var title = data.val().title;
+          var description = data.val().description;
+
+          preContext = {
+            uuid: groupOwned.key,
+            title: title,
+            description: description
+          }
+
+          groupsArray.push(preContext);
+
+          if (i === numberOfGroups){
+
+            var context = {groups: groupsArray};
             
-            console.log("fffffffffff");
-            if (i === numberOfGroups){
-              console.log("sdfsdfsdfsdfs");
-              
-              var context = {groups: groupsArray};
-              console.log("total 4: " + JSON.stringify(context));
-              
-              convertTemplate("#groups_"+role+"-tmpl", context, "wrapper");
-            }
-            i++; 
-          })
-        }
-          })
+            convertTemplate("#groups_"+role+"-tmpl", context, "wrapper");
+          }
+          i++;
         })
+      })
+    })
   } else {console.log("type of role is not recognized")}
 }
 

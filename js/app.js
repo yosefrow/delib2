@@ -21,9 +21,18 @@ $(function(){
 
 var userUuid = "-KIUArWGBpO4c2t5m-5c";
 
-//connect to DB
-const DB = new Firebase("https://synthesistalyaron.firebaseio.com/");
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo",
+  authDomain: "synthesistalyaron.firebaseapp.com",
+  databaseURL: "https://synthesistalyaron.firebaseio.com",
+  storageBucket: "synthesistalyaron.appspot.com",
+};
+firebase.initializeApp(config);
 
+var DB = firebase.database().ref();
+
+//Handelbars shortcut function
 function convertTemplate (template, context, destination){
   var groupsPublicTmpl = $(template).html();
   var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
