@@ -26,11 +26,12 @@ var config = {
   apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo",
   authDomain: "synthesistalyaron.firebaseapp.com",
   databaseURL: "https://synthesistalyaron.firebaseio.com",
-  storageBucket: "synthesistalyaron.appspot.com",
+  storageBucket: "gs://synthesistalyaron.appspot.com",
 };
 firebase.initializeApp(config);
 
 var DB = firebase.database().ref();
+var storage = firebase.storage();
 
 //Handelbars shortcut function
 function convertTemplate (template, context, destination){

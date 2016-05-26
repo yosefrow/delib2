@@ -230,6 +230,21 @@ footer{
 /*    cursor: pointer;*/
 }
 
+button {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #5050f5;
+  color: white;
+  font-style: italic;
+}
+
+input {
+  height: 32px;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
 
     
 

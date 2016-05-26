@@ -22,23 +22,22 @@ function stopListeningToPageDB (page){
   
 }
 
-function listenToGeneralGroups (type){
-  //type: secret, public, close
-   
+function listenToGeneralGroups (typeOfGroup){
+  //typeOfGroup: secret, public, close
   
-  groupsDB.orderByChild("type").equalTo(type).on("value", function(groups){
+  groupsDB.orderByChild("type").equalTo(typeOfGroup).on("value", function(groups){
     var groupsArray = new Array();
     var groupsDetails = new Object();
     
     groups.forEach(function(group){
       var newGroup = group.val();
-      var groupDetials = {
+      var preContext = {
         "uuid": group.key,
         "title": newGroup.title,
         "description": newGroup.description
       };
       
-      groupsArray.push(groupDetials);
+      groupsArray.push(preContext);
     });    
     
     var context = {"groups": groupsArray}
@@ -52,10 +51,11 @@ function listenToOwned_MemberGroups (role){
   //role: owned, member
   
   if (role == "owner" || role == "member"){
+
+
     var userDB = DB.child("users/"+userUuid);
     
     //update groups details every time the user changes his groups
-
     userDB.child("role").orderByValue().equalTo(role).on("value", function(groupsUnderRole){
      
       var groupsArray = new Array();
@@ -65,7 +65,6 @@ function listenToOwned_MemberGroups (role){
       var numberOfGroups = Object.keys(groupsUnderRoleLng).length;
 
       var i = 1;
-
       groupsUnderRole.forEach(function(groupOwned){
 
         var isGroupOwned = groupOwned.val();
@@ -119,40 +118,40 @@ function showCreateGroupPopup(){
 var userGroupsArray = new Array();
 var memberContext = new Object();
 
-function getUserGroups(user){
-  
-  var userDB = DB.child("users/"+user+"/groups/member");
-  userDB.on("value", function(groups){
-    userGroupsArray = [];
-    groups.forEach(function(group){      
-      userGroupsArray.push(group.val());
-    })
-    console.log("1: "+userGroupsArray)
-    
-    //create Member Context
-    
-    var groupsArray = new Array();
-    var groupsDetails = new Object();
-    
-    for (i in userGroupsArray){
-      groupsDB.child(userGroupsArray[i]).once("value", function(group){
-        
-        if (group.exists()){
-          var newGroup = group.val();
-          var groupDetials = {
-            "uuid": group.key(),
-            "title": newGroup.title,
-            "description": newGroup.description
-          };
-          groupsArray.push(groupDetials);
-        }
-      })
-    }
-    memberContext = {"groups": groupsArray}
-    showMemberGroupsPage();
-    console.log("mc: " + JSON.stringify(memberContext));
-  })
-  console.log("2: "+userGroupsArray)
-  
-}
+//function getUserGroups(user){
+//
+//  var userDB = DB.child("users/"+user+"/groups/member");
+//  userDB.on("value", function(groups){
+//    userGroupsArray = [];
+//    groups.forEach(function(group){
+//      userGroupsArray.push(group.val());
+//    })
+//    console.log("1: "+userGroupsArray)
+//
+//    //create Member Context
+//
+//    var groupsArray = new Array();
+//    var groupsDetails = new Object();
+//
+//    for (i in userGroupsArray){
+//      groupsDB.child(userGroupsArray[i]).once("value", function(group){
+//
+//        if (group.exists()){
+//          var newGroup = group.val();
+//          var groupDetials = {
+//            "uuid": group.key(),
+//            "title": newGroup.title,
+//            "description": newGroup.description
+//          };
+//          groupsArray.push(groupDetials);
+//        }
+//      })
+//    }
+//    memberContext = {"groups": groupsArray}
+//    showMemberGroupsPage();
+//    console.log("mc: " + JSON.stringify(memberContext));
+//  })
+//  console.log("2: "+userGroupsArray)
+//
+//}
 
