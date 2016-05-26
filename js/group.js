@@ -2,7 +2,7 @@ function showGroup(groupUid){
 
   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;
-     convertTemplate("#headerTitle-tmpl", {group: title}, "#headerTitle");
+     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
   });
 
   showGroupTopics (groupUid);

@@ -2,26 +2,27 @@
 <html>
 
 <head>
-    <title>דליב: מחליטים ביחד</title>
-    <meta charset="utf-8">
-    <!-- Material Ripple CSS -->
-    <link rel="stylesheet" href="css/ripple.min.css">
+  <title>דליב: מחליטים ביחד</title>
+  <meta charset="utf-8">
+  <!-- Material Ripple CSS -->
+  <link rel="stylesheet" href="css/ripple.min.css">
 
-    <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
-    <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    <!-- Material Ripple JS -->
-    <script src="js/jquery-epulse.min.js"></script>
+  <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+  <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <!-- Material Ripple JS -->
+  <script src="js/jquery-epulse.min.js"></script>
 
 
-    <link rel="stylesheet" href="css/font-awesome-4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+  <link rel="stylesheet" href="css/font-awesome-4.6.1/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <link href='https://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
-    <script src="js/group.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
+  <script src="js/group.js"></script>
   <script src="js/topic.js"></script>
+  <script src="js/question.js"></script>
 </head>
 
 <body dir="rtl">
@@ -55,10 +56,15 @@
 
 
     <!-- meta templates-->
-    <!--      header s -->
-    <script type="text/x-handlebars-template" id="headerTitle-tmpl">
-        <i class="fa fa-users fa-1x"></i>: <span>{{group}}</span>
+    <!--      headers -->
+
+    <script type="text/x-handlebars-template" id="LogoHeaderTitle-tmpl">
+        <center>דליב: מחליטים ביחד</center>
     </script>
+
+
+
+
     <script type="text/x-handlebars-template" id="headerBreadCrumbs-tmpl">
         <div id="headerBreadCrumbs" class="">
             <span>url > sub > sub</span>
@@ -130,7 +136,7 @@
 
     </script>
 
-    <!--- pages ------->
+    <!--- Login ------->
 
     <script type="text/x-handlebars-template" id="login-tmpl">
 
@@ -163,11 +169,36 @@
     </script>
 
     <!-- *************   group page *************-->
+
+  <!-- header    -->
+    <script type="text/x-handlebars-template" id="groupHeaderTitle-tmpl">
+        <i class="fa fa-users fa-1x"></i>: <span>{{group}}</span>
+    </script>
+
+    <!-- topics   -->
     <script type="text/x-handlebars-template" id="groupPage-tmpl">
       {{#each groups}}
         <div id={{uuid}} class="card">
-            <div class="groupDescription clickables" >
+            <div class="groupDescription clickables" onclick="showTopic('{{uuid}}')">
             <h4>נושא: {{title}}</h4>
+            <p>תיאור: {{description}}</p>
+          </div>
+        </div>
+      {{/each}}
+    </script>
+
+    <!-- *************   Topic page *************-->
+    <!-- header    -->
+    <script type="text/x-handlebars-template" id="topicHeaderTitle-tmpl">
+        <i class="fa fa-commenting-o fa-1x"></i>: <span>{{topic}}</span>
+    </script>
+
+    <!-- Questions    -->
+    <script type="text/x-handlebars-template" id="topicPage-tmpl">
+      {{#each groups}}
+        <div id={{uuid}} class="card">
+            <div class="groupDescription clickables" onclick="showQuestion('{{uuid}}')">>
+            <h4>שאלה: {{title}}</h4>
             <p>תיאור: {{description}}</p>
           </div>
         </div>

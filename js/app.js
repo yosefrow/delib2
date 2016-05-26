@@ -12,7 +12,7 @@ $(function(){
     
   });
     
-    convertTemplate("#headerTitle-tmpl",{group: "להציל את הים"},"#headerTitle");
+    convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
     convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
     convertTemplate("#headerMenu-tmpl",{},"headerMenu");
   
