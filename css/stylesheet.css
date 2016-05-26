@@ -190,6 +190,10 @@ footer{
   text-align: center;
 }
 
+.clickables {
+  cursor: pointer;
+}
+
 .material-ripple > span {
   position: relative;
   display: block;
@@ -216,6 +220,11 @@ footer{
   margin-bottom: 5px;
   background-color: white;
 }
+
+.groupDescription{
+  border-bottom: 1px solid gray;
+}
+
 #btnAdd{
     border-radius: 50%;
     width: 100px;

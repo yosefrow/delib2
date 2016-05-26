@@ -20,7 +20,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <link href='https://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
-
+    <script src="js/group.js"></script>
+  <script src="js/topic.js"></script>
 </head>
 
 <body dir="rtl">
@@ -48,32 +49,7 @@
 
   <!-- ****************** Templates ****************     -->
 
-    <script type="text/x-handlebars-template" id="groupsGeneral-tmpl">
-        {{#each groups}}
-        <div id={{uuid}} class="card">
-            <h4>קבוצה: {{title}}</h4>
-            <p>תיאור: {{description}}</p>
-        </div>
-        {{/each}}
-    </script>
-    <script type="text/x-handlebars-template" id="groups_member-tmpl">
-        {{#each groups}}
-        <div id={{uuid}} class="card">
-            <h4>קבוצה: {{title}}</h4>
-            <p>תיאור: {{description}}</p>
-        </div>
-        {{/each}}
 
-    </script>
-    <script type="text/x-handlebars-template" id="groups_owner-tmpl">
-        {{#each groups}}
-        <div id={{uuid}} class="card">
-            <h4>קבוצה: {{title}}</h4>
-            <p>תיאור: {{description}}</p>
-        </div>
-        {{/each}}
-
-    </script>
 
     <script type="text/javascript" src="js/mainScreenGroups.js"></script>
 
@@ -120,6 +96,40 @@
 
         {{/each}}
     </script>
+
+  <script type="text/x-handlebars-template" id="groupsGeneral-tmpl">
+        {{#each groups}}
+        <div id={{uuid}}_Div class="card">
+          <div class="groupDescription clickables" onclick="showGroup('{{uuid}}')">
+            <h4>קבוצה: {{title}}</h4>
+            <p>תיאור: {{description}}</p>
+          </div>
+        </div>
+        {{/each}}
+    </script>
+    <script type="text/x-handlebars-template" id="groups_member-tmpl">
+        {{#each groups}}
+        <div id={{uuid}} class="card">
+            <div class="groupDescription clickables" >
+            <h4>קבוצה: {{title}}</h4>
+            <p>תיאור: {{description}}</p>
+          </div>
+        </div>
+        {{/each}}
+
+    </script>
+    <script type="text/x-handlebars-template" id="groups_owner-tmpl">
+        {{#each groups}}
+        <div id={{uuid}} class="card">
+          <div class="groupDescription clickables">
+            <h4>קבוצה: {{title}}</h4>
+            <p>תיאור: {{description}}</p>
+          </div>
+        </div>
+        {{/each}}
+
+    </script>
+
     <!--- pages ------->
 
     <script type="text/x-handlebars-template" id="login-tmpl">
@@ -149,6 +159,11 @@
                 </form>
             </div>
         </script>
+
+    </script>
+
+    <!-- *************   group page *************-->
+    <script type="text/x-handlebars-template" id="groupPage-tmpl">
 
     </script>
     <!-- footer ---->
