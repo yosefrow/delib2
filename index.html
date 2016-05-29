@@ -23,6 +23,8 @@
   <script src="js/group.js"></script>
   <script src="js/topic.js"></script>
   <script src="js/question.js"></script>
+  <script src="js/option.js"></script>
+  <script src="js/generalFunctions.js"></script>
 </head>
 
 <body dir="rtl">
@@ -195,15 +197,36 @@
 
     <!-- Questions    -->
     <script type="text/x-handlebars-template" id="topicPage-tmpl">
-      {{#each groups}}
+      {{#each questions}}
         <div id={{uuid}} class="card">
-            <div class="groupDescription clickables" onclick="showQuestion('{{uuid}}')">>
+            <div class="groupDescription clickables" onclick="showQuestion('{{uuid}}')">
             <h4>שאלה: {{title}}</h4>
             <p>תיאור: {{description}}</p>
           </div>
         </div>
       {{/each}}
     </script>
+
+  <!-- *************   Question page *************-->
+    <!-- header    -->
+    <script type="text/x-handlebars-template" id="questionHeaderTitle-tmpl">
+        <i class="fa fa-question-circle fa-1x"></i> <span>{{question}}</span>
+    </script>
+
+    <!-- simpleVoting wrapper -->
+    <script type="text/x-handlebars-template" id="simpleVote-tmpl">
+      <div class="simpleVoteWrapper1">
+      <div class="simpleVoteWrapper2">
+        {{#each options}}
+          <div id={{uuid}}_div class="simpleVotingBar" style="background-color:"{{color}}>
+            <span>{{votes}}</span>
+          </div>
+        {{/each}}
+      </div>
+      </div>
+    </script>
+
+
     <!-- footer ---->
 
 </body>

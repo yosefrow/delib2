@@ -34,12 +34,13 @@ function showTopic(topicUid){
 function showTopicQuestions(topicUid){
 
   //get topic questions
-  DB.child("topics/"+ topicUid.toString()+"/topics").on("value",function(questions){
+  DB.child("topics/"+ topicUid.toString()+"/questions").on("value",function(questions){
 
     if(questions.exists()){
 
       var questionsUnderTopic = questions.val();
       var numberOfQuestions = Object.keys(questionsUnderTopic).length;
+      console.log("numberOfQuestions: "+ numberOfQuestions);
       var questionsArray = new Array();
 
       var i = 1;
@@ -62,11 +63,11 @@ function showTopicQuestions(topicUid){
               description: description
             }
 
-            topicsArray.push(preContext);
+            questionsArray.push(preContext);
           }
           console.log("i = "+i+", numberOfQuestions = "+ numberOfQuestions);
           if (i === numberOfQuestions){
-              var context = {groups: questionsArray};
+              var context = {questions: questionsArray};
               convertTemplate("#topicPage-tmpl", context, "wrapper");
             console.log("Push"+ JSON.stringify(context));
           }

@@ -142,7 +142,7 @@ footer{
   
   position: fixed;
   bottom: 0px;
-  height: 70px;
+  height: 50px;
 
 
   flex-grow: 1;  
@@ -254,7 +254,36 @@ input {
   padding-left: 5px;
 }
 
+/* --- Simple voting */
+.simpleVoteWrapper1{
+  width: 100%;
+  position: absolute;
+  bottom: 50px;
+  left:0px
+}
 
+.simpleVoteWrapper2{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: flex-start;
+
+  width: 100%;
+
+
+}
+
+.simpleVotingBar{
+  margin: 5px;
+  padding: 5px;
+  height: 90px;
+  background-color: forestgreen;
+  color: white;
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+
+}
     
 
 

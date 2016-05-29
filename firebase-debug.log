@@ -11,3 +11,42 @@
 [warn] !  No Firebase project directory detected. Serving static content from C:\Users\talyaron\Google Drive\Programing\delib\delib-front\delib-fron2
 [info] 
 [info] Server listening at: http://localhost:5000
+[debug] ----------------------------------------------------------------------
+[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\talyaron\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] CLI Version:  3.0.0
+[debug] Platform:     win32
+[debug] Node Version: v4.4.3
+[debug] Time:         Thu May 26 2016 21:09:38 GMT+0300 (שעון קיץ ירושלים)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[warn] !  No Firebase project directory detected. Serving static content from C:\Users\talyaron\Google Drive\Programing\delib\delib-front\delib-fron2
+[info] 
+[info] Server listening at: http://localhost:5000
+[debug] ----------------------------------------------------------------------
+[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\talyaron\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] CLI Version:  3.0.0
+[debug] Platform:     win32
+[debug] Node Version: v4.4.3
+[debug] Time:         Fri May 27 2016 09:10:09 GMT+0300 (שעון קיץ ירושלים)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[warn] !  No Firebase project directory detected. Serving static content from C:\Users\talyaron\Google Drive\Programing\delib\delib-front\delib-fron2
+[info] 
+[info] Server listening at: http://localhost:5000
+[debug] ----------------------------------------------------------------------
+[debug] Command:      C:\Program Files\nodejs\node.exe C:\Users\talyaron\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] CLI Version:  3.0.0
+[debug] Platform:     win32
+[debug] Node Version: v4.4.3
+[debug] Time:         Sun May 29 2016 07:55:17 GMT+0300 (שעון קיץ ירושלים)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[warn] !  No Firebase project directory detected. Serving static content from C:\Users\talyaron\Google Drive\Programing\delib\delib-front\delib-fron2
+[info] 
+[info] Server listening at: http://localhost:5000
