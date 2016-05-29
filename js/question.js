@@ -59,7 +59,6 @@ function showQuestionSimpeVote(questionUid, numberOfOptions){
         DB.child("questions/"+questionUid+"/options/"+option.key).update({color:color});
       }
 
-      console.log("option "+ option.key+": " + option.val().title + " has " + option.val().votes + " votes");
       optionsArray.push({uuid: option.key, title: option.val().title, votes: option.val().votes,color: color});
 
 
@@ -72,17 +71,18 @@ function showQuestionSimpeVote(questionUid, numberOfOptions){
 
 //    optionsArray.reverse();
     for (i in optionsArray){
-      console.log(optionsArray[i].title+", "+ optionsArray[i].votes);
-      preContext.push({uuid: optionsArray[i].uuid, option: optionsArray[i].title, votes: optionsArray[i].votes , color: optionsArray[i].color});
+
+      preContext.push({questionUuid: questionUid ,uuid: optionsArray[i].uuid, title: optionsArray[i].title, votes: optionsArray[i].votes , color: optionsArray[i].color});
+
     }
     var context = {options: preContext};
     convertTemplate("#simpleVote-tmpl", context, "wrapper");
+    convertTemplate("#simpleVoteBtns-tmpl", context, "footer");
 
     var NumberOfOptionsActualy = optionsArray.length;
-    console.log("n of opt: "+ NumberOfOptionsActualy);
+
     var divBarWidth = $("wrapper").width()/NumberOfOptionsActualy;
     var barWidth = 0.8*divBarWidth;
-    console.log("barWidth: "+barWidth)
 
     var wrapperHeight = $("wrapper").height() - $("footer").height()-20;
 
@@ -97,8 +97,28 @@ function showQuestionSimpeVote(questionUid, numberOfOptions){
       var relativeToMaxBar = (optionsArray[i].votes/maxVotes)*x;
 
       $("#"+optionsArray[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("background-color", optionsArray[i].color).css("width", barWidth) ;
+      $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
     }
+
+    $(".voteBtn").ePulse({
+      bgColor: "#ded9d9",
+      size: 'medium'
+    });
   })
 
+  lightCheckedBtn(questionUid);
+}
 
+function voteSimple(questionUid, optionUid){
+  console.log("voted "+ questionUid);
+  var updateUserVoting = userUuid+":"+optionUid;
+  DB.child("questions/"+questionUid+"/simpleVoters/"+userUuid).set(optionUid);
+}
+
+function lightCheckedBtn(questionUid){
+  DB.child("questions/"+questionUid+"/simpleVoters/"+userUuid).on("value", function(checkedOption){
+    console.log("checkedOption.val(): "+ checkedOption.val());
+    $(".voteBtn").css("border" , "0px solid black");
+    $("#"+checkedOption.val()+"_btn").css("border" , "3px solid black");
+  })
 }

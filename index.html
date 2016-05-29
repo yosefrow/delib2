@@ -218,12 +218,21 @@
       <div class="simpleVoteWrapper1">
       <div class="simpleVoteWrapper2">
         {{#each options}}
-          <div id={{uuid}}_div class="simpleVotingBar" style="background-color:"{{color}}>
+          <div id={{uuid}}_div class="simpleVotingBar">
             <span>{{votes}}</span>
           </div>
         {{/each}}
       </div>
       </div>
+      <!-- simple voting buttons -->
+      <script type="text/x-handlebars-template" id="simpleVoteBtns-tmpl">
+        <div class="voteBtnContainer">
+          {{#each options}}
+          <div class="voteBtn clickables material-ripple" onclick="voteSimple('{{questionUuid}}','{{uuid}}')" id={{uuid}}_btn><span>{{title}}</span></div>
+          {{/each}}
+        </div>
+      </div>
+
     </script>
 
 
