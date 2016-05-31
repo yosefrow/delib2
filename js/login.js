@@ -6,16 +6,16 @@
 
 // Initialize Firebase
 
-var fbaseStorage = firebase.storage();
-if (!fbaseStorage) {
-      var config = {
-        apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo",
-        authDomain: "synthesistalyaron.firebaseapp.com",
-        databaseURL: "https://synthesistalyaron.firebaseio.com",
-        storageBucket: "gs://synthesistalyaron.appspot.com"
-      };
-    firebase.initializeApp(config);
-}
+//var fbaseStorage = firebase.storage();
+//if (!fbaseStorage) {
+//      var config = {
+//        apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo",
+//        authDomain: "synthesistalyaron.firebaseapp.com",
+//        databaseURL: "https://synthesistalyaron.firebaseio.com",
+//        storageBucket: "gs://synthesistalyaron.appspot.com"
+//      };
+//    firebase.initializeApp(config);
+//}
 
 var user = firebase.auth().currentUser;
 if (user) {
