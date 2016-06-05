@@ -51,6 +51,7 @@
     </div>
 
     <div id="btnAdd" hidden></div>
+    <div id="info" hidden></div>
 
 
 
@@ -226,7 +227,7 @@
           <div class="voteInfoContainer">
             {{#each options}}
             <div>
-              <i class="fa fa-info-circle fa-1x" onclick="showInfo('option', '{{uuid}}')"></i>
+              <i class="fa fa-info-circle fa-1x clickables" onclick="showOptionInfo('{{questionUuid}}','{{uuid}}')"></i>
             </div>
             {{/each}}
           </div>
@@ -241,7 +242,12 @@
 
 
       <!-- footer ---->
-
+      <!--    Info   -->
+      <script type="text/x-handlebars-template" id="optionsInfo-tmpl">
+        <div class="infoTitle"><h4>{{title}}</h4></div>
+        <div class="infoDescription"><h5>{{description}}</h5></div>
+        <div class="infoExplanation">{{explanation}}</div>
+      </script>
       </body>
 
     </html>

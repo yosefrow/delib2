@@ -318,5 +318,13 @@ input {
 }
 
 
+#info{
+  background-color: white;
+/*  width: 100%;*/
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
 
 

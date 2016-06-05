@@ -113,6 +113,7 @@ function showQuestionSimpeVote(questionUid, numberOfOptions){
 
 function voteSimple(questionUid, optionUid){
 
+  $("#info").hide(400);
   var optionUidStr = JSON.stringify(optionUid);
   //check to see what have the user voted last
 
@@ -124,24 +125,24 @@ function voteSimple(questionUid, optionUid){
       console.log("do not exist... created");
       DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
         return currentVote +1;
-        })
+      })
       $(".voteBtn").css("border" , "0px solid black");
       $("#"+optionUid+"_btn").css("border" , "3px solid black");
     } else {
       var lastVoted = vote.val();
       if (optionUid == lastVoted){
         DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
-        return currentVote -1;
+          return currentVote -1;
         })
         DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).remove();
         console.log("equal");
         $(".voteBtn").css("border" , "0px solid black");
       } else {
         DB.child("questions/"+questionUid+"/options/"+lastVoted+"/votes").transaction(function(currentVote){
-        return currentVote -1;
+          return currentVote -1;
         });
         DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
-        return currentVote +1;
+          return currentVote +1;
         })
         DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).set(optionUid);
         $(".voteBtn").css("border" , "0px solid black");
@@ -150,39 +151,39 @@ function voteSimple(questionUid, optionUid){
 
     }
 
-//    var lastVotedL = lastVoted.length;
-//    var optionUidL = optionUid.length;
-////    console.log(lastVoted.length());
-////    var lastVotedStr = JSON.stringify(lastVoted);
-//    console.log("last voted: "+lastVoted+":"+lastVotedL+ ", optionUid = " + optionUid+":"+optionUidL);
-////    console.dir(lastVoted);
-////    console.dir(optionUid);
-//
-//    if (lastVoted === optionUid){
-//      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
-//        return currentVote -1;
-//        DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).remove();
-//        console.log("1");
-//      })
-//    }
-//    if (lastVoted === null){
-//      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
-//        return currentVote +1;
-//        DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).set(optionUid);
-//        console.log("2");
-//      })
-//    }
-//
-//    if (lastVoted != optionUid){
-//      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
-//        return currentVote +1;
-//      })
-//      DB.child("questions/"+questionUid+"/options/"+lastVoted+"/votes").transaction(function(currentVote){
-//        return currentVote -1;
-//      })
-//      DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).set(optionUid);
-//      console.log("3");
-//    }
+    //    var lastVotedL = lastVoted.length;
+    //    var optionUidL = optionUid.length;
+    ////    console.log(lastVoted.length());
+    ////    var lastVotedStr = JSON.stringify(lastVoted);
+    //    console.log("last voted: "+lastVoted+":"+lastVotedL+ ", optionUid = " + optionUid+":"+optionUidL);
+    ////    console.dir(lastVoted);
+    ////    console.dir(optionUid);
+    //
+    //    if (lastVoted === optionUid){
+    //      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
+    //        return currentVote -1;
+    //        DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).remove();
+    //        console.log("1");
+    //      })
+    //    }
+    //    if (lastVoted === null){
+    //      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
+    //        return currentVote +1;
+    //        DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).set(optionUid);
+    //        console.log("2");
+    //      })
+    //    }
+    //
+    //    if (lastVoted != optionUid){
+    //      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
+    //        return currentVote +1;
+    //      })
+    //      DB.child("questions/"+questionUid+"/options/"+lastVoted+"/votes").transaction(function(currentVote){
+    //        return currentVote -1;
+    //      })
+    //      DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).set(optionUid);
+    //      console.log("3");
+    //    }
 
   })
 }
@@ -193,4 +194,36 @@ function lightCheckedBtn(questionUid){
     $(".voteBtn").css("border" , "0px solid black");
     $("#"+checkedOption.val()+"_btn").css("border" , "3px solid black");
   })
+}
+
+function showOptionInfo(question, option){
+
+  if ($("#info").is(":visible")){
+    $("#info").hide(400);
+  } else{
+    console.log("question: "+ question + ", option: "+ option)
+    DB.child("questions/"+question+"/options/"+option).once("value", function(dataSnapshot){
+
+      var title = dataSnapshot.val().title;
+      var description = dataSnapshot.val().description;
+      var explanation = dataSnapshot.val().explanation;
+
+      var context = {title: title, description: description, explanation: explanation}
+
+      convertTemplate("#optionsInfo-tmpl", context, "#info");
+
+      console.log("option info:" + option);
+      //get wrapper dimentions
+      var headerHeight = $("header").height();
+      var wrapperHeight = $("wrapper").height();
+      var footerHeight = $("footer").height();
+      var infoHeight = wrapperHeight-footerHeight;
+      var headerWidth = $("header").width();
+
+      $("#info").css("top", headerHeight).css("height", infoHeight).css("width", headerWidth).show(400);
+
+    })
+
+
+  }
 }
