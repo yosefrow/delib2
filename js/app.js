@@ -1,25 +1,28 @@
 $(function(){
-  
+
   //start ripple effect
   $(".footer-btn").ePulse({
     bgColor: "#ded9d9",
     size: 'medium'
-    
+
   });
   $(".headerMenuBtn").ePulse({
     bgColor: "#ded9d9",
     size: 'medium'
-    
+
   });
+  
+  var currentUrl = getUrl();
+  routTo(currentUrl);
 
 
-//
-//    convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-//    convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
-//    convertTemplate("#headerMenu-tmpl",{},"headerMenu");
-    convertTemplate("#login-tmpl",{},"body");
-  
-  
+  //
+      convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
+      convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
+      convertTemplate("#headerMenu-tmpl",{},"headerMenu");
+  //    convertTemplate("#login-tmpl",{},"body");
+
+
 })
 
 var userUuid = "talyaron";

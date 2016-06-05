@@ -277,7 +277,7 @@ input {
   margin: 5px;
   padding: 5px;
   height: 90px;
-  background-color: forestgreen;
+  background-color: #cc4545;
   color: white;
   align-self: flex-end;
   display: flex;
@@ -292,17 +292,30 @@ input {
   height: 50px;
 }
 
+.voteInfoContainer{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 50px;
+}
+
 .voteBtn{
-  background-color: blue;
-  width: 100%;text-align: center;
+  background-color: #cc4545;
+  width: 100%;
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-
-
 }
-    
+
+#tmpMulCon{
+  width: 100%;
+  background-color: #cc4545;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+}
 
 
 
