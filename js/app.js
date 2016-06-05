@@ -14,7 +14,7 @@ $(function(){
   
   var currentUrl = getUrl();
   routTo(currentUrl);
-
+//  showPublicGroups();
 
   //
       convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
@@ -47,4 +47,6 @@ function convertTemplate (template, context, destination){
   $(destination).html(groupPublicHTML);
 }
 
-
+function goHome(){
+  showPublicGroups();
+}

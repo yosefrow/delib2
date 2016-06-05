@@ -45,4 +45,27 @@ function routTo(currentUrl){
       console.log("did not match");
   }
 
+};
+
+function setUrl(type, uid){
+
+  //get domain
+  var currentUrl = window.location.href;
+  console.log("url: "+currentUrl);
+  var locationToCut = currentUrl.indexOf("?");
+  var domainUrl = currentUrl.slice(0,locationToCut);
+  console.log("domainUrl: "+ domainUrl);
+
+  if(type == undefined || uid == undefined){
+    history.pushState({}, uid, domainUrl );
+  } else{
+
+    var typeEntety = {type: type, entety: uid};
+
+    var url = domainUrl+"?"+type+"/"+uid;
+    console.log("url:"+url)
+    history.pushState(typeEntety, uid, url );
+  }
+
+
 }

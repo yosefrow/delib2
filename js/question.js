@@ -49,6 +49,9 @@ function showQuestion(questionUid){
 function showQuestionSimpeVote(questionUid, numberOfOptions){
   DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
 
+    if(options.exists()){
+      setUrl("question", questionUid);
+    }
     var maxVotes = 0;
 
     var optionsArray = new Array();

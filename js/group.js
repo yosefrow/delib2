@@ -1,5 +1,6 @@
 function showGroup(groupUid){
 
+  setUrl("group", groupUid);
   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;
      convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
@@ -42,13 +43,13 @@ function showGroupTopics(groupUid){
 
             topicsArray.push(preContext);
           }
-          console.log("i = "+i+", numberOfTopics = "+ numberOfTopics);
+
           if (i === numberOfTopics){
               var context = {groups: topicsArray};
               convertTemplate("#groupPage-tmpl", context, "wrapper");
-            console.log("Push"+ JSON.stringify(context));
+
           }
-          console.log(i);
+
           i++;
         })
 
