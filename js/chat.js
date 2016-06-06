@@ -11,7 +11,7 @@ function showChat(chatUid){
   //show 20 existing messages
   DB.child("chats/"+chatUid).orderByChild("time").limitToLast(20).on("value", function(chats){
     console.dir(chats.val());
-    $("wrapper").html("");
+    $("wrapper").html("<div id='messages'></div>");
     if (chats.exists()){
       chats.forEach(function(chat){
 
@@ -26,14 +26,19 @@ function showChat(chatUid){
             user.lastName = dataSnapshot.val().last_name;
             var context = {text:text, time: time, userName: user.firstName, userLast: user.lastName, messageId: chatUid}
 
-            appendTemplate("#chatMessage-tmpl", context, "wrapper");
+            appendTemplate("#chatMessage-tmpl", context, "#messages");
+//            var messagesDiv = document.getElementById("messages");
+//            var messagesHeight = $("#messages").height();
+//            console.log(messagesHeight);
+////            messagesDiv.scrollTop = messagesHeight;
+//            $("#messages").scrollTop(500);
+            $('wrapper').scrollTop($('wrapper')[0].scrollHeight);
           } else {
-            var context = {text:text, time: time, userName: "פלוני", userLast: "אלמוני", messageId: chatUid}
-
-            appendTemplate("#chatMessage-tmpl", context, "wrapper");
+            $("wrapper").html("<div id='messages'></div>");
           }
         })
       })
+//      $("wrapper").animate({ scrollTop: $('wrapper').prop("scrollHeight")}, 1000);
     }
     //    console.log("hoop: "+ chats.val().text);
     //    console.dir(chats.val());

@@ -384,6 +384,11 @@ input {
   background-color: #171717;
 }
 
+#messages {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .message {
   border-radius: 10px;
   background-color: white;
