@@ -5,12 +5,12 @@
     width:100%;    
     right:0%;
   }  
-  
+
   #logo{
     width:100%;    
     right:0%;
   }  
-  
+
   footer{
     width:100%;
     right:0%;
@@ -23,17 +23,17 @@
     width:80%;    
     right:10%;
   }
-  
+
   #logo{
     width:80%;    
     right:10%;
   }  
-  
+
   footer{
     width:80%;
     right:10%;
   }
-  
+
 }
 
 @media screen and (min-width: 720px) {
@@ -53,8 +53,8 @@
 }
 
 body{
-    font-family: 'Alef', sans-serif;
-  
+  font-family: 'Alef', sans-serif;
+
   direction: rtl; 
   display: flex;
   justify-content: center;
@@ -72,16 +72,27 @@ body{
   height: 30px;
   width: 60px;
   margin: 3px;
-  
+
 }
+
+#loginScreen {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  
+  z-index: 50;
+}
+
 
 #container {
   display: flex;
   flex-direction: column;
-  
+
   position: absolute;
   top:0px;
-  
+
   height: 100vh;
 }
 
@@ -91,7 +102,7 @@ body{
   border-bottom: 1px solid #cc0000;
   font-size: 1.5em;
   padding: 3px;
-  
+
   text-align: center;
 
   z-index: 5;
@@ -104,12 +115,12 @@ body{
 }
 
 #headerMenu{
-    width:100%;
-    height: 50px;
-    display: flex;
-    justify-content:space-between;
-    background-color: #cc0000;
-  
+  width:100%;
+  height: 50px;
+  display: flex;
+  justify-content:space-between;
+  background-color: #cc0000;
+
 }
 
 .headerMenuBtn{
@@ -134,21 +145,21 @@ body{
 }
 
 .btn-header {
-   background-color: background-color:#cc0000;
+  background-color: background-color:#cc0000;
 }
 .btn-header:hover {
   background-color: background-color:#A10000;
 }
 
 wrapper{
-    
+
   flex-grow: 11; 
   overflow-y:auto;
   background-color: #dbdbdb;
 }
 
 footer{   
-  
+
   position: fixed;
   bottom: 0px;
   height: 50px;
@@ -163,27 +174,27 @@ footer{
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
-  
+
   align-content: stretch;  
 }
 
 
 
 .footer-btn {
-  
+
   padding: 5px;
-  
+
   flex-grow: 1;
-  
+
   text-align: center;
   vertical-align: text-bottom;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   border-right: 1px solid #ce8181;
-  
- background-color: #cc0000;
+
+  background-color: #cc0000;
 }
 
 .footer-btn:hover {
@@ -213,10 +224,10 @@ footer{
 
 
 .flex-item {
-    background-color: cornflowerblue;
-    width: 100px;
-    height: 100px;
-    margin: 10px;
+  background-color: cornflowerblue;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
 }
 
 .card {
@@ -235,17 +246,17 @@ footer{
 }
 
 #btnAdd{
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    background-color: red;
-    position: fixed;
-    bottom: 13%;
-    right: 13%;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: fixed;
+  bottom: 13%;
+  right: 13%;
 }
 #btnAdd:hover{
-    cursor: pointer;
-/*    cursor: pointer;*/
+  cursor: pointer;
+  /*    cursor: pointer;*/
 }
 
 button {
@@ -329,7 +340,7 @@ input {
 
 #info{
   background-color: white;
-/*  width: 100%;*/
+  /*  width: 100%;*/
   position: fixed;
   left: 50%;
   transform: translateX(-50%)
@@ -346,11 +357,11 @@ input {
 }
 .chatMessages{
   background-color: white;
-/*
+  /*
   position: absolute;
   bottom: 50px;
   height: 100%;
-*/
+  */
 }
 
 .chatInput{

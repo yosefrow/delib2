@@ -1,24 +1,8 @@
-//convertTemplate("#login-tmpl", {group: "title"}, "wrapper");
-
-//    <button type="button" onclick="signout()">Sign out</button>
-//    <button type="button" onclick="facebookLogin()">Facebook</button>
-//    <button type="button" onclick="googleLogin()">Google</button>
-
-// Initialize Firebase
-
-//var fbaseStorage = firebase.storage();
-//if (!fbaseStorage) {
-//      var config = {
-//        apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo",
-//        authDomain: "synthesistalyaron.firebaseapp.com",
-//        databaseURL: "https://synthesistalyaron.firebaseio.com",
-//        storageBucket: "gs://synthesistalyaron.appspot.com"
-//      };
-//    firebase.initializeApp(config);
-//}
 firebase.auth().onAuthStateChanged(function(user) {
-  console.log("status login change")
+  console.log("status login change");
+  console.dir(user);
   if (user) {
+
     // User is signed in.
      console.log("User is signed in.");
      $("#loginScreen").hide(300);
@@ -46,6 +30,14 @@ function googleLogin() {
 function facebookLogin(){
   var provider = new firebase.auth.FacebookAuthProvider();
   firebase.auth().signInWithRedirect(provider);
+}
+
+function signout(){
+  firebase.auth().signOut().then(function() {
+    console.log("sign out");
+  }, function(error) {
+    console.log("Error: "+ error)
+  });
 }
 
 firebase.auth().getRedirectResult().then(function(result) {
@@ -94,18 +86,6 @@ $("#login-form").submit(function(e){
   });
 });
 
-function signout(){
-  firebase.auth().signOut().then(function() {
-    console.log("sign out");
-  }, function(error) {
-    console.log("Error: "+ error)
-  });
-}
 
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log("Loged in, User: "+ user.email +", "+ user.uid);
-  } else {
-    console.log("Signed out");
-  }
-});
+
+
