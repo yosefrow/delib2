@@ -17,16 +17,21 @@
 //    firebase.initializeApp(config);
 //}
 firebase.auth().onAuthStateChanged(function(user) {
+  console.log("status login change")
   if (user) {
     // User is signed in.
+     console.log("User is signed in.");
+     $("#loginScreen").hide(300);
     goHome();
     //get name
     //get picture
 
   } else {
     // No user is signed in.
+    console.log("No user is signed in.");
     //show login screen
-    convertTemplate("#login-tmpl", {group: "title"}, "wrapper");
+    convertTemplate("#login-tmpl", {}, "#loginScreen");
+    $("#loginScreen").show(300);
   }
 });
 
