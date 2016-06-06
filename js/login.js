@@ -16,18 +16,17 @@
 //      };
 //    firebase.initializeApp(config);
 //}
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
+    convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
+    convertTemplate("#headerMenu-tmpl",{},"headerMenu");
 
-var user = firebase.auth().currentUser;
-if (user) {
-  // User is signed in.
-  convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-  convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
-  convertTemplate("#headerMenu-tmpl",{},"headerMenu");
-
-} else {
-  // No user is signed in.
-
-}
+  } else {
+    // No user is signed in.
+  }
+});
 
 //var DB = firebase.database().ref();
 //var storage = firebase.storage();
