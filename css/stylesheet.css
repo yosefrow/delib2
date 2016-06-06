@@ -81,22 +81,27 @@ body{
   left: 0px;
   width: 100%;
   height: 100%;
-  
+
   z-index: 50;
 }
 
 
 #container {
 
-  flex-direction: column;
+  display: table;
 
   position: absolute;
   top:0px;
 
-  height: 100vh;
+  height: 100%;
 }
 
-
+header {
+  display: table-row;
+  height: 100px;
+  display: table;
+  width: 100%
+}
 
 #headerTitle{
   background-color: #cc0000;
@@ -108,15 +113,22 @@ body{
   text-align: center;
 
   z-index: 5;
+
+  height: 30px;
 }
 
 #headerBreadCrumbs {
+  display: table-row;
+  height: 20px;
+
   background-color: #cc0000;
   color: white;
   border-bottom: 1px solid #ce8181;
 }
 
 #headerMenu{
+  display: table-row;
+
   width:100%;
   height: 50px;
   display: flex;
@@ -137,14 +149,15 @@ body{
 
 }
 
-
-
-#headerMenu div i {
-  text-align:center;
+.headerMenuBtn i{
   position: relative;
   top:50%;
   transform: translateY(-50%);
 }
+
+
+
+
 
 .btn-header {
   background-color: background-color:#cc0000;
@@ -153,21 +166,27 @@ body{
   background-color: background-color:#A10000;
 }
 
+
+
 wrapper{
 
-  flex-grow: 11; 
-  overflow-y:auto;
+  display: table-row;
+
+/*  flex-grow: 11; */
+/*  overflow-y:auto;*/
   background-color: #dbdbdb;
 }
 
 footer{   
+
+  display: table-row;
 
   position: fixed;
   bottom: 0px;
   height: 50px;
 
 
-  flex-grow: 1;  
+/*  flex-grow: 1;  */
   font-size: 1.25em;
   font-weight: 700;
   overflow: hidden;

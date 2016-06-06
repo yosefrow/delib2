@@ -24,8 +24,8 @@ $(function(){
 
   //
   convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-  convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
-  convertTemplate("#headerMenu-tmpl",{},"headerMenu");
+  convertTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
+  convertTemplate("#headerMenu-tmpl",{},"#headerMenu");
   goHome();
   //    convertTemplate("#login-tmpl",{},"body");
 
