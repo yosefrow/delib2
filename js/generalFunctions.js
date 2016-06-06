@@ -6,3 +6,12 @@ function getRandomColor() {
     }
     return color;
 }
+
+function parseDate(){
+  var currentTime = firebase.database.ServerValue.TIMESTAMP;
+  //var year = getFullYear();
+  var d = new Date(currentTime);
+
+  console.log(d);
+  console.dir(currentTime);
+}

@@ -378,4 +378,9 @@ input {
   background-color: white;
   box-shadow: 5px 5px 5px gray;
   margin: 5px;
+  padding: 5px;
+}
+.messageAuthor {
+  font-size: 0.8em;
+  color: gray;
 }

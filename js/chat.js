@@ -6,27 +6,37 @@ function showChat(chatUid){
 
 function showChat(chatUid){
   console.log("chatUid: " + chatUid );
-  $("wrapper").html("");
+
 
   //show 20 existing messages
   DB.child("chats/"+chatUid).orderByChild("time").limitToLast(20).on("value", function(chats){
     console.dir(chats.val());
+    $("wrapper").html("");
     if (chats.exists()){
       chats.forEach(function(chat){
         console.log("chat key: "+chat.key);
         var text = chat.val().text;
         var time = chat.val().time;
         time = new Date(time);
-        var user = chat.val().user;
+        var author = chat.val().user;
+        DB.child("users/"+author).once("value", function(dataSnapshot){
+          if (dataSnapshot.exists()){
+            var user = new Object;
+            user.firstName = dataSnapshot.val().first_name;
+            user.lastName = dataSnapshot.val().last_name;
+            var context = {text:text, time: time, userName: user.firstName, userLast: user.lastName, messageId: chatUid}
 
-        var context = {text:text, time: time, user: user, messageId: chatUid}
+            appendTemplate("#chatMessage-tmpl", context, "wrapper");
+          } else {
+            var context = {text:text, time: time, userName: "פלוני", userLast: "אלמוני", messageId: chatUid}
 
-        appendTemplate("#chatMessage-tmpl", context, "wrapper");
-
+            appendTemplate("#chatMessage-tmpl", context, "wrapper");
+          }
+        })
       })
     }
-//    console.log("hoop: "+ chats.val().text);
-//    console.dir(chats.val());
+    //    console.log("hoop: "+ chats.val().text);
+    //    console.dir(chats.val());
   })
 
 
@@ -48,6 +58,6 @@ function showChat(chatUid){
 }
 
 function addChatMessage(chatUid, userUid, text){
-//  var x= firebase.database(app);
+  //  var x= firebase.database(app);
   DB.child("chats/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, text: text });
 }
