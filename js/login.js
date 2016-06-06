@@ -19,9 +19,7 @@
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
-    convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-    convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
-    convertTemplate("#headerMenu-tmpl",{},"headerMenu");
+    goHome();
 
   } else {
     // No user is signed in.
