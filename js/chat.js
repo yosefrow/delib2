@@ -5,12 +5,10 @@ function showChat(chatUid){
 
 
 function showChat(chatUid){
-  console.log("chatUid: " + chatUid );
-
 
   //show 20 existing messages
   DB.child("chats/"+chatUid).orderByChild("time").limitToLast(20).on("value", function(chats){
-    console.dir(chats.val());
+
     $("wrapper").html("<div id='messages'></div>");
     if (chats.exists()){
       chats.forEach(function(chat){

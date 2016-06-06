@@ -35,7 +35,7 @@
   <body dir="rtl">
 
     <div id="createGroupPopup"></div>
-<!--    <div id="logo"><img src="img/logo.png"></div>-->
+    <!--    <div id="logo"><img src="img/logo.png"></div>-->
     <div id="container">
       <header>
         <div id="headerTitle"></div>
@@ -146,22 +146,23 @@
     <!--- Login ------->
 
     <script type="text/x-handlebars-template" id="login-tmpl">
-      <div class="card">
+      <div class="card" style="height: 100%">
         <h4>התחברות</h4>
         <div>
-          <label>שם משתמש:
-            <input type="text">
-          </label>
-          <br>
-          <label>סיסמה:
-            <input type="text">
+          <label>התחברות עם שם משתמש וסיסמה<br>
+            <input type="email" placeholder="email"><br>
+            <input type="password" placeholder="password"><br>
+            <input type="button" onclick="loginMe()" value="התחברות">
+          </label><br>
+
+          <label>התחברות חברתית:<br>
+            <input type="button" onclick="facebookLogin()" value="Facebook"><br>
+            <input type="button" onclick="googleLogin()" value="Google"><br>
+            <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית"><br>
+            <button type="button" onclick="signout()">Sign out</button><br>
           </label>
         </div>
-        <input type="button" onclick="loginMe()" value="התחברות">
-        <input type="button" onclick="facebookLogin()" value="Facebook">
-        <input type="button" onclick="googleLogin()" value="Google">
-        <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית">
-        <button type="button" onclick="signout()">Sign out</button>
+
       </div>
     </script>
 
