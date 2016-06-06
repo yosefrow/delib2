@@ -391,6 +391,12 @@ input {
   margin: 5px;
   padding: 5px;
 }
+
+.messageDate{
+  font-size: 0.65em;
+  color: gray;
+  font-weight: 100;
+}
 .messageAuthor {
   font-size: 0.8em;
   color: gray;
