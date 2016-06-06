@@ -30,7 +30,8 @@ function showQuestion(questionUid){
   //get question info
   DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
     var title = dataSnapshot.val().title;
-    convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle")
+    convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
+    convertTemplate("#headerMenu-tmpl", {chatUid: questionUid}, "#headerMenu");
     var description = dataSnapshot.val().description;
     var typeOfQuestion = dataSnapshot.val().typeOfQuestion;
     var numberOfOptions = dataSnapshot.val().numberOfOptions;

@@ -3,7 +3,8 @@ function showGroup(groupUid){
   setUrl("group", groupUid);
   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;
-     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
+    convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
+    convertTemplate("#headerMenu-tmpl", {chatUid: groupUid}, "#headerMenu");
   });
 
   showGroupTopics (groupUid);
@@ -33,7 +34,7 @@ function showGroupTopics(groupUid){
 
             var title = data.val().title;
             var description = data.val().description;
-  //          console.log("t: "+ title + ", d: "+ description);
+            //          console.log("t: "+ title + ", d: "+ description);
 
             preContext = {
               uuid: topic.key,
@@ -45,8 +46,8 @@ function showGroupTopics(groupUid){
           }
 
           if (i === numberOfTopics){
-              var context = {groups: topicsArray};
-              convertTemplate("#groupPage-tmpl", context, "wrapper");
+            var context = {groups: topicsArray};
+            convertTemplate("#groupPage-tmpl", context, "wrapper");
 
           }
 

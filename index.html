@@ -77,11 +77,9 @@
 
     <script type="text/x-handlebars-template" id="headerMenu-tmpl">
       <div id="headerMenu" class="">
-
-
         <div class="material-ripple clickables headerMenuBtn" onclick="goHome()"><i class="fa fa-home fa-2x"></i></div>
         <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-2x"></i></div>
-        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-comments-o fa-2x"></i></div>
+        <div class="material-ripple clickables headerMenuBtn" onclick="showChat('{{chatUid}}')"><i class="fa fa-comments-o fa-2x"></i></div>
         <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-2x"></i></div>
         <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-bell-o fa-2x"></i></div>
         <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-search fa-2x"></i></div>
@@ -253,13 +251,31 @@
 
     <!--  Chats  -->
     <script type="text/x-handlebars-template" id="chats-tmpl">
-      <div class="chatWindow">
-        <div class="inputChat">
-          <textarea id="inputChatField"></textarea>
-          <button></button>
-        </div>
-        <div id="chatComments">
-        </div>
+      <div class="chatContainer">
+      <div class="chatMessages">
+        <p>Hello</p>
+        <p>Hello</p>
+      </div>
+      <div class="chatInput">
+        <textarea placeholder="כתבו משהו" style="width:98%"></textarea>
+      </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="chatInput-tmpl">
+
+      <div class="chatInput">
+        <textarea id="chatInputTxt" placeholder="כתבו משהו" style="width:98%"></textarea>
+        <button>אישור</button>
+      </div>
+
+    </script>
+
+    <script type="text/x-handlebars-template" id="chatMessage-tmpl">
+      <div class="message" id={{messageId}}>
+        <div class="messageAuthor">{{user}}</div>
+        <div class="messageDate">{{time}}</div>
+        <div class="messageText">{{text}}</div>
       </div>
     </script>
 

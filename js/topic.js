@@ -27,7 +27,8 @@ function showTopic(topicUid){
       setUrl("topic", topicUid);
     }
     var title = dataSnapshot.val().title;
-     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
+    convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
+    convertTemplate("#headerMenu-tmpl", {chatUid: topicUid}, "#headerMenu");
   });
   //show questions in topic
   showTopicQuestions (topicUid);
@@ -58,7 +59,7 @@ function showTopicQuestions(topicUid){
 
             var title = data.val().title;
             var description = data.val().description;
-  //          console.log("t: "+ title + ", d: "+ description);
+            //          console.log("t: "+ title + ", d: "+ description);
 
             preContext = {
               uuid: question.key,
@@ -70,8 +71,8 @@ function showTopicQuestions(topicUid){
           }
 
           if (i === numberOfQuestions){
-              var context = {questions: questionsArray};
-              convertTemplate("#topicPage-tmpl", context, "wrapper");
+            var context = {questions: questionsArray};
+            convertTemplate("#topicPage-tmpl", context, "wrapper");
 
           }
 
