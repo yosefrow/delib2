@@ -1,28 +1,38 @@
 $(function(){
-  
+
   //start ripple effect
   $(".footer-btn").ePulse({
     bgColor: "#ded9d9",
     size: 'medium'
-    
+
   });
   $(".headerMenuBtn").ePulse({
     bgColor: "#ded9d9",
     size: 'medium'
-    
+
   });
 
+  var currentUrl = getUrl();
+  routTo(currentUrl);
+  //  showPublicGroups();
+  $(window).on('popstate', function() {
+    console.log('Back button was pressed.');
+    var currentUrl = getUrl();
+    routTo(currentUrl);
 
-//
-//    convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-//    convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
-//    convertTemplate("#headerMenu-tmpl",{},"headerMenu");
-    convertTemplate("#login-tmpl",{},"body");
-  
-  
+  });
+
+  //
+  convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
+  convertTemplate("#headerBreadCrumbs-tmpl",{},"headerBreadCrumbs");
+  convertTemplate("#headerMenu-tmpl",{},"headerMenu");
+  goHome();
+  //    convertTemplate("#login-tmpl",{},"body");
+
+
 })
 
-var userUuid = "talyaron";
+var userUuid = "-KIUArWGBpO4c2t5m-5c";
 
 // Initialize Firebase
 var config = {
@@ -44,4 +54,13 @@ function convertTemplate (template, context, destination){
   $(destination).html(groupPublicHTML);
 }
 
+function appendTemplate (template, context, destination){
+  var groupsPublicTmpl = $(template).html();
+  var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
+  var groupPublicHTML = groupPublicHandl(context);
+  $(destination).append(groupPublicHTML);
+}
 
+function goHome(){
+  showPublicGroups();
+}

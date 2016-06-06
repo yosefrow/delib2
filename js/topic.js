@@ -23,8 +23,12 @@ function showTopic(topicUid){
 
   //show header
   DB.child("topics/"+topicUid).once("value", function(dataSnapshot){
+    if(dataSnapshot.exists()){
+      setUrl("topic", topicUid);
+    }
     var title = dataSnapshot.val().title;
-     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
+    convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
+    convertTemplate("#headerMenu-tmpl", {chatUid: topicUid}, "#headerMenu");
   });
   //show questions in topic
   showTopicQuestions (topicUid);
@@ -40,7 +44,7 @@ function showTopicQuestions(topicUid){
 
       var questionsUnderTopic = questions.val();
       var numberOfQuestions = Object.keys(questionsUnderTopic).length;
-      console.log("numberOfQuestions: "+ numberOfQuestions);
+
       var questionsArray = new Array();
 
       var i = 1;
@@ -55,7 +59,7 @@ function showTopicQuestions(topicUid){
 
             var title = data.val().title;
             var description = data.val().description;
-  //          console.log("t: "+ title + ", d: "+ description);
+            //          console.log("t: "+ title + ", d: "+ description);
 
             preContext = {
               uuid: question.key,
@@ -65,13 +69,13 @@ function showTopicQuestions(topicUid){
 
             questionsArray.push(preContext);
           }
-          console.log("i = "+i+", numberOfQuestions = "+ numberOfQuestions);
+
           if (i === numberOfQuestions){
-              var context = {questions: questionsArray};
-              convertTemplate("#topicPage-tmpl", context, "wrapper");
-            console.log("Push"+ JSON.stringify(context));
+            var context = {questions: questionsArray};
+            convertTemplate("#topicPage-tmpl", context, "wrapper");
+
           }
-          console.log(i);
+
           i++;
         })
 

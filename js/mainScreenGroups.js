@@ -1,34 +1,43 @@
 const groupsDB = DB.child("groups");
 
+function showFooterGroupsBtn(){
+  convertTemplate("#footerBtn-tmpl", {}, "footer");
+}
+
 function showMemberGroupsPage(){
-  
+
   listenToOwned_MemberGroups("member");
-    
+  showFooterGroupsBtn();
+  setUrl();
+
 }
 
 function showPublicGroups(){  
-  
+
   listenToGeneralGroups("public");
+  showFooterGroupsBtn();
+  setUrl();
 
 }
 
 function showOwnedGroups(){
 
   listenToOwned_MemberGroups("owner");
-
+  showFooterGroupsBtn();
+  setUrl();
 }
 
 function stopListeningToPageDB (page){
-  
+
 }
 
 function listenToGeneralGroups (typeOfGroup){
   //typeOfGroup: secret, public, close
-  
+
   groupsDB.orderByChild("type").equalTo(typeOfGroup).on("value", function(groups){
     var groupsArray = new Array();
     var groupsDetails = new Object();
-    
+
     groups.forEach(function(group){
       var newGroup = group.val();
       var preContext = {
@@ -36,82 +45,91 @@ function listenToGeneralGroups (typeOfGroup){
         "title": newGroup.title,
         "description": newGroup.description
       };
-      
+
       groupsArray.push(preContext);
     });    
-    
+
     var context = {"groups": groupsArray}
 
     convertTemplate("#groupsGeneral-tmpl", context, "wrapper")
-    
+
   })
 }
 
 function listenToOwned_MemberGroups (role){
   //role: owned, member
-  
+
   if (role == "owner" || role == "member"){
 
 
     var userDB = DB.child("users/"+userUuid);
-    
+
+
+
     //update groups details every time the user changes his groups
     userDB.child("role").orderByValue().equalTo(role).on("value", function(groupsUnderRole){
-     
-      var groupsArray = new Array();
 
-      //start counting the number of groups.
-      var groupsUnderRoleLng = groupsUnderRole.val();
-      var numberOfGroups = Object.keys(groupsUnderRoleLng).length;
+      if(groupsUnderRole.exists()){
 
-      var i = 1;
-      groupsUnderRole.forEach(function(groupOwned){
+        var groupsArray = new Array();
 
-        var isGroupOwned = groupOwned.val();
-        var preContext = new Object();
+        //start counting the number of groups.
+        var groupsUnderRoleLng = groupsUnderRole.val();
+        console.dir(groupsUnderRoleLng);
+        var numberOfGroups = Object.keys(groupsUnderRoleLng).length;
 
-        DB.child("groups/"+groupOwned.key).once("value", function(data){
+        var i = 1;
+        groupsUnderRole.forEach(function(groupOwned){
 
-          var title = data.val().title;
-          var description = data.val().description;
+          var isGroupOwned = groupOwned.val();
+          var preContext = new Object();
 
-          preContext = {
-            uuid: groupOwned.key,
-            title: title,
-            description: description
-          }
+          DB.child("groups/"+groupOwned.key).once("value", function(data){
 
-          groupsArray.push(preContext);
+            var title = data.val().title;
+            var description = data.val().description;
 
-          if (i === numberOfGroups){
+            preContext = {
+              uuid: groupOwned.key,
+              title: title,
+              description: description
+            }
 
-            var context = {groups: groupsArray};
-            
-            convertTemplate("#groups_"+role+"-tmpl", context, "wrapper");
-          }
-          i++;
+            groupsArray.push(preContext);
+
+            if (i === numberOfGroups){
+
+              var context = {groups: groupsArray};
+
+              convertTemplate("#groups_"+role+"-tmpl", context, "wrapper");
+            }
+            i++;
+          })
         })
-      })
+      } else {
+        console.log("groups don't exists");
+        $("wrapper").html("");
+      }
     })
   } else {console.log("type of role is not recognized")}
 }
 
 function showUserGroups(){
-  
+
   var context = {"groups": groupsArray};
-    
+
   convertTemplate("#groupsMember-tmpl", context,"wrapper" )
-  
+
 }
 
 $("#btnAdd").click(function(){
-    //showCreateGroupPopup();
-    convertTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
-    alert("creating");
+  //showCreateGroupPopup();
+  convertTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
+  alert("creating");
 });
 
 function showCreateGroupPopup(){
-   convertTemplate("#createGroupPopup-tmpl",{},"#createGroupPopup");
+  convertTemplate("#createGroupPopup-tmpl",{},"#createGroupPopup");
 }
 
 

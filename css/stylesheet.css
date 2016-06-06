@@ -92,7 +92,8 @@ body{
   font-size: 1.5em;
   padding: 3px;
   
-  box-shadow: 0px 5px 5px gray;
+  text-align: center;
+
   z-index: 5;
 }
 
@@ -104,24 +105,32 @@ body{
 
 #headerMenu{
     width:100%;
-    
+    height: 50px;
     display: flex;
     justify-content:space-between;
     background-color: #cc0000;
   
 }
 
-#headerMenu div {
+.headerMenuBtn{
   color: white;
   text-align:center;
-  padding: 14px 16px;
+
   text-decoration: none;
   border-right: 1px solid #cb4a4a;
   width:100%;
+  height: 50px;
+  background-color: #cc0000;
+
 }
+
+
 
 #headerMenu div i {
   text-align:center;
+  position: relative;
+  top:50%;
+  transform: translateY(-50%);
 }
 
 .btn-header {
@@ -277,7 +286,7 @@ input {
   margin: 5px;
   padding: 5px;
   height: 90px;
-  background-color: forestgreen;
+  background-color: #cc4545;
   color: white;
   align-self: flex-end;
   display: flex;
@@ -292,18 +301,74 @@ input {
   height: 50px;
 }
 
+.voteInfoContainer{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 50px;
+}
+
 .voteBtn{
-  background-color: blue;
-  width: 100%;text-align: center;
+  background-color: #cc4545;
+  width: 100%;
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+#tmpMulCon{
+  width: 100%;
+  background-color: #cc4545;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+}
 
 
+#info{
+  background-color: white;
+/*  width: 100%;*/
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%)
+}
+
+/********** chat ***********/
+
+.chatContainer{
+  background-color: chocolate;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
 
 }
-    
+.chatMessages{
+  background-color: white;
+/*
+  position: absolute;
+  bottom: 50px;
+  height: 100%;
+*/
+}
 
+.chatInput{
+  background-color: #cc0000;
+  width: 100%;
+  padding: 5px;
 
+  display: flex;
+  flex-direction: row;
 
+}
 
+.chatInput texterea {
+  width:600px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.chatInput button {
+  background-color: #171717;
+}
