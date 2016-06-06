@@ -372,3 +372,10 @@ input {
 .chatInput button {
   background-color: #171717;
 }
+
+.message {
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 5px 5px 5px gray;
+  margin: 5px;
+}
