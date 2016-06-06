@@ -20,9 +20,12 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
     goHome();
+    //get name
+    //get picture
 
   } else {
     // No user is signed in.
+    //show login screen
   }
 });
 
