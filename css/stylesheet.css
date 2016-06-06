@@ -93,7 +93,7 @@ body{
   position: absolute;
   top:0px;
 
-  height: 100%;
+
 }
 
 header {
@@ -175,15 +175,17 @@ wrapper{
 /*  flex-grow: 11; */
 /*  overflow-y:auto;*/
   background-color: #dbdbdb;
+  height: 100%;
 }
 
 footer{   
 
-  display: table-row;
-
   position: fixed;
   bottom: 0px;
+  display: table-row;
+
   height: 50px;
+
 
 
 /*  flex-grow: 1;  */
