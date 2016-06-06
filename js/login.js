@@ -26,6 +26,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   } else {
     // No user is signed in.
     //show login screen
+    convertTemplate("#login-tmpl", {group: "title"}, "wrapper");
   }
 });
 
