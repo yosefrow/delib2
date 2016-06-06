@@ -14,11 +14,11 @@ function showChat(chatUid){
     $("wrapper").html("");
     if (chats.exists()){
       chats.forEach(function(chat){
-        console.log("chat key: "+chat.key);
+
         var text = chat.val().text;
-        var time = chat.val().time;
-        time = new Date(time);
+        var time =  parseDate(chat.val().time);
         var author = chat.val().user;
+
         DB.child("users/"+author).once("value", function(dataSnapshot){
           if (dataSnapshot.exists()){
             var user = new Object;

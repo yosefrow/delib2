@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Date</title>
+  </head>
+  <body>
+    <time></time>
+    <script>
+      var d=new Date(1465193015454);
+
+      var d2= parseDate(d);
+      console.log(d2);
+
+
+      function parseDate(dateInMillisec){
+        var d=new Date(dateInMillisec);
+
+        var dayInMonth="0"+d.getDate();
+        dayInMonth = dayInMonth.slice(-2);
+
+
+        var month=d.getMonth();
+        var monthsNames = ["Jan", "Feb", "March", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        month = monthsNames[month];
+
+        var year=d.getYear()+1900;
+
+        var minutes="0"+d.getMinutes();
+        minutes = minutes.slice(-2);
+
+        var hours="0"+d.getHours();
+        hours = hours.slice(-2);
+
+        var seconds="0"+d.getSeconds();
+        seconds = seconds.slice(-2);
+
+        return year+"-"+month+"-"+dayInMonth+", "+hours+":"+minutes;
+
+      }
+
+    </script>
+
+  </body>
+
+</html>
