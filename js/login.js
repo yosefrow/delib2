@@ -1,23 +1,26 @@
-firebase.auth().onAuthStateChanged(function(user) {
-  console.log("status login change");
-  console.dir(user);
-  if (user) {
+function listenToAuth(){
 
-    // User is signed in.
-     console.log("User is signed in.");
-     $("#loginScreen").hide(300);
-    goHome();
-    //get name
-    //get picture
+  firebase.auth().onAuthStateChanged(function(user) {
+    console.log("status login change");
+    console.dir(user);
+    if (user) {
 
-  } else {
-    // No user is signed in.
-    console.log("No user is signed in.");
-    //show login screen
-    convertTemplate("#login-tmpl", {}, "#loginScreen");
-    $("#loginScreen").show(300);
-  }
-});
+      // User is signed in.
+      console.log("User is signed in.");
+      $("#loginScreen").hide(300);
+      goHome();
+      //get name
+      //get picture
+
+    } else {
+      // No user is signed in.
+      console.log("No user is signed in.");
+      //show login screen
+      convertTemplate("#login-tmpl",{},"#loginScreen");
+      $("#loginScreen").show(300);
+    }
+  });
+}
 
 //var DB = firebase.database().ref();
 //var storage = firebase.storage();

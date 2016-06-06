@@ -29,7 +29,7 @@ $(function(){
   goHome();
   //    convertTemplate("#login-tmpl",{},"body");
 
-
+  listenToAuth();
 })
 
 var userUuid = "-KIUArWGBpO4c2t5m-5c";
