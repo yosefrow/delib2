@@ -29,6 +29,27 @@ function parseDate(dateInMillisec){
   var seconds="0"+d.getSeconds();
   seconds = seconds.slice(-2);
 
-  return (year+"-"+month+"-"+dayInMonth+" - "+hours+":"+minutes);
+  return (year+"-"+month+"-"+dayInMonth+" - "+hours+":"+minutes+":"+seconds);
 
 }
+
+//Handelbars shortcut function
+function convertTemplate (template, context, destination){
+  var groupsPublicTmpl = $(template).html();
+  var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
+  var groupPublicHTML = groupPublicHandl(context);
+  $(destination).html(groupPublicHTML);
+}
+
+function appendTemplate (template, context, destination){
+  var groupsPublicTmpl = $(template).html();
+  var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
+  var groupPublicHTML = groupPublicHandl(context);
+  $(destination).append(groupPublicHTML);
+}
+
+function goHome(){
+  showPublicGroups();
+}
+
+
