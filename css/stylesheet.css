@@ -10,7 +10,11 @@
     width:100%;    
     right:0%;
   }  
-
+  header{
+    width:100%;
+    right:0%;
+  }
+  
   footer{
     width:100%;
     right:0%;
@@ -28,7 +32,11 @@
     width:80%;    
     right:10%;
   }  
-
+  header{
+    width:80%;
+    right:10%;
+  }
+  
   footer{
     width:80%;
     right:10%;
@@ -45,7 +53,12 @@
     width:60%;    
     right:20%;
   }
-
+  
+  header{
+    width:60%;
+    right:20%;
+  }
+  
   footer{
     width:60%;
     right:20%;
@@ -97,10 +110,15 @@ body{
 }
 
 header {
+  position: fixed;
+  top:0px;
+  
   display: table-row;
   height: 100px;
   display: table;
-  width: 100%
+  z-index: 10;
+/*  width: 100%*/
+  box-shadow: 0px 5px 5px rgba(25, 25, 25, 0.6);
 }
 
 #headerTitle{
@@ -173,9 +191,12 @@ wrapper{
   display: table-row;
 
 /*  flex-grow: 11; */
-/*  overflow-y:auto;*/
+  overflow-y:auto;
   background-color: #dbdbdb;
-  height: 100%;
+  height: 80%;
+  width: 100%
+  position: absolute;
+  bottom: 50px;
 }
 
 footer{   
