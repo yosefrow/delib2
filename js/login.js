@@ -35,7 +35,7 @@ function facebookLogin(){
   firebase.auth().signInWithRedirect(provider);
 }
 
-function signout(){
+function logout(){
   firebase.auth().signOut().then(function() {
     console.log("sign out");
   }, function(error) {
