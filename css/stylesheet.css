@@ -88,7 +88,10 @@ body{
 
 #container {
 
-  display: table;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 
   position: absolute;
   top:0px;
@@ -97,9 +100,9 @@ body{
 }
 
 header {
-  display: table-row;
+/*  display: table-row;*/
   height: 100px;
-  display: table;
+/*  display: table;*/
   width: 100%
 }
 
@@ -118,8 +121,9 @@ header {
 }
 
 #headerBreadCrumbs {
-  display: table-row;
+/*  display: table-row;*/
   height: 20px;
+  width: 100%;
 
   background-color: #cc0000;
   color: white;
@@ -170,25 +174,23 @@ header {
 
 wrapper{
 
-  display: table-row;
+  flex: 1;
+
+/*  display: table-row;*/
 
 /*  flex-grow: 11; */
-/*  overflow-y:auto;*/
+  overflow-y:scroll;
   background-color: #dbdbdb;
-  height: 100%;
+/*  height: 100%;*/
 }
 
-footer{   
+footer{
 
-  position: fixed;
-  bottom: 0px;
-  display: table-row;
 
+/*  display: table-row;*/
   height: 50px;
+  width: 100%;
 
-
-
-/*  flex-grow: 1;  */
   font-size: 1.25em;
   font-weight: 700;
   overflow: hidden;
