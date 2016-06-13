@@ -1,0 +1,25 @@
+{
+  "name": "delib-fron2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tempChat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "firebase serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/delib-org/delib-fron2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/delib-org/delib-fron2/issues"
+  },
+  "homepage": "https://github.com/delib-org/delib-fron2#readme",
+  "dependencies": {
+    "handlebars": "^4.0.5",
+    "httpserver": "^0.2.0",
+    "jquery": "^3.0.0"
+  }
+}
