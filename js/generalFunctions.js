@@ -29,7 +29,7 @@ function parseDate(dateInMillisec){
   var seconds="0"+d.getSeconds();
   seconds = seconds.slice(-2);
 
-  return (year+"-"+month+"-"+dayInMonth+" - "+hours+":"+minutes);
+  return (year+"-"+month+"-"+dayInMonth+" - "+hours+":"+minutes+":"+seconds);
 
 }
 
@@ -51,3 +51,5 @@ function appendTemplate (template, context, destination){
 function goHome(){
   showPublicGroups();
 }
+
+
