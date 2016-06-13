@@ -20,6 +20,7 @@ app.use(logger);
 app.use(express.static('public'));
 
 app.use('/static', express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use('/static', express.static(__dirname + '/node_modules/handlebars/dist/'));
 
 const port = 5000;
 
