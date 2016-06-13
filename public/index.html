@@ -64,7 +64,7 @@
     <!--      headers -->
 
     <script type="text/x-handlebars-template" id="LogoHeaderTitle-tmpl">
-      <center>דליב: מחליטים ביחד</center>
+<center>דליב: מחליטים ביחד</center>
     </script>
 
 
@@ -72,212 +72,211 @@
 
     <script type="text/x-handlebars-template" id="headerBreadCrumbs-tmpl">
 
-        <span>url > sub > sub</span>
+<span>url > sub > sub</span>
 
     </script>
 
     <script type="text/x-handlebars-template" id="headerMenu-tmpl">
 
-        <div class="material-ripple clickables headerMenuBtn" onclick="goHome()"><i class="fa fa-home fa-2x"></i></div>
-        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-2x"></i></div>
-        <div class="material-ripple clickables headerMenuBtn" onclick="showChat('{{chatUid}}')"><i class="fa fa-comments-o fa-2x"></i></div>
-        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-2x"></i></div>
-        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-bell-o fa-2x"></i></div>
-        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-search fa-2x"></i></div>
+<div class="material-ripple clickables headerMenuBtn" onclick="goHome()"><i class="fa fa-home fa-2x"></i></div>
+<div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-2x"></i></div>
+<div class="material-ripple clickables headerMenuBtn" onclick="showChat('{{chatUid}}')"><i class="fa fa-comments-o fa-2x"></i></div>
+<div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-2x"></i></div>
+<div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-bell-o fa-2x"></i></div>
+<div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-search fa-2x"></i></div>
 
     </script>
 
     <!--    footer groups buttons-->
     <script type="text/x-handlebars-template" id="footerBtn-tmpl">
-      <div class="footer-btn material-ripple" onclick="showPublicGroups()"><span>קבוצות פומביות</span></div>
-      <div class="footer-btn material-ripple" onclick="showMemberGroupsPage()"><span>הקבוצות שלי</span></div>
-      <div class="footer-btn material-ripple" onclick="showOwnedGroups()"><span>הקבוצות שאני מנהל</span></div>
+<div class="footer-btn material-ripple" onclick="showPublicGroups()"><span>קבוצות פומביות</span></div>
+<div class="footer-btn material-ripple" onclick="showMemberGroupsPage()"><span>הקבוצות שלי</span></div>
+<div class="footer-btn material-ripple" onclick="showOwnedGroups()"><span>הקבוצות שאני מנהל</span></div>
     </script>
 
     <!--    cards-->
     <script type="text/x-handlebars-template" id="cards-tmpl">
-      {{#each groups}}
-      <div id={{uuid}} class="card">
-        <img src={{imgUrl}}>
-        <h4>{{type}} : {{title}}</h4>
-        <p>תיאור: {{description}}</p>
-        <hr>
-        <div>
-          <span>
-          </span></div>
+{{#each groups}}
+<div id={{uuid}} class="card">
+  <img src={{imgUrl}}>
+  <h4>{{type}} : {{title}}</h4>
+  <p>תיאור: {{description}}</p>
+  <hr>
+  <div>
+    <span>
+      </span></div>
       </div>
 
-      {{/each}}
+{{/each}}
     </script>
 
     <script type="text/x-handlebars-template" id="groupsGeneral-tmpl">
-      {{#each groups}}
-      <div id={{uuid}}_Div class="card">
-        <div class="groupDescription clickables" onclick="showGroup('{{uuid}}')">
-          <h4>קבוצה: {{title}}</h4>
-          <p>תיאור: {{description}}</p>
-        </div>
+{{#each groups}}
+<div id={{uuid}}_Div class="card">
+  <div class="groupDescription clickables" onclick="showGroup('{{uuid}}')">
+    <h4>קבוצה: {{title}}</h4>
+    <p>תיאור: {{description}}</p>
       </div>
-      {{/each}}
+      </div>
+{{/each}}
     </script>
     <script type="text/x-handlebars-template" id="groups_member-tmpl">
-      {{#each groups}}
-      <div id={{uuid}}_Div class="card">
-        <div class="groupDescription clickables" onclick="showGroup('{{uuid}}')">
-          <h4>קבוצה: {{title}}</h4>
-          <p>תיאור: {{description}}</p>
-        </div>
+{{#each groups}}
+<div id={{uuid}}_Div class="card">
+  <div class="groupDescription clickables" onclick="showGroup('{{uuid}}')">
+    <h4>קבוצה: {{title}}</h4>
+    <p>תיאור: {{description}}</p>
       </div>
-      {{/each}}
+      </div>
+{{/each}}
 
     </script>
     <script type="text/x-handlebars-template" id="groups_owner-tmpl">
-      {{#each groups}}
-      <div id={{uuid}}_Div class="card">
-        <div class="groupDescription clickables" onclick="showGroup('{{uuid}}')">
-          <h4>קבוצה: {{title}}</h4>
-          <p>תיאור: {{description}}</p>
-        </div>
+{{#each groups}}
+<div id={{uuid}}_Div class="card">
+  <div class="groupDescription clickables" onclick="showGroup('{{uuid}}')">
+    <h4>קבוצה: {{title}}</h4>
+    <p>תיאור: {{description}}</p>
       </div>
-      {{/each}}
+      </div>
+{{/each}}
 
     </script>
 
     <!--- Login ------->
 
     <script type="text/x-handlebars-template" id="login-tmpl">
-      <div class="card" style="height: 100%">
-        <h4>התחברות</h4>
-        <div>
-          <label>התחברות עם שם משתמש וסיסמה<br>
-            <input type="email" placeholder="email"><br>
-            <input type="password" placeholder="password"><br>
-            <input type="button" onclick="loginMe()" value="התחברות">
-          </label><br>
-
-          <label>התחברות חברתית:<br>
-            <input type="button" onclick="facebookLogin()" value="Facebook"><br>
-            <input type="button" onclick="googleLogin()" value="Google"><br>
-            <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית"><br>
-            <button type="button" onclick="signout()">Sign out</button><br>
-          </label>
-        </div>
-
+<div class="card" style="width:100%; height: 100%">
+  <div align="center" class="cardlogin" style="width:100%; height: 100%">
+    <h4>התחברות</h4>
+    <div>
+      <label>התחברות עם שם משתמש וסיסמה<br><br>
+        <input type="email" placeholder="email"><br><br>
+        <input type="password" placeholder="password"><br><br>
+        <input type="button" onclick="loginMe()" value="התחברות">
+      </label><br><br>​
+      <label>התחברות חברתית:<br><br>
+        <input type="button" onclick="facebookLogin()" value="Facebook"><br><br>
+        <input type="button" onclick="googleLogin()" value="Google"><br><br>
+        <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית"><br><br>
+        <button type="button" onclick="signout()">Sign out</button><br><br>
+      </label>
+      </div>
+      </div>
       </div>
     </script>
-
 
     <!-- *************   group page *************-->
 
     <!-- header    -->
     <script type="text/x-handlebars-template" id="groupHeaderTitle-tmpl">
-      <i class="fa fa-users fa-1x"></i>: <span>{{group}}</span>
+<i class="fa fa-users fa-1x"></i>: <span>{{group}}</span>
     </script>
 
     <!-- topics   -->
     <script type="text/x-handlebars-template" id="groupPage-tmpl">
-      {{#each groups}}
-      <div id={{uuid}} class="card">
-        <div class="groupDescription clickables" onclick="showTopic('{{uuid}}')">
-          <h4>נושא: {{title}}</h4>
-          <p>תיאור: {{description}}</p>
-        </div>
+{{#each groups}}
+<div id={{uuid}} class="card">
+  <div class="groupDescription clickables" onclick="showTopic('{{uuid}}')">
+    <h4>נושא: {{title}}</h4>
+    <p>תיאור: {{description}}</p>
       </div>
-      {{/each}}
+      </div>
+{{/each}}
     </script>
 
     <!-- *************   Topic page *************-->
     <!-- header    -->
     <script type="text/x-handlebars-template" id="topicHeaderTitle-tmpl">
-      <i class="fa fa-commenting-o fa-1x"></i>: <span>{{topic}}</span>
+<i class="fa fa-commenting-o fa-1x"></i>: <span>{{topic}}</span>
     </script>
 
     <!-- Questions    -->
     <script type="text/x-handlebars-template" id="topicPage-tmpl">
-      {{#each questions}}
-      <div id={{uuid}} class="card">
-        <div class="groupDescription clickables" onclick="showQuestion('{{uuid}}')">
-          <h4>שאלה: {{title}}</h4>
-          <p>תיאור: {{description}}</p>
-        </div>
+{{#each questions}}
+<div id={{uuid}} class="card">
+  <div class="groupDescription clickables" onclick="showQuestion('{{uuid}}')">
+    <h4>שאלה: {{title}}</h4>
+    <p>תיאור: {{description}}</p>
       </div>
-      {{/each}}
+      </div>
+{{/each}}
     </script>
 
     <!-- *************   Question page *************-->
     <!-- header    -->
     <script type="text/x-handlebars-template" id="questionHeaderTitle-tmpl">
-      <i class="fa fa-question-circle fa-1x"></i> <span>{{question}}</span>
+<i class="fa fa-question-circle fa-1x"></i> <span>{{question}}</span>
     </script>
 
     <!-- simpleVoting wrapper -->
     <script type="text/x-handlebars-template" id="simpleVote-tmpl">
-      <div class="simpleVoteWrapper1">
-        <div class="simpleVoteWrapper2">
-          {{#each options}}
-          <div id={{uuid}}_div class="simpleVotingBar">
-            <span>{{votes}}</span>
-          </div>
-          {{/each}}
-        </div>
+<div class="simpleVoteWrapper1">
+  <div class="simpleVoteWrapper2">
+    {{#each options}}
+    <div id={{uuid}}_div class="simpleVotingBar">
+      <span>{{votes}}</span>
       </div>
-      <!-- simple voting buttons -->
-      <script type="text/x-handlebars-template" id="simpleVoteBtns-tmpl">
+    {{/each}}
+      </div>
+      </div>
+<!-- simple voting buttons -->
+<script type="text/x-handlebars-template" id="simpleVoteBtns-tmpl">
         <div id="tmpMulCon">
           <div class="voteInfoContainer">
             {{#each options}}
             <div>
               <i class="fa fa-info-circle fa-1x clickables" onclick="showOptionInfo('{{questionUuid}}','{{uuid}}')"></i>
-            </div>
+      </div>
             {{/each}}
-          </div>
+      </div>
           <div class="voteBtnContainer">
             {{#each options}}
             <div class="voteBtn clickables material-ripple" onclick="voteSimple('{{questionUuid}}','{{uuid}}')" id={{uuid}}_btn><span>{{title}}</span></div>
             {{/each}}
-          </div>
-        </div>
-
-      </script>
-
-
-      <!-- footer ---->
-      <!--    Info   -->
-      <script type="text/x-handlebars-template" id="optionsInfo-tmpl">
-        <div class="infoTitle"><h4>{{title}}</h4></div>
-        <div class="infoDescription"><h5>{{description}}</h5></div>
-        <div class="infoExplanation">{{explanation}}</div>
-      </script>
-      </body>
-
-    <!--  Chats  -->
-    <script type="text/x-handlebars-template" id="chats-tmpl">
-      <div class="chatContainer">
-        <div class="chatMessages">
-          <p>Hello</p>
-          <p>Hello</p>
-        </div>
-        <div class="chatInput">
-          <textarea placeholder="כתבו משהו" style="width:98%"></textarea>
-        </div>
       </div>
-    </script>
-
-    <script type="text/x-handlebars-template" id="chatInput-tmpl">
-
-      <div class="chatInput">
-        <textarea id="chatInputTxt" placeholder="כתבו משהו" style="width:98%"></textarea>
-        <button>אישור</button>
       </div>
 
     </script>
 
-    <script type="text/x-handlebars-template" id="chatMessage-tmpl">
-      <div class="message" id={{messageId}}>
-        <div class="messageAuthor">{{author}}</div>
-        <div class="messageDate">{{time}}</div>
-        <div class="messageText">{{text}}</div>
-      </div>
-    </script>
 
-    </html>
+    <!-- footer ---->
+    <!--    Info   -->
+    <script type="text/x-handlebars-template" id="optionsInfo-tmpl">
+<div class="infoTitle"><h4>{{title}}</h4></div>
+<div class="infoDescription"><h5>{{description}}</h5></div>
+<div class="infoExplanation">{{explanation}}</div>
+    </script>
+  </body>
+
+  <!--  Chats  -->
+  <script type="text/x-handlebars-template" id="chats-tmpl">
+<div class="chatContainer">
+  <div class="chatMessages">
+    <p>Hello</p>
+    <p>Hello</p>
+    </div>
+  <div class="chatInput">
+    <textarea placeholder="כתבו משהו" style="width:98%"></textarea>
+    </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" id="chatInput-tmpl">
+
+<div class="chatInput">
+  <textarea id="chatInputTxt" placeholder="כתבו משהו" style="width:98%"></textarea>
+  <button>אישור</button>
+    </div>
+
+  </script>
+
+  <script type="text/x-handlebars-template" id="chatMessage-tmpl">
+<div class="message" id={{messageId}}>
+  <div class="messageAuthor">{{author}}</div>
+  <div class="messageDate">{{time}}</div>
+  <div class="messageText">{{text}}</div>
+    </div>
+  </script>
+
+</html>
