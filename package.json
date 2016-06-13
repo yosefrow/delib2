@@ -19,6 +19,7 @@
   "homepage": "https://github.com/delib-org/delib-fron2#readme",
   "dependencies": {
     "handlebars": "^4.0.5",
+    "httpserver": "^0.2.0",
     "jquery": "^3.0.0"
   }
 }
