@@ -47,7 +47,7 @@ $(function(){
   listenToAuth();
 })
 
-var userUuid = "-KIUArWGBpO4c2t5m-5c";
+var userUuid;
 
 // Initialize Firebase
 var config = {
