@@ -6,10 +6,7 @@ var subscribeButton = $(document).ready(function() {return('#pushNotiificationsB
 
 
 subscribeButton.click(function() {
-    console.log("blblbsflblsdddddddd");
   if (isSubscribed) {
-
-      console.log("blblbsflblsdddddddd222222222");
     unsubscribe();
   } else {
     subscribe();

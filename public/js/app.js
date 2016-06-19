@@ -1,6 +1,7 @@
 
 $(function(){
 
+  
   if ('serviceWorker' in navigator) {
     console.log('Service Worker is supported');
     navigator.serviceWorker.register('../delib-service-worker.js').then(function() {

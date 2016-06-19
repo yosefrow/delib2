@@ -1,7 +1,6 @@
 {
   "name": "delib-fron2",
   "version": "1.0.0",
-  "description": "",
   "main": "tempChat.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,5 +23,6 @@
     "handlebars": "^4.0.5",
     "httpserver": "^0.2.0",
     "jquery": "^3.0.0"
-  }
+  },
+  "description": ""
 }

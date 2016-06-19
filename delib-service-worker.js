@@ -29,9 +29,10 @@ self.addEventListener('activate', function(e) {
     );
 });
 
+
 self.addEventListener('fetch', function(e) {
     console.log('[DelibServiceWorker] Fetch', e.request.url);
-    var dataUrl = 'http://127.0.0.1:5000/';
+    var dataUrl = 'http://127.0.0.1:5000/';g
     if (e.request.url.indexOf(dataUrl) === 0) {
         console.log('insidde!!!~');
         e.respondWith(
