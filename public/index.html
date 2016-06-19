@@ -5,8 +5,8 @@
     <title>דליב: מחליטים ביחד</title>
     <meta charset="utf-8">
 
-    <script type="text/javascript" src="/static/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/handlebars.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -16,9 +16,6 @@
 
     <link rel="stylesheet" href="css/font-awesome-4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
-
-    <!-- fireabse cloud messages manifest.json-->
-    <link rel="manifest" href="../manifest.json">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -32,14 +29,14 @@
     <script src="js/option.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/generalFunctions.js"></script>
+    <script src="js/addGroup.js"></script>
     <script src="js/login.js"></script>
     <script src="js/pushNotifications.js"></script>
-    <script src="js/addGroup.js"></script>
   </head>
 
   <body dir="rtl">
 
-    <div id="createGroupPopup"></div>
+
     <!--    <div id="logo"><img src="img/logo.png"></div>-->
     <div id="container" style="height:100%">
       <header>
@@ -52,7 +49,7 @@
       <footer></footer>
     </div>
 
-    <div id="btnAdd" hidden></div>
+
     <div id="info" hidden></div>
     <div id="loginScreen"></div>
 
@@ -69,7 +66,7 @@
     <!--      headers -->
 
     <script type="text/x-handlebars-template" id="LogoHeaderTitle-tmpl">
-<center>דליב: מחליטים ביחד</center>
+      <center>דליב: מחליטים ביחד</center>
     </script>
 
 
@@ -77,26 +74,26 @@
 
     <script type="text/x-handlebars-template" id="headerBreadCrumbs-tmpl">
 
-<span>url > sub > sub</span>
+        <span>url > sub > sub</span>
 
     </script>
 
     <script type="text/x-handlebars-template" id="headerMenu-tmpl">
 
-<div class="material-ripple clickables headerMenuBtn" onclick="goHome()"><i class="fa fa-home fa-2x"></i></div>
-<div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-2x"></i></div>
-<div class="material-ripple clickables headerMenuBtn" onclick="showChat('{{chatUid}}')"><i class="fa fa-comments-o fa-2x"></i></div>
-<div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-2x"></i></div>
-<div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-bell-o fa-2x"></i></div>
-<div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-search fa-2x"></i></div>
+        <div class="material-ripple clickables headerMenuBtn" onclick="goHome()"><i class="fa fa-home fa-2x"></i></div>
+        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-2x"></i></div>
+        <div class="material-ripple clickables headerMenuBtn" onclick="showChat('{{chatUid}}')"><i class="fa fa-comments-o fa-2x"></i></div>
+        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-2x"></i></div>
+        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-bell-o fa-2x"></i></div>
+        <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-search fa-2x"></i></div>
 
     </script>
 
     <!--    footer groups buttons-->
     <script type="text/x-handlebars-template" id="footerBtn-tmpl">
-<div class="footer-btn material-ripple" onclick="showPublicGroups()"><span>קבוצות פומביות</span></div>
-<div class="footer-btn material-ripple" onclick="showMemberGroupsPage()"><span>הקבוצות שלי</span></div>
-<div class="footer-btn material-ripple" onclick="showOwnedGroups()"><span>הקבוצות שאני מנהל</span></div>
+      <div class="footer-btn material-ripple" onclick="showPublicGroups()"><span>קבוצות פומביות</span></div>
+      <div class="footer-btn material-ripple" onclick="showMemberGroupsPage()"><span>הקבוצות שלי</span></div>
+      <div class="footer-btn material-ripple" onclick="showOwnedGroups()"><span>הקבוצות שאני מנהל</span></div>
     </script>
 
     <!--    cards-->
@@ -124,6 +121,7 @@
         </div>
       </div>
       {{/each}}
+      <button id="btnAdd" class="action" onclick="showAddGroup()">+</button>
     </script>
     <script type="text/x-handlebars-template" id="groups_member-tmpl">
       {{#each groups}}
@@ -134,7 +132,7 @@
         </div>
       </div>
       {{/each}}
-
+      <button id="btnAdd" class="action" onclick="showAddGroup()">+</button>
     </script>
     <script type="text/x-handlebars-template" id="groups_owner-tmpl">
       {{#each groups}}
@@ -145,10 +143,11 @@
         </div>
       </div>
       {{/each}}
-
+      <button id="btnAdd" class="action" onclick="showAddGroup()">+</button>
     </script>
 
     <!--- Login ------->
+
     <script type="text/x-handlebars-template" id="login-tmpl">
       <div class="card" style="height: 100%">
         <h4>התחברות</h4>
@@ -165,7 +164,6 @@
             <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית"><br>
             <button type="button" onclick="signout()">Sign out</button><br>
           </label>
-          <input type="button" value="Push" id="pushNotiificationsBtn">
         </div>
 
       </div>
@@ -189,6 +187,25 @@
         </div>
       </div>
       {{/each}}
+    </script>
+
+
+    <!--    create group page-->
+     <script type="text/x-handlebars-template" id="createGroup-tmpl">
+<div class="addGroupDiv">
+  <form>
+    <input id="createGroupName" name="name" placeholder="שם הקבוצה"><br>
+    <textarea id="createGroupDescription" class="inputErea" name="description" placeholder="תיאור הקבוצה"></textarea><br>
+    <input type="radio" class="radioInput" name="type" value="public" checked><span> פתוחה</span><br>
+    <input type="radio" class="radioInput" name="type" value="close"> סגורה<br>
+    <input type="radio" class="radioInput" name="type" value="secret"> סודית
+      </form>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="createGroupFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick="addNewGroup()"><span>אישור</span></div>
     </script>
 
     <!-- *************   Topic page *************-->
