@@ -2,34 +2,42 @@
 var reg;
 var isSubscribed = false;
 var sub;
-var subscribeButton = $(document).ready(function() {return('#pushNotiificationsBtn');});
+var fcmNotificationsBtn = $(document).ready(function() {return('#pushNotiificationsBtn');});
+//<< define localEntityNoticationsBtn ID >>
+var localEntityNoticationsBtn  = $(document).ready(function() {return('#');});
 
-
-subscribeButton.click(function() {
+fcmNotificationsBtn.click(function() {
   if (isSubscribed) {
-    unsubscribe();
+    fcmUnsubscribe();
   } else {
-    subscribe();
+    fcmSubscribe();
   }
 });
- 
-function subscribe() {
+
+localEntityNoticationsBtn.click(function () {
+    var currentEntity = , currentEntityId = ;
+    
+    DB.child("users/"+userUuid).set('entityNotifications').set('entity')
+    
+});
+
+function fcmSubscribe() {
     reg.pushManager.subscribe({userVisibleOnly: true}).
     then(function(pushSubscription) {
         sub = pushSubscription;
         console.log('Subscribed! Endpoint:', sub.endpoint);
-        subscribeButton.textContent = 'Unsubscribe';
+        fcmNotificationsBtn.textContent = 'Unsubscribe';
         isSubscribed = true;
     });
 }
 
-function unsubscribe() {
+function fcmUnsubscribe() {
     sub.unsubscribe().then(function(event) {
-        subscribeButton.textContent = 'Subscribe';
+        fcmNotificationsBtn.textContent = 'Subscribe';
         console.log('Unsubscribed!', event);
         isSubscribed = false;
     }).catch(function(error) {
         console.log('Error unsubscribing', error);
-        subscribeButton.textContent = 'Subscribe';
+        fcmNotificationsBtn.textContent = 'Subscribe';
     });
 }
