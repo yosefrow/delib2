@@ -1,4 +1,23 @@
 function showGroup(groupUid){
+  console.log("group: "+ groupUid);
+  activeEntety={entity: "groups", uid: groupUid };
+  //get state of notifications
+  DB.child("groups/"+groupUid+"/localNotifications").on("value", function(localNotifications){
+
+    if (localNotifications.val() == true){
+      $("#globalNotifications").css("color", "white");
+      $("#globalNotifications").click(function(){
+        DB.child("groups/"+groupUid+"/localNotifications").set(false);
+      });
+    } else {
+      $("#globalNotifications").css("color", "gray");
+      $("#globalNotifications").click(function(){
+        DB.child("groups/"+groupUid+"/localNotifications").set(true);
+      });
+    }
+  })
+
+  //  $("globalNotifications").click(function())
 
   setUrl("group", groupUid);
   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){

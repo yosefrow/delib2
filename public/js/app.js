@@ -48,6 +48,7 @@ $(function(){
 })
 
 var userUuid;
+var activeEntety = new Object();
 
 // Initialize Firebase
 var config = {

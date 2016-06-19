@@ -93,7 +93,3 @@ $("#login-form").submit(function(e){
     console.log("Error: "+ errorMessage+" : "+ errorCode);
   });
 });
-
-
-
-
