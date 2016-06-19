@@ -2,12 +2,17 @@ function listenToAuth(){
 
   firebase.auth().onAuthStateChanged(function(user) {
     console.log("status login change");
-    console.dir(user);
+
     if (user) {
+
+      console.log("user: " + user.uid);
+      console.dir(user);
 
       // User is signed in.
       console.log("User is signed in.");
       $("#loginScreen").hide(300);
+      userUuid = user.u;
+      DB.child("users/"+user.u).update({name: user.displayName});
       goHome();
       //get name
       //get picture
