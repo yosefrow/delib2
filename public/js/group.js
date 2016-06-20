@@ -2,7 +2,7 @@ function showGroup(groupUid){
 
   setNewEntity("groups", groupUid);
   //get state of notifications
-  getLocalNotifications();
+
 
   //  $("globalNotifications").click(function())
 
@@ -11,6 +11,7 @@ function showGroup(groupUid){
     var title = dataSnapshot.val().title;
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid}, "#headerMenu");
+    getLocalNotifications();
   });
 
   showGroupTopics (groupUid);

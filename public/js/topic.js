@@ -22,7 +22,7 @@ function createNewTopic(title, description, explanation, imgTopic){
 function showTopic(topicUid){
 
   setNewEntity("topics", topicUid);
-  getLocalNotifications();
+
   //show header
   DB.child("topics/"+topicUid).once("value", function(dataSnapshot){
     if(dataSnapshot.exists()){
@@ -31,6 +31,7 @@ function showTopic(topicUid){
     var title = dataSnapshot.val().title;
     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: topicUid}, "#headerMenu");
+    getLocalNotifications();
   });
   //show questions in topic
   showTopicQuestions (topicUid);

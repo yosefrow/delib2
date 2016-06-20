@@ -13,6 +13,7 @@ function listenToAuth(){
       $("#loginScreen").hide(300);
       userUuid = user.u;
       DB.child("users/"+user.u).update({name: user.displayName});
+      showLocalNotifications();
       goHome();
       //get name
       //get picture

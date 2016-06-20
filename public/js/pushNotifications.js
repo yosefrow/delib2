@@ -17,7 +17,6 @@
 function setLocalNotifications(){
   var entity = activeEntity.entity;
   var uid = activeEntity.uid;
-  console.log("pressed: "+ entity+"/"+uid);
 
   var userNotificationsDB = DB.child("users/"+userUuid+"/localNotifications/"+entity+"/"+uid);
 
@@ -43,10 +42,42 @@ function getLocalNotifications(){
       $("#globalNotifications").css("color", activeColor);
     } else {
       $("#globalNotifications").css("color", inactiveColor);
-      userNotificationsDB.set(false);
     }
   })
 }
+
+function showLocalNotifications(){
+
+  //get active notifications
+  DB.child("users/"+userUuid+"/localNotifications").on("value", function(notifications){
+    notifications.forEach(function(entityNotifications){
+
+      var entity = entityNotifications.key;
+      var curSubEntity = subEntitys[entity];
+
+      //for each registerd notification set "on"
+      jQuery.each(entityNotifications.val(), function(uid, active){
+        //        console.log("entity: "+entity+", uid: "+ uid + ", active: "+ active);
+        if(active){  //activate path
+
+          console.log("on path: "+ entity+"/"+uid+"/"+curSubEntity);
+          DB.child(entity+"/"+uid+"/"+curSubEntity).on("child_added", function(entityUpdate){
+
+            console.log("child added: "+ entityUpdate.key );
+
+          });
+        } else {   //diactivate path
+          console.log("off path: "+ entity+"/"+uid+"/"+curSubEntity);
+          DB.child(entity+"/"+uid+"/"+curSubEntity).off();
+        }
+      })
+    })
+
+  })
+}
+
+const subEntitys = {groups: "topics", topics: "questions", questions: "", chats: ""};
+
 
 //function fcmSubscribe() {
 //    reg.pushManager.subscribe({userVisibleOnly: true}).

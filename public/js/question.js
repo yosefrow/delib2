@@ -29,12 +29,14 @@ function createNewQuestion(title, description, explanation, imgQuestion){
 function showQuestion(questionUid){
 
   setNewEntity("questions", questionUid);
-  getLocalNotifications();
+
   //get question info
   DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid}, "#headerMenu");
+    getLocalNotifications();
+
     var description = dataSnapshot.val().description;
     var typeOfQuestion = dataSnapshot.val().typeOfQuestion;
     var numberOfOptions = dataSnapshot.val().numberOfOptions;
