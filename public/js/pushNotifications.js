@@ -2,9 +2,9 @@
 var reg;
 var isSubscribed = false;
 var sub;
-var fcmNotificationsBtn = $(document).ready(function() {return('#pushNotiificationsBtn');});
+var fcmNotificationsBtn = $(document).ready(function() {return('#pushNotiificationsSub');});
 //<< define localEntityNoticationsBtn ID >>
-var localEntityNoticationsBtn  = $(document).ready(function() {return('#');});
+var localEntityNoticationsBtn  = $(document).ready(function() {return('#globalNotificationsSub');});
 
 fcmNotificationsBtn.click(function() {
  if (isSubscribed) {
