@@ -15,37 +15,12 @@ fcmNotificationsBtn.click(function() {
 });
 
 localEntityNoticationsBtn.click(function () {
-
-    var userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications");
-
-
-  if (userEntityNotifications.exists) {
-    if (userEntityNotifications.child(activeEntity.entity).exists) {
-      // used set() instead of push() in order to avoid creating notification UID needlessly
-      // userID: { ...
-      //         entityNotifications: {
-      //             groups: groupUid1, groupUid2, ...
-      //             topic: topicUid1, topicUid2, ...
-      //             etc..
-      console.log("blalalalaladcdsvsd!@WE#!RQ#R@#R3333333333333333333333333");
-      userEntityNotifications.set(activeEntity.uid);
-    } else {
-      // userentityNotifications.set(activeEntety.entity);
-      // userentityNotifications.child(activeEntety.entity).set(activeEntety.uid);
-      userEntityNotifications.set(activeEntity.entity).set(activeEntity.uid);
+    var userEntityNotifications;
+    
+    if(activeEntity !== 'undefined'){
+        userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+        userEntityNotifications.set(true);
     }
-  } else {
-    // console.log("blalalalaladcdsvsd!@WE#!RQ#R@#R");
-    // userEntityNotifications = DB.child("users/"+userUuid);
-    // var entityNotifications = {};
-    // key = activeEntity.entity;
-    // entityNotifications[key] = {};
-    // entityNotifications[key][activeEntity.uid] = true;
-    // console.dir(activeEntity+ " "+ entityNotifications);
-    // userEntityNotifications.set(entityNotifications);
-      userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-      userEntityNotifications.set(true);
-  }
 });
 
 
