@@ -122,7 +122,7 @@ function showUserGroups(){
 
 }
 
-$("#btnAdd").click(function(){
+$("#btnAddGroup").click(function(){
   //showCreateGroupPopup();
   convertTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
   alert("creating");
