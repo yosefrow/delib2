@@ -1,7 +1,7 @@
 
 $(function(){
 
-  
+
   if ('serviceWorker' in navigator) {
     console.log('Service Worker is supported');
     navigator.serviceWorker.register('../delib-service-worker.js').then(function() {
@@ -48,7 +48,10 @@ $(function(){
 })
 
 var userUuid;
-var activeEntety = new Object();
+var activeEntity = new Object();
+var inactiveColor = "#5f1f1f";
+var activeColor = "white";
+
 
 // Initialize Firebase
 var config = {
@@ -62,4 +65,13 @@ firebase.initializeApp(config);
 var DB = firebase.database().ref();
 var storage = firebase.storage();
 
+function setNewEntity (newEntity, newUid){
+  var oldEntity = activeEntity.entity;
+  var oldUid = activeEntity.uid;
 
+  if(oldUid != undefined){
+    DB.child(oldEntity+"/"+oldUid).off();
+  }
+  activeEntity.entity = newEntity;
+  activeEntity.uid = newUid;
+}

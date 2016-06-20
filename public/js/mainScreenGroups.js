@@ -34,7 +34,7 @@ function stopListeningToPageDB (page){
 function listenToGeneralGroups (typeOfGroup){
   //typeOfGroup: secret, public, close
 
-  groupsDB.orderByChild("type").equalTo(typeOfGroup).on("value", function(groups){
+  groupsDB.orderByChild("type").equalTo(typeOfGroup).once("value", function(groups){
     var groupsArray = new Array();
     var groupsDetails = new Object();
 

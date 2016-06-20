@@ -21,6 +21,8 @@ function createNewTopic(title, description, explanation, imgTopic){
 
 function showTopic(topicUid){
 
+  setNewEntity("topics", topicUid);
+  getLocalNotifications();
   //show header
   DB.child("topics/"+topicUid).once("value", function(dataSnapshot){
     if(dataSnapshot.exists()){
@@ -38,7 +40,7 @@ function showTopic(topicUid){
 function showTopicQuestions(topicUid){
 
   //get topic questions
-  DB.child("topics/"+ topicUid.toString()+"/questions").on("value",function(questions){
+  DB.child("topics/"+ topicUid.toString()+"/questions").once("value",function(questions){
 
     if(questions.exists()){
 

@@ -27,6 +27,9 @@ function createNewQuestion(title, description, explanation, imgQuestion){
 //type of question
 
 function showQuestion(questionUid){
+
+  setNewEntity("questions", questionUid);
+  getLocalNotifications();
   //get question info
   DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
     var title = dataSnapshot.val().title;
