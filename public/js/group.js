@@ -1,5 +1,11 @@
 function showGroup(groupUid){
-
+  
+  console.log("group: "+ groupUid);
+  activeEntity = {
+    entity: "groups",
+    uid: groupUid
+  };
+  
   setNewEntity("groups", groupUid);
   //get state of notifications
 
