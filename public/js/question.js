@@ -30,6 +30,12 @@ function showQuestion(questionUid){
 
   setNewEntity("questions", questionUid);
 
+
+  activeEntity = {
+    entity: "questions",
+    uid: questionUid
+  };
+
   //get question info
   DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
     var title = dataSnapshot.val().title;

@@ -8,8 +8,8 @@ $(function(){
       return navigator.serviceWorker.ready;
     }).then(function(serviceWorkerRegistration) {
       reg = serviceWorkerRegistration;
-      subscribeButton.disabled = false;
-      console.log('Service Worker is ready :^)', reg, subscribeButton);
+      fcmNotificationsBtn.disabled = false;
+      console.log('Service Worker is ready :^)', reg, fcmNotificationsBtn);
     }).catch(function(error) {
       console.log('Service Worker Error :^(', error);
     });

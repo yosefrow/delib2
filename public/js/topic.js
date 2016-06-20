@@ -21,6 +21,12 @@ function createNewTopic(title, description, explanation, imgTopic){
 
 function showTopic(topicUid){
 
+  activeEntity = {
+    entity: "topics",
+    uid: topicUid
+  };
+
+  
   setNewEntity("topics", topicUid);
 
   //show header
