@@ -1,8 +1,3 @@
-function showChat(chatUid){
-  console.log("chat Uid: "+ chatUid);
-}
-
-
 
 function clearChat(){
   $("wrapper").html("");
@@ -10,6 +5,7 @@ function clearChat(){
 function showChat(chatUid){
 
   clearChat();
+  setNewEntity("chats", chatUid)
 
   //create footer input box
   convertTemplate("#chatInput-tmpl",{},"footer");

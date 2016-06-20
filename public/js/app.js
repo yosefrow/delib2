@@ -70,6 +70,7 @@ function setNewEntity (newEntity, newUid){
   var oldUid = activeEntity.uid;
 
   if(oldUid != undefined){
+    console.log("setting off: "+oldEntity+"/"+oldUid)
     DB.child(oldEntity+"/"+oldUid).off();
   }
   activeEntity.entity = newEntity;

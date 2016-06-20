@@ -50,6 +50,7 @@ function appendTemplate (template, context, destination){
 
 function goHome(){
   showPublicGroups();
+  setNewEntity("","");
 }
 
 
