@@ -98,9 +98,7 @@ function setNumberOfOptions(numberOfOptions){
   for( i=1; i< numberOfOptions+1; i++){
     $("#optionDescription"+i).keyup(function(e){
       var dinput = this.value;
-      optionsTempInput[e.currentTarget.id] = dinput;
-      console.log(optionsTempInput);
-
+      optionsTempInput[e.currentTarget.id] = dinput;      
     })
   }
 }

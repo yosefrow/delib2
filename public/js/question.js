@@ -112,9 +112,7 @@ function showQuestionSimpeVote(questionUid, numberOfOptions){
       var relativeToMaxBar = (optionsArray[i].votes/maxVotes)*x;
 
       $("#"+optionsArray[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth);
-      //use to color options
-      //      $("#"+optionsArray[i].uuid+"_div").css("background-color", optionsArray[i].color)
-      //      $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
+          $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
     }
 
     $(".voteBtn").ePulse({
@@ -165,41 +163,6 @@ function voteSimple(questionUid, optionUid){
       }
 
     }
-
-    //    var lastVotedL = lastVoted.length;
-    //    var optionUidL = optionUid.length;
-    ////    console.log(lastVoted.length());
-    ////    var lastVotedStr = JSON.stringify(lastVoted);
-    //    console.log("last voted: "+lastVoted+":"+lastVotedL+ ", optionUid = " + optionUid+":"+optionUidL);
-    ////    console.dir(lastVoted);
-    ////    console.dir(optionUid);
-    //
-    //    if (lastVoted === optionUid){
-    //      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
-    //        return currentVote -1;
-    //        DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).remove();
-    //        console.log("1");
-    //      })
-    //    }
-    //    if (lastVoted === null){
-    //      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
-    //        return currentVote +1;
-    //        DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).set(optionUid);
-    //        console.log("2");
-    //      })
-    //    }
-    //
-    //    if (lastVoted != optionUid){
-    //      DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
-    //        return currentVote +1;
-    //      })
-    //      DB.child("questions/"+questionUid+"/options/"+lastVoted+"/votes").transaction(function(currentVote){
-    //        return currentVote -1;
-    //      })
-    //      DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).set(optionUid);
-    //      console.log("3");
-    //    }
-
   })
 }
 
