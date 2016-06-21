@@ -83,13 +83,13 @@ function showTopicQuestions(topicUid){
             var context = {questions: questionsArray};
             convertTemplate("#topicPage-tmpl", context, "wrapper");
 
-          }
+          } 
 
           i++;
         })
 
       })
-    } else {convertTemplate("#groupPage-tmpl",{}, "wrapper");}
+    } else {convertTemplate("#topicPage-tmpl",{}, "wrapper");}
   });
 }
 

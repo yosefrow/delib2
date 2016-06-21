@@ -17,10 +17,11 @@ function showGroup(groupUid){
     var title = dataSnapshot.val().title;
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid}, "#headerMenu");
-    getLocalNotifications();
+//    getLocalNotifications();
   });
 
   showGroupTopics (groupUid);
+  $("footer").html("");
 }
 
 //show group topics

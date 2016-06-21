@@ -33,8 +33,9 @@
     <script src="js/generalFunctions.js"></script>
     <script src="js/addGroup.js"></script>
     <script src="js/addTopic.js"></script>
+    <script src="js/addQuestion.js"></script>
     <script src="js/login.js"></script>
-    <script src="js/pushNotifications.js"></script>
+<!--    <script src="js/pushNotifications.js"></script>-->
   </head>
 
   <body dir="rtl">
@@ -198,7 +199,7 @@
 
     <!--    create group page-->
      <script type="text/x-handlebars-template" id="createGroup-tmpl">
-<div class="addGroupDiv">
+<div class="addEntityDiv">
   <form>
     <input id="createGroupName" name="name" placeholder="שם הקבוצה"><br>
     <textarea id="createGroupDescription" class="inputErea" name="description" placeholder="תיאור הקבוצה"></textarea><br>
@@ -230,12 +231,13 @@
         </div>
       </div>
       {{/each}}
+      <button id="btnAddQuestion" class="action btnAddEntity" onclick="showAddQuestionScreen()">+</button>
     </script>
     
-<!--    create group page-->
+<!--    create topic page-->
 
     <script type="text/x-handlebars-template" id="createTopic-tmpl">
-      <div class="addGroupDiv">
+      <div class="addEntityDiv">
         <form>
           <input id="createTopicName" name="name" placeholder="שם נושא"><br>
           <textarea id="createTopicDescription" class="inputErea" name="description" placeholder="תיאור נושא"></textarea>
@@ -252,6 +254,71 @@
     <!-- header    -->
     <script type="text/x-handlebars-template" id="questionHeaderTitle-tmpl">
       <i class="fa fa-question-circle fa-1x"></i> <span>{{question}}</span>
+    </script>
+    
+     <!--    create Question page-->
+     <script type="text/x-handlebars-template" id="createQuestion-tmpl">
+      <div class="addEntityDiv">
+        <form>
+          <input id="createQuestionName" name="name" placeholder="שם שאלה"><br>
+          <textarea id="createQuestionDescription" class="inputErea" name="description" placeholder="תיאור השאלה"></textarea><br>
+          <input type="radio" class="radioInput" name="type" value="forAgainst" checked><span> בעד-נגד</span><br>
+          <input type="radio" class="radioInput" name="type" value="twoOptions" checked><span> שתי אופציות</span><br>
+          <input type="radio" class="radioInput" name="type" value="limitedOptions" checked><span> מעט אופציות</span><br>
+          <input type="radio" class="radioInput" name="type" value="infOptions"> ריבוי אופציות<br>
+          <input type="radio" class="radioInput" name="type" value="document"> מסמך
+        </form>
+        <hr>
+        <div id="questionOptions">          
+        </div>
+      </div>
+    </script>
+    
+    <!--  question options  -->
+      <!-- For against     -->
+    <script type="text/x-handlebars-template" id="questionOptionsForAgainst-tmpl">
+      <label>הסבר בעד</label><br>
+      <textarea id="proExplain" class="inputErea" name="description" placeholder="הסבירו מדוע לתמוך" style="box-shadow: 0px 0px 20px green"></textarea><br>
+      <label>הסבר נגד</label><br>
+      <textarea id="conExplain" class="inputErea" name="description" placeholder="הסבירו מדוע להתנגד" style="box-shadow: 0px 0px 20px red"></textarea>
+    </script>
+      <!--  Tow options     -->
+    <script type="text/x-handlebars-template" id="questionOptionsTwoOptions-tmpl">
+      <label>אופציה א'</label><br>
+        <input type="text" id="optionName1" placeholder="שם האופציה" value={{nameText1}}>
+        <textarea id="optionDescription1" class="inputErea" name="description" placeholder="הסבר">{{descriptionText1}}</textarea><br>
+        <label>אופציה ב'</label><br>
+        <input type="text" id="optionName1" placeholder="שם האופציה" value={{nameText2}}>
+        <textarea id="optionDescription2" class="inputErea" name="description" placeholder="הסבר">{{descriptionText2}}</textarea>
+    </script>
+      <!--  Limited options  -->
+    <script type="text/x-handlebars-template" id="questionOptionsLimitedOptions-tmpl">
+      <label>מספר האופציות:</label>
+      <div id="numberOfOptions" class="multiOptionsContainer clickables">        
+        <div id="numberOfOptions2" class="multiOptionsDiv" onclick="setNumberOfOptions(2)">2</div>
+        <div id="numberOfOptions3" class="multiOptionsDiv" onclick="setNumberOfOptions(3)">3</div>
+        <div id="numberOfOptions4" class="multiOptionsDiv" onclick="setNumberOfOptions(4)">4</div>
+        <div id="numberOfOptions5" class="multiOptionsDiv" onclick="setNumberOfOptions(5)">5</div>
+        <div id="numberOfOptions6" class="multiOptionsDiv" onclick="setNumberOfOptions(6)">6</div>
+        <div id="numberOfOptions7" class="multiOptionsDiv" onclick="setNumberOfOptions(7)">7</div>
+        <div id="numberOfOptions8" class="multiOptionsDiv" onclick="setNumberOfOptions(8)">8</div>        
+      </div>
+      <div id="optionsForLimitedOptions"></div>
+    </script>    
+      <!--   options for Limited options -->
+    <script type="text/x-handlebars-template" id="questionOption-tmpl">
+      {{#each option}}
+      <label>אופציה {{optionNumber}}</label><br>
+        <input type="text" id=optionName{{optionNumber}} placeholder="שם האופציה" value={{nameText}}>
+        <textarea id=optionDescription{{optionNumber}} class="inputErea" name="description" placeholder="הסבר">{{descriptionText}}</textarea><br>
+      {{/each}}
+    </script>
+    
+    <!--  question footer  -->
+
+    <script type="text/x-handlebars-template" id="createQuestionFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick="addNewQuestion()"><span>אישור</span></div>
     </script>
 
     <!-- simpleVoting wrapper -->
