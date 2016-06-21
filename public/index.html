@@ -32,6 +32,7 @@
     <script src="js/chat.js"></script>
     <script src="js/generalFunctions.js"></script>
     <script src="js/addGroup.js"></script>
+    <script src="js/addTopic.js"></script>
     <script src="js/login.js"></script>
     <script src="js/pushNotifications.js"></script>
   </head>
@@ -124,7 +125,7 @@
         </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action" onclick="showAddGroup()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
     </script>
     <script type="text/x-handlebars-template" id="groups_member-tmpl">
       {{#each groups}}
@@ -135,7 +136,7 @@
         </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action" onclick="showAddGroup()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
     </script>
     <script type="text/x-handlebars-template" id="groups_owner-tmpl">
       {{#each groups}}
@@ -146,7 +147,7 @@
         </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action" onclick="showAddGroup()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
     </script>
 
     <!--- Login ------->
@@ -191,6 +192,7 @@
         </div>
       </div>
       {{/each}}
+      <button id="btnAddTopic" class="action btnAddEntity" onclick="showAddTopicScreen()">+</button>
     </script>
 
 
@@ -229,7 +231,23 @@
       </div>
       {{/each}}
     </script>
+    
+<!--    create group page-->
 
+    <script type="text/x-handlebars-template" id="createTopic-tmpl">
+      <div class="addGroupDiv">
+        <form>
+          <input id="createTopicName" name="name" placeholder="שם נושא"><br>
+          <textarea id="createTopicDescription" class="inputErea" name="description" placeholder="תיאור נושא"></textarea>
+        </form>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="createTopicFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick="addNewTopic()"><span>אישור</span></div>
+    </script>
+    
     <!-- *************   Question page *************-->
     <!-- header    -->
     <script type="text/x-handlebars-template" id="questionHeaderTitle-tmpl">

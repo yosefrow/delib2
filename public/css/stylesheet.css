@@ -281,7 +281,7 @@ footer{
   border-bottom: 1px solid gray;
 }
 
-#btnAddGroup{
+.btnAddEntity{
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -295,7 +295,7 @@ footer{
 
   box-shadow: 5px 5px 7px gray;
 }
-#btnAddGroup:hover{
+.btnAddEntity:hover{
   cursor: pointer;
   box-shadow: 1px 1px 2px gray;
 }
