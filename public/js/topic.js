@@ -25,7 +25,19 @@ function showTopic(topicUid){
     entity: "topics",
     uid: topicUid
   };
+  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
+  userEntityNotifications.once('value', function(data){
+    userEntityNotificationsExists = data.val() !== null;
+  });
+  
+  console.dir(userEntityNotificationsExists);
+  
+  if (userEntityNotificationsExists) {
+    $("#globalNotificationsSub").css("color", activeColor);
+  } else {
+    $("#globalNotificationsSub").css("color", inactiveColor);
+  }
   
   setNewEntity("topics", topicUid);
 

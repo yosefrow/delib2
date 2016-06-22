@@ -1,28 +1,138 @@
 // Add feature check for Service Workers here
-var reg;
+var SWreg;
 var isSubscribed = false;
-var sub;
-var fcmNotificationsBtn = $(document).ready(function() {return('#pushNotiificationsSub');});
-//<< define localEntityNoticationsBtn ID >>
-var localEntityNoticationsBtn  = $(document).ready(function() {return('#globalNotificationsSub');});
+var subFcm;
 
-fcmNotificationsBtn.click(function() {
+
+
+// Request notifications permission on page load
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (Notification.permission !== "granted")
+        Notification.requestPermission();
+});
+
+
+//------External FCM Notifications-------
+
+function sefFcmPushNotiifications() {
  if (isSubscribed) {
    fcmUnsubscribe();
  } else {
    fcmSubscribe();
  }
+}
+
+function fcmSubscribe() {
+    SWreg.pushManager.subscribe({userVisibleOnly: true}).
+    then(function(pushSubscription) {
+        subFcm = pushSubscription;
+        console.log('Subscribed! Endpoint:', subFcm.endpoint);
+        $('#fcmPushNotiificationsBtn').prop('value', 'Unsubscribe');
+        isSubscribed = true;
+    });
+}
+
+function fcmUnsubscribe() {
+    subFcm.unsubscribe().then(function(event) {
+        $('#fcmPushNotiificationsBtn').prop('value', 'Subscribe');
+        console.log('Unsubscribed!', event);
+        isSubscribed = false;
+    }).catch(function(error) {
+        console.log('Error unsubscribing', error);
+        $('#fcmPushNotiificationsBtn').prop('value', 'Subscribe');
+    });
+}
+
+
+//------Local Chrome Notifications-------
+
+DB.child("groups").on('child_changed', function(EntityData) {
+    DB.child("users/" + userUuid + "/entityNotifications/").once("value" ,function (data) {
+        data.forEach(function (childSnapshot) {
+            if (childSnapshot.key == EntityData.key)
+                pushNotification(EntityData, "groups");
+        });
+    });
 });
 
-localEntityNoticationsBtn.click(function () {
-    var userEntityNotifications;
-    
-    if(activeEntity !== 'undefined'){
-        userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-        userEntityNotifications.set(true);
+DB.child("topics").on('child_changed', function(EntityData) {
+    DB.child("users/" + userUuid + "/entityNotifications/").once("value" ,function (data) {
+        data.forEach(function (childSnapshot) {
+            if (childSnapshot.key == EntityData.key)
+                pushNotification(EntityData, "topics");
+        });
+    });
+});
+
+DB.child("questions").on('child_changed', function(EntityData) {
+    DB.child("users/" + userUuid + "/entityNotifications/").once("value" ,function (data) {
+        console.log("inside!@!#!#!#!#!#!#!!#!#!#");
+        data.forEach(function (childSnapshot) {
+            if (childSnapshot.key == EntityData.key)
+                console.log("inside!@!#!#!#!#!#!#!!#!#!#2");
+                pushNotification(EntityData, "questions");
+        });
+    });
+});
+
+
+function setGlobalNotifications() {
+
+    userEntityNotifications.on('value', function(data){
+        userEntityNotificationsExists = data.val() !== null;
+    });
+
+    if(activeEntity !== 'undefined') {
+
+        console.dir(userEntityNotificationsExists);
+        if (userEntityNotificationsExists)
+        {
+
+            DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid).remove();
+            $("#globalNotificationsSub").css("color", inactiveColor);
+            console.log('Unsubscribed!');
+        } else {
+            DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid).set(true);
+
+            $("#globalNotificationsSub").css("color", activeColor);
+            console.log('Subscribed!');
+
+        }
     }
-});
+}
 
+
+function pushNotification(EntityData, entityType) {
+    var showFunction = {
+        questions: showQuestion(),
+        topics: showTopic(),
+        groups: showGroup()
+    };
+
+    if (!Notification) {
+        alert('Desktop notifications not available in your browser. Try Chromium.');
+        return;
+    }
+
+    if (Notification.permission !== "granted")
+        Notification.requestPermission(EntityData);
+    else {
+        var notification = new Notification(EntityData.title, {
+            icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+            body: EntityData.description
+        });
+
+        notification.onclick = function () {
+            showFunction[entityType](EntityData.key);
+        };
+
+    }
+
+}
+
+
+//------Local Notifications List-------
 
 function setLocalNotifications(){
   var entity = activeEntity.entity;
@@ -55,6 +165,7 @@ function getLocalNotifications(){
     }
   })
 }
+const subEntitys = {groups: "topics", topics: "questions", questions: "", chats: ""};
 
 function showLocalNotifications(){
 
@@ -86,26 +197,6 @@ function showLocalNotifications(){
   })
 }
 
-const subEntitys = {groups: "topics", topics: "questions", questions: "", chats: ""};
 
 
-function fcmSubscribe() {
-   reg.pushManager.subscribe({userVisibleOnly: true}).
-   then(function(pushSubscription) {
-       sub = pushSubscription;
-       console.log('Subscribed! Endpoint:', sub.endpoint);
-       fcmNotificationsBtn.textContent = 'Unsubscribe';
-       isSubscribed = true;
-   });
-}
 
-function fcmUnsubscribe() {
-   sub.unsubscribe().then(function(event) {
-       fcmNotificationsBtn.textContent = 'Subscribe';
-       console.log('Unsubscribed!', event);
-       isSubscribed = false;
-   }).catch(function(error) {
-       console.log('Error unsubscribing', error);
-       fcmNotificationsBtn.textContent = 'Subscribe';
-   });
-}

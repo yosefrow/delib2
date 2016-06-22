@@ -1,15 +1,14 @@
 
 $(function(){
 
-
   if ('serviceWorker' in navigator) {
     console.log('Service Worker is supported');
     navigator.serviceWorker.register('../delib-service-worker.js').then(function() {
       return navigator.serviceWorker.ready;
     }).then(function(serviceWorkerRegistration) {
-      reg = serviceWorkerRegistration;
-      fcmNotificationsBtn.disabled = false;
-      console.log('Service Worker is ready :^)', reg, fcmNotificationsBtn);
+      SWreg = serviceWorkerRegistration;
+      // fcmNotificationsBtn.disabled = false;
+      console.log('Service Worker is ready :^)', SWreg);
     }).catch(function(error) {
       console.log('Service Worker Error :^(', error);
     });
@@ -47,10 +46,20 @@ $(function(){
   listenToAuth();
 })
 
+// Global Variables
+
 var userUuid;
 var activeEntity = new Object();
 var inactiveColor = "#5f1f1f";
 var activeColor = "white";
+var userEntityNotifications;
+var userEntityNotificationsExists;
+
+// userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+//
+// userEntityNotifications.on('value').then(function(data){
+//   userEntityNotificationsExists = data.exists();
+// });
 
 
 // Initialize Firebase
@@ -63,7 +72,7 @@ var config = {
 firebase.initializeApp(config);
 
 var DB = firebase.database().ref();
-var storage = firebase.storage();
+var storage = firebase.storage(); 
 
 function setNewEntity (newEntity, newUid){
   var oldEntity = activeEntity.entity;

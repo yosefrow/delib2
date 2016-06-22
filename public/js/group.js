@@ -6,6 +6,20 @@ function showGroup(groupUid){
     uid: groupUid
   };
   
+  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+
+  userEntityNotifications.once('value', function(data){
+    userEntityNotificationsExists = data.val() !== null;
+  });
+
+  console.dir(userEntityNotificationsExists);
+  
+  if (userEntityNotificationsExists) {
+    $("#globalNotificationsSub").css("color", activeColor);
+  } else {
+    $("#globalNotificationsSub").css("color", inactiveColor);
+  }
+  
   setNewEntity("groups", groupUid);
   //get state of notifications
 

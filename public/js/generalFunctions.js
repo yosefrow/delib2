@@ -49,6 +49,7 @@ function appendTemplate (template, context, destination){
 }
 
 function goHome(){
+  $("#globalNotificationsSub").css("color", inactiveColor)
   showPublicGroups();
 }
 
