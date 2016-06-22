@@ -13,13 +13,7 @@ function showGroup(groupUid){
   });
 
   console.dir(userEntityNotificationsExists);
-  
-  if (userEntityNotificationsExists) {
-    $("#globalNotificationsSub").css("color", activeColor);
-  } else {
-    $("#globalNotificationsSub").css("color", inactiveColor);
-  }
-  
+
   setNewEntity("groups", groupUid);
   //get state of notifications
 
@@ -34,8 +28,14 @@ function showGroup(groupUid){
     getLocalNotifications();
   });
 
+  if (userEntityNotificationsExists) {
+    $("#globalNotificationsSub").css("color", activeColor);
+  } else {
+    $("#globalNotificationsSub").css("color", inactiveColor);
+  }
   showGroupTopics (groupUid);
 }
+
 
 //show group topics
 function showGroupTopics(groupUid){

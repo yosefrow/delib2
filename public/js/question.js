@@ -43,7 +43,6 @@ function showQuestion(questionUid){
   });
 
   console.dir(userEntityNotificationsExists);
-  
   if (userEntityNotificationsExists) {
     $("#globalNotificationsSub").css("color", activeColor);
   } else {

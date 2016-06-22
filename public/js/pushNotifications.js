@@ -79,7 +79,7 @@ DB.child("questions").on('child_changed', function(EntityData) {
 
 function setGlobalNotifications() {
 
-    userEntityNotifications.on('value', function(data){
+    userEntityNotifications.on('value', function(data) {
         userEntityNotificationsExists = data.val() !== null;
     });
 
@@ -143,10 +143,10 @@ function setLocalNotifications(){
   userNotificationsDB.once("value", function(dataSnapshot){
     if (dataSnapshot.val() == true){
       userNotificationsDB.set(false);
-      $("#globalNotifications").css("color", inactiveColor);
+      // $("#globalNotifications").css("color", inactiveColor);
     } else {
       userNotificationsDB.set(true);
-      $("#globalNotifications").css("color", activeColor);
+      // $("#globalNotifications").css("color", activeColor);
     }
   })
 }
@@ -159,12 +159,13 @@ function getLocalNotifications(){
   userNotificationsDB.once("value", function(localNotifications){
 
     if (localNotifications.val() == true){
-      $("#globalNotifications").css("color", activeColor);
+      // $("#globalNotifications").css("color", activeColor);
     } else {
-      $("#globalNotifications").css("color", inactiveColor);
+      // $("#globalNotifications").css("color", inactiveColor);
     }
   })
 }
+
 const subEntitys = {groups: "topics", topics: "questions", questions: "", chats: ""};
 
 function showLocalNotifications(){
