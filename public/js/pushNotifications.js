@@ -51,6 +51,7 @@ DB.child("groups").on('child_changed', function(EntityData) {
     DB.child("users/" + userUuid + "/entityNotifications/groups").once("value" ,function (data) {
         data.forEach(function (childSnapshot) {
             if (childSnapshot.key == EntityData.key)
+                console.dir(EntityData.key);
                 pushNotification(EntityData, "groups");
         });
     });
@@ -60,6 +61,7 @@ DB.child("topics").on('child_changed', function(EntityData) {
     DB.child("users/" + userUuid + "/entityNotifications/topics").once("value" ,function (data) {
         data.forEach(function (childSnapshot) {
             if (childSnapshot.key == EntityData.key)
+                console.dir(EntityData.key);
                 pushNotification(EntityData, "topics");
         });
     });
@@ -67,10 +69,9 @@ DB.child("topics").on('child_changed', function(EntityData) {
 
 DB.child("questions").on('child_changed', function(EntityData) {
     DB.child("users/" + userUuid + "/entityNotifications/questions").once("value" ,function (data) {
-        console.log("inside!@!#!#!#!#!#!#!!#!#!#");
         data.forEach(function (childSnapshot) {
             if (childSnapshot.key == EntityData.key)
-                console.log("inside!@!#!#!#!#!#!#!!#!#!#2");
+                console.dir(EntityData.key);
                 pushNotification(EntityData, "questions");
         });
     });
@@ -104,11 +105,6 @@ function setGlobalNotifications() {
 
 
 function pushNotification(EntityData, entityType) {
-    var showFunction = {
-        questions: showQuestion(),
-        topics: showTopic(),
-        groups: showGroup()
-    };
 
     if (!Notification) {
         alert('Desktop notifications not available in your browser. Try Chromium.');
@@ -118,13 +114,17 @@ function pushNotification(EntityData, entityType) {
     if (Notification.permission !== "granted")
         Notification.requestPermission(EntityData);
     else {
-        var notification = new Notification(EntityData.title, {
+        var notification = new Notification(EntityData.val().title, {
             icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-            body: EntityData.description
+            body: EntityData.val().description
         });
 
         notification.onclick = function () {
-            showFunction[entityType](EntityData.key);
+            switch (entityType){
+                case "groups": showGroup(EntityData.key); break;
+                case "topics": showGroup(EntityData.key); break;
+                case "questions": showGroup(EntityData.key); break;
+            }
         };
 
     }
@@ -143,10 +143,10 @@ function setLocalNotifications(){
   userNotificationsDB.once("value", function(dataSnapshot){
     if (dataSnapshot.val() == true){
       userNotificationsDB.set(false);
-      // $("#globalNotifications").css("color", inactiveColor);
+      $("#feedSubscribe").css("color", inactiveColor);
     } else {
       userNotificationsDB.set(true);
-      // $("#globalNotifications").css("color", activeColor);
+      $("#feedSubscribe").css("color", activeColor);
     }
   })
 }
@@ -159,9 +159,9 @@ function getLocalNotifications(){
   userNotificationsDB.once("value", function(localNotifications){
 
     if (localNotifications.val() == true){
-      // $("#globalNotifications").css("color", activeColor);
+      $("#feedSubscribe").css("color", activeColor);
     } else {
-      // $("#globalNotifications").css("color", inactiveColor);
+      $("#feedSubscribe").css("color", inactiveColor);
     }
   })
 }

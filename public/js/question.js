@@ -43,11 +43,8 @@ function showQuestion(questionUid){
   });
 
   console.dir(userEntityNotificationsExists);
-  if (userEntityNotificationsExists) {
-    $("#globalNotificationsSub").css("color", activeColor);
-  } else {
-    $("#globalNotificationsSub").css("color", inactiveColor);
-  }
+  
+  
 
   //get question info
   DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
@@ -56,6 +53,12 @@ function showQuestion(questionUid){
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid}, "#headerMenu");
     getLocalNotifications();
 
+    if (userEntityNotificationsExists) {
+      $("#globalNotificationsSub").css("color", activeColor);
+    } else {
+      $("#globalNotificationsSub").css("color", inactiveColor);
+    }
+    
     var description = dataSnapshot.val().description;
     var typeOfQuestion = dataSnapshot.val().typeOfQuestion;
     var numberOfOptions = dataSnapshot.val().numberOfOptions;

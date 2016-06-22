@@ -33,6 +33,7 @@ function showGroup(groupUid){
   } else {
     $("#globalNotificationsSub").css("color", inactiveColor);
   }
+  
   showGroupTopics (groupUid);
 }
 
