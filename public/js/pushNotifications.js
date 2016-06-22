@@ -48,7 +48,7 @@ function fcmUnsubscribe() {
 //------Local Chrome Notifications-------
 
 DB.child("groups").on('child_changed', function(EntityData) {
-    DB.child("users/" + userUuid + "/entityNotifications/").once("value" ,function (data) {
+    DB.child("users/" + userUuid + "/entityNotifications/groups").once("value" ,function (data) {
         data.forEach(function (childSnapshot) {
             if (childSnapshot.key == EntityData.key)
                 pushNotification(EntityData, "groups");
@@ -57,7 +57,7 @@ DB.child("groups").on('child_changed', function(EntityData) {
 });
 
 DB.child("topics").on('child_changed', function(EntityData) {
-    DB.child("users/" + userUuid + "/entityNotifications/").once("value" ,function (data) {
+    DB.child("users/" + userUuid + "/entityNotifications/topics").once("value" ,function (data) {
         data.forEach(function (childSnapshot) {
             if (childSnapshot.key == EntityData.key)
                 pushNotification(EntityData, "topics");
@@ -66,7 +66,7 @@ DB.child("topics").on('child_changed', function(EntityData) {
 });
 
 DB.child("questions").on('child_changed', function(EntityData) {
-    DB.child("users/" + userUuid + "/entityNotifications/").once("value" ,function (data) {
+    DB.child("users/" + userUuid + "/entityNotifications/questions").once("value" ,function (data) {
         console.log("inside!@!#!#!#!#!#!#!!#!#!#");
         data.forEach(function (childSnapshot) {
             if (childSnapshot.key == EntityData.key)
