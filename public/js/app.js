@@ -1,19 +1,18 @@
-
+   
 $(function(){
-
-
-  if ('serviceWorker' in navigator) {
-    console.log('Service Worker is supported');
-    navigator.serviceWorker.register('../delib-service-worker.js').then(function() {
-      return navigator.serviceWorker.ready;
-    }).then(function(serviceWorkerRegistration) {
-      reg = serviceWorkerRegistration;
-      fcmNotificationsBtn.disabled = false;
-      console.log('Service Worker is ready :^)', reg, fcmNotificationsBtn);
-    }).catch(function(error) {
-      console.log('Service Worker Error :^(', error);
-    });
-  }
+ 
+//  if ('serviceWorker' in navigator) {
+//    console.log('Service Worker is supported');
+//    navigator.serviceWorker.register('../delib-service-worker.js').then(function() {
+//      return navigator.serviceWorker.ready;
+//    }).then(function(serviceWorkerRegistration) {
+//      reg = serviceWorkerRegistration;
+//      fcmNotificationsBtn.disabled = false;
+//      console.log('Service Worker is ready :^)', reg, fcmNotificationsBtn);
+//    }).catch(function(error) {
+//      console.log('Service Worker Error :^(', error);
+//    });
+//  }
 
   //start ripple effect
   $(".footer-btn").ePulse({

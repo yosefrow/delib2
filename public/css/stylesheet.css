@@ -14,7 +14,7 @@
     width:100%;
     right:0%;
   }
-  
+
   footer{
     width:100%;
     right:0%;
@@ -36,7 +36,7 @@
     width:80%;
     right:10%;
   }
-  
+
   footer{
     width:80%;
     right:10%;
@@ -53,12 +53,12 @@
     width:60%;    
     right:20%;
   }
-  
+
   header{
     width:60%;
     right:20%;
   }
-  
+
   footer{
     width:60%;
     right:20%;
@@ -114,9 +114,9 @@ body{
 }
 
 header {
-/*  display: table-row;*/
+  /*  display: table-row;*/
   height: 100px;
-/*  display: table;*/
+  /*  display: table;*/
   width: 100%
 }
 
@@ -136,7 +136,7 @@ header {
 
 #headerBreadCrumbs {
 
-/*  display: table-row;*/
+  /*  display: table-row;*/
   height: 20px;
   width: 100%;
 
@@ -248,6 +248,11 @@ footer{
 
 .clickables {
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  -webkit-touch-callout: none; /* iOS Safari */
 }
 
 .material-ripple > span {
@@ -281,7 +286,7 @@ footer{
   border-bottom: 1px solid gray;
 }
 
-#btnAdd{
+.btnAddEntity{
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -295,7 +300,7 @@ footer{
 
   box-shadow: 5px 5px 7px gray;
 }
-#btnAdd:hover{
+.btnAddEntity:hover{
   cursor: pointer;
   box-shadow: 1px 1px 2px gray;
 }
@@ -453,7 +458,7 @@ input {
 }
 
 /*  add group */
-.addGroupDiv{
+.addEntityDiv{
   background-color: white;
   padding: 20px;
   padding-top: 32px;
@@ -467,9 +472,65 @@ input {
   margin-bottom: 5px;
   padding: 5px;
   width: 80%;
-  height: 150px;
+  height: 150px;  
 }
 .radioInput{
   vertical-align: middle;
   width: 18px;
 }
+
+/* topics*/
+
+.cardsTopicsSubmenu{
+/*  display: block;*/
+}
+
+.cardsTopicsSubmenuDots{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.cardsTopicsSubmenuDotsMenu{
+  position: relative;
+  top:-20px;
+  right: 10px;
+  display: inline-block;
+  padding: 5px;
+  background-color: white;
+  border: 1px solid #b2b2b2;
+
+  box-shadow: 5px 5px 5px rgba(74, 74, 74, 0.81);
+}
+
+
+
+/* set question */
+
+.multiOptionsContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+
+}
+
+.multiOptionsDiv{
+  flex-grow: 1;
+  
+  padding: 7px;
+  text-align: center;
+
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc3535+52,6d0000+100 */
+  background: #cc0000; /* Old browsers */
+  background: -moz-linear-gradient(top,  #cc0000 0%, #cc3535 52%, #6d0000 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #cc0000 0%,#cc3535 52%,#6d0000 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #cc0000 0%,#cc3535 52%,#6d0000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#6d0000',GradientType=0 ); /* IE6-9 */
+  color: white;
+  font-weight:bold;
+
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */    
+
+}
+
