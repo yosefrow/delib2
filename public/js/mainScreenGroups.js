@@ -50,7 +50,7 @@ function listenToGeneralGroups (typeOfGroup){
     });    
 
     var context = {"groups": groupsArray}
-
+    
     convertTemplate("#groupsGeneral-tmpl", context, "wrapper")
 
   })
@@ -108,7 +108,8 @@ function listenToOwned_MemberGroups (role){
         })
       } else {
         console.log("groups don't exists");
-        $("wrapper").html("");
+        convertTemplate("#groups_"+role+"-tmpl", {}, "wrapper");
+//        $("wrapper").html("");
       }
     })
   } else {console.log("type of role is not recognized")}
@@ -122,7 +123,7 @@ function showUserGroups(){
 
 }
 
-$("#btnAdd").click(function(){
+$("#btnAddGroup").click(function(){
   //showCreateGroupPopup();
   convertTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
   alert("creating");

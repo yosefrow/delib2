@@ -25,7 +25,7 @@ function showGroup(groupUid){
     var title = dataSnapshot.val().title;
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid}, "#headerMenu");
-    getLocalNotifications();
+//    getLocalNotifications();
   });
 
   if (userEntityNotificationsExists) {
@@ -35,6 +35,7 @@ function showGroup(groupUid){
   }
   
   showGroupTopics (groupUid);
+  $("footer").html("");
 }
 
 

@@ -1,4 +1,4 @@
-
+   
 $(function(){
 
   if ('serviceWorker' in navigator) {
