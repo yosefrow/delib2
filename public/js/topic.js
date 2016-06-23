@@ -31,13 +31,6 @@ function showTopic(topicUid){
     userEntityNotificationsExists = data.val() !== null;
   });
   
-  console.dir(userEntityNotificationsExists);
-  
-  if (userEntityNotificationsExists) {
-    $("#globalNotificationsSub").css("color", activeColor);
-  } else {
-    $("#globalNotificationsSub").css("color", inactiveColor);
-  }
   
   setNewEntity("topics", topicUid);
 
@@ -50,6 +43,15 @@ function showTopic(topicUid){
     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: topicUid}, "#headerMenu");
     getLocalNotifications();
+    
+    console.dir(userEntityNotificationsExists);
+
+    if (userEntityNotificationsExists) {
+      $("#globalNotificationsSub").css("color", activeColor);
+    } else {
+      $("#globalNotificationsSub").css("color", inactiveColor);
+    }
+
   });
   //show questions in topic
   showTopicQuestions (topicUid);
