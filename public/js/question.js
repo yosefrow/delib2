@@ -1,23 +1,4 @@
-//create new question
-function createNewQuestion(title, description, explanation, imgQuestion){
 
-  if (title == undefined){
-    title = "";
-    console.log("Error: new topic do not have title");
-  };
-
-  if (description == undefined){
-    description = "";
-  };
-  if (explanation == undefined){
-    explanation = "";
-  };
-  if (imgQuestion == undefined){
-    imgQuestion = "";
-  };
-
-  DB.child("questions").push({title: title, description: description, explanation: explanation, imgQuestion: imgQuestion});
-}
 
 //show header and question
 
@@ -36,29 +17,32 @@ function showQuestion(questionUid){
     uid: questionUid
   };
 
+  console.log("show question: "+ questionUid);
+
   //get question info
   DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid}, "#headerMenu");
-    getLocalNotifications();
+//    getLocalNotifications();
 
     var description = dataSnapshot.val().description;
-    var typeOfQuestion = dataSnapshot.val().typeOfQuestion;
+    var typeOfQuestion = dataSnapshot.val().type;
     var numberOfOptions = dataSnapshot.val().numberOfOptions;
-
+    console.log(description, typeOfQuestion, numberOfOptions);
     switch (typeOfQuestion){
       case "simpleVote":
-        showQuestionSimpeVote(questionUid, numberOfOptions);
+        showLimitedOptionsQuestion(questionUid, numberOfOptions);
         break;
 
       default:
-        showQuestionSimpeVote(questionUid, numberOfOptions);
+        showLimitedOptionsQuestion(questionUid, numberOfOptions);
     }
   });
 }
 
-function showQuestionSimpeVote(questionUid, numberOfOptions){
+function showLimitedOptionsQuestion(questionUid, numberOfOptions){
+  console.log("show simple vote")
   DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
 
     if(options.exists()){
