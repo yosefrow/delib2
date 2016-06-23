@@ -41,6 +41,7 @@ function showTopic(topicUid){
   });
   //show questions in topic
   showTopicQuestions (topicUid);
+
 }
 
 //show topic questions
@@ -82,6 +83,7 @@ function showTopicQuestions(topicUid){
           if (i === numberOfQuestions){
             var context = {questions: questionsArray};
             convertTemplate("#topicPage-tmpl", context, "wrapper");
+            $(".cardsTopicsSubmenuDotsMenu").hide()
 
           } 
 
@@ -93,3 +95,13 @@ function showTopicQuestions(topicUid){
   });
 }
 
+function openMenu(menuID){
+  console.log($("#questionMenu"+menuID).is(':visible'))
+  if ($("#questionMenu"+menuID).is(':visible')){
+    $("#questionMenu"+menuID).hide(400);
+  } else {
+    $("#questionMenu"+menuID).show(400);
+  }
+
+
+}

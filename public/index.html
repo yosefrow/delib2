@@ -229,6 +229,11 @@
           <h4>שאלה: {{title}}</h4>
           <p>תיאור: {{description}}</p>
         </div>
+          <div class="cardsTopicsSubmenu" >
+            <div class="cardsTopicsSubmenuDots clickables" onclick=openMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+            <div></div>
+            <div id=questionMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=showAddQuestionScreen('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+          </div>
       </div>
       {{/each}}
       <button id="btnAddQuestion" class="action btnAddEntity" onclick="showAddQuestionScreen()">+</button>

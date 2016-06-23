@@ -3,13 +3,32 @@ var optionsTempInput = new Array();
 var numberOfOptionsTemp = 2;
 
 
-function showAddQuestionScreen(){
+function showAddQuestionScreen(questionUid){
 
-  //intiate temp options object
-  for (i=1;i<9;i++){
-    optionsTempInput["option"+i]={title:"", description:""}
+  //if questionUid is not empty, bring it from database and pupulate optionsTempInput
+  console.log("qustion ID: " + questionUid);
+  if (questionUid != undefined){
+
+    //bring data from DB
+    DB.child("questions/"+questionUid+"/options").once("value", function(dataSnapshot){
+      console.log(JSON.stringify(dataSnapshot.val()));
+      dataSnapshot.forEach(function(optionData){
+        console.log(optionData.key)
+        optionsTempInput["options"][optionData.key]={title:optionData.val().title, description:optionData.val().description}
+      })
+      console.log(JSON.stringify(optionsTempInput));
+      console.dir(optionsTempInput);
+    })
+
+  } else {
+
+    //intiate temp options object
+    for (i=1;i<9;i++){
+      optionsTempInput["option"+i]={title:"", description:""}
+      console.log(i+") "+JSON.stringify(optionsTempInput["option"+i]));
+    }
+    console.log(JSON.stringify(optionsTempInput));
   }
-
 
 
   convertTemplate("#createQuestion-tmpl",{}, "wrapper");
@@ -121,7 +140,7 @@ function addNewQuestion(){
     return;
   }
   var newQuestion = setNewQuestionToDB(questionName,questionDescription,questionType);
-//  var newQuestion = DB.child("questions").push({title: questionName, description: questionDescription, type: questionType, owner: userUuid });
+  //  var newQuestion = DB.child("questions").push({title: questionName, description: questionDescription, type: questionType, owner: userUuid });
   if (activeEntity.entity == "topics"){
     var topic = activeEntity.uid;
     DB.child("topics/"+topic+"/questions/"+newQuestion.key).set(true);
@@ -145,9 +164,9 @@ function setNewQuestionToDB (title, description, type){
   if (type == undefined){
     explanation = "";
   };
-//  if (imgQuestion == undefined){
-//    imgQuestion = "";
-//  };
+  //  if (imgQuestion == undefined){
+  //    imgQuestion = "";
+  //  };
 
   for (i=1;i<9;i++){
     if (optionsTempInput["option"+i].title == ""){

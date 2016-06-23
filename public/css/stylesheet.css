@@ -248,6 +248,11 @@ footer{
 
 .clickables {
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  -webkit-touch-callout: none; /* iOS Safari */
 }
 
 .material-ripple > span {
@@ -473,6 +478,29 @@ input {
   vertical-align: middle;
   width: 18px;
 }
+
+/* topics*/
+
+.cardsTopicsSubmenu{
+/*  display: block;*/
+}
+
+.cardsTopicsSubmenuDots{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.cardsTopicsSubmenuDotsMenu{
+  position: relative;
+  top:-20px;
+  right: 10px;
+  display: inline-block;
+  padding: 5px;
+  background-color: white;
+  border: 1px solid #b2b2b2;
+
+  box-shadow: 5px 5px 5px rgba(74, 74, 74, 0.81);
+}
+
 
 
 /* set question */
