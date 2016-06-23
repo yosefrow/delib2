@@ -55,12 +55,6 @@ var activeColor = "white";
 var userEntityNotifications;
 var userEntityNotificationsExists;
 
-// userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-//
-// userEntityNotifications.on('value').then(function(data){
-//   userEntityNotificationsExists = data.exists();
-// });
-
 
 // Initialize Firebase
 var config = {

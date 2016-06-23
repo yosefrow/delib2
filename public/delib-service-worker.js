@@ -4,10 +4,6 @@ var filesToCache = [
     '/public/css/',
     '/public/js/'
 ];
-//var filesToCache = [
-//    '/css/',
-//    '/js/'
-//];
 
 self.addEventListener('install', function(e) {
     console.log('[DelibServiceWorker] Install');
