@@ -209,6 +209,7 @@ footer{
   font-size: 1.25em;
   font-weight: 700;
   overflow: hidden;
+  display: flex;
   display: -webkit-flex;
 
   flex-direction: row;
