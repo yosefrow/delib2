@@ -26,10 +26,10 @@ function newQuestion(){
         listenToOptionsInput();
         setForAgainst();
         break;
-      case "twoOptions":
-        listenToOptionsInput();
-        setTwoOptions();
-        break;
+//      case "twoOptions":
+//        listenToOptionsInput();
+//        setTwoOptions();
+//        break;
       case "limitedOptions":
         convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
         if(numberOfOptionsTemp>0){

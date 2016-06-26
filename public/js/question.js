@@ -16,7 +16,7 @@ function showQuestion(questionUid){
     entity: "questions",
     uid: questionUid
   };
-  
+
   userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userEntityNotifications.once('value', function(data){
@@ -24,8 +24,8 @@ function showQuestion(questionUid){
   });
 
   console.dir(userEntityNotificationsExists);
-  
-  
+
+
 
   console.log("show question: "+ questionUid);
 
@@ -34,14 +34,14 @@ function showQuestion(questionUid){
     var title = dataSnapshot.val().title;
     convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid}, "#headerMenu");
-//    getLocalNotifications();
+    //    getLocalNotifications();
 
     if (userEntityNotificationsExists) {
       $("#globalNotificationsSub").css("color", activeColor);
     } else {
       $("#globalNotificationsSub").css("color", inactiveColor);
     }
-    
+
     var description = dataSnapshot.val().description;
     var typeOfQuestion = dataSnapshot.val().type;
     var numberOfOptions = dataSnapshot.val().numberOfOptions;
@@ -50,7 +50,9 @@ function showQuestion(questionUid){
       case "simpleVote":
         showLimitedOptionsQuestion(questionUid, numberOfOptions);
         break;
-
+      case "multiOptions":
+        showMultiOptions(questionUid);
+        break;
       default:
         showLimitedOptionsQuestion(questionUid, numberOfOptions);
     }
@@ -112,7 +114,7 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
       var relativeToMaxBar = (optionsArray[i].votes/maxVotes)*x;
 
       $("#"+optionsArray[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth);
-          $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
+      $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
     }
 
     $(".voteBtn").ePulse({
