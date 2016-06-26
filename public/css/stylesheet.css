@@ -534,3 +534,26 @@ input {
 
 }
 
+.multiOptionCard{
+  display: flex;
+  flex-direction: column;
+
+}
+.mainOption{
+  display: flex;
+  flex-direction: row;
+}
+
+.interactionOption{
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+}
+
+.optionDetails {
+  flex-grow: 10;
+  -webkit-flex-grow: 10;
+}
+.optionVisualId{
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+}
