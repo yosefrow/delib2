@@ -65,7 +65,21 @@ function orderAcccordingToVotes(questionUid){
   })
 }
 
-function addMultiOption(){
+function addMultiOption(questionUid){
   convertTemplate("#createMultiOption-tmpl",{}, "wrapper");
-  convertTemplate("#createMultiOptionFooter-tmpl", {}, "footer")
+  convertTemplate("#createMultiOptionFooter-tmpl", {questionUid:questionUid}, "footer")
+}
+
+function addMultiOptionToDB(questionUid){
+  var title = $("#createMultiOptionName").val();
+  var description = $("#createMultiOptionDescription").val();
+
+  if (title == ""){
+    alert("Title can't be empty");
+    return;
+  }
+
+  createOption(questionUid, title, description);
+
+  showMultiOptions(questionUid);
 }

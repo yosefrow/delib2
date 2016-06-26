@@ -197,6 +197,7 @@ wrapper{
 
   overflow-y:scroll;
   background-color: #dbdbdb;
+  padding-top: 12px;
 }
 
 footer{
