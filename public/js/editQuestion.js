@@ -12,11 +12,11 @@ function editQuestion(questionUid){
     numberOfOptionsTemp = dataSnapshot.val().numberOfOptions;
 
 
-    var title = dataSnapshot.val().title;
-    var description = dataSnapshot.val().description;
-    console.log("Number of Options: "+ numberOfOptionsTemp, title, description);
+    var questionTitle = dataSnapshot.val().title;
+    var questionDescription = dataSnapshot.val().description;
+    console.log("Number of Options: "+ numberOfOptionsTemp, questionTitle, questionDescription);
 
-    convertTemplate("#createQuestion-tmpl",{title: title, description:description}, "wrapper");
+    convertTemplate("#createQuestion-tmpl",{questionTitle: questionTitle, questionDescription:questionDescription}, "wrapper");
     convertTemplate("#editQuestionFooter-tmpl",{uuid:questionUid}, "footer")
 
     convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");

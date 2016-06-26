@@ -11,7 +11,7 @@ function listenToAuth(){
       // User is signed in.
       console.log("User is signed in.");
       $("#loginScreen").hide(300);
-      userUuid = user.u;
+      userUuid = user.uid;
       DB.child("users/"+user.u).update({name: user.displayName});
       showLocalNotifications();
       goHome();

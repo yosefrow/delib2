@@ -266,8 +266,8 @@
      <script type="text/x-handlebars-template" id="createQuestion-tmpl">
       <div class="addEntityDiv">
         <form>
-          <input id="createQuestionName" name="name" placeholder="שם שאלה" value={{title}}><br>
-          <textarea id="createQuestionDescription" class="inputErea" name="description" placeholder="תיאור השאלה">{{description}}</textarea><br>
+          <input id="createQuestionName" name="name" placeholder="שם שאלה" value='{{questionTitle}}'><br>
+          <textarea id="createQuestionDescription" class="inputErea" name="description" placeholder="תיאור השאלה">{{questionDescription}}</textarea><br>
           <input type="radio" class="radioInput" name="type" value="forAgainst" checked><span> בעד-נגד</span><br>
           <input type="radio" class="radioInput" name="type" value="limitedOptions" checked><span> מעט אופציות</span><br>
           <input type="radio" class="radioInput" name="type" value="infOptions"> ריבוי אופציות<br>
