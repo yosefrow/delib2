@@ -381,10 +381,36 @@
             </div>
             <div class="optionVisualId" style=background-color:{{optionColor}}></div>
           </div>
-          <div class="footerOption"></div>
+          <div class="footerOption">
+            <div id={{optionUid}}voteCount></div>
+          </div>
         </div>
       </script>
 
+      <!-- multi options footer --->
+
+      <script type="text/x-handlebars-template" id="multiOptionsFooter-tmpl">
+        <div class="multiOptionsFooter">
+          <div class="footer-btn clickables" id="optionsRefresh" onclick=showMultiOptions('{{questionUid}}')><i class="fa fa-refresh" aria-hidden="true"></i></div>
+          <div class="footer-btn clickables" id="addOption" onclick="addMultiOption()"><i class="fa fa-plus" aria-hidden="true"></i></div>
+        </div>
+      </script>
+
+      <!--        add multi options-->
+
+      <script type="text/x-handlebars-template" id="createMultiOption-tmpl">
+      <div class="addEntityDiv">
+        <form>
+          <input id="createMultiOptionName" name="name" placeholder="שם האפשרות"><br>
+          <textarea id="createMultiOptionDescription" class="inputErea" name="description" placeholder="תיאור האפשרות"></textarea>
+        </form>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="createMultiOptionFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick="addMultiOption()"><span>אישור</span></div>
+    </script>
       <!-- footer ---->
       <!--    Info   -->
       <script type="text/x-handlebars-template" id="optionsInfo-tmpl">

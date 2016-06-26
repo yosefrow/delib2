@@ -48,6 +48,13 @@ function appendTemplate (template, context, destination){
   $(destination).append(groupPublicHTML);
 }
 
+function prependTemplate (template, context, destination){
+  var groupsPublicTmpl = $(template).html();
+  var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
+  var groupPublicHTML = groupPublicHandl(context);
+  $(destination).prepend(groupPublicHTML);
+}
+
 function goHome(){
   $("#globalNotificationsSub").css("color", inactiveColor)
   showPublicGroups();

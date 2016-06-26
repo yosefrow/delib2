@@ -18,6 +18,9 @@
   footer{
     width:100%;
     right:0%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
   }
 
 }
@@ -231,6 +234,7 @@ footer{
   border-right: 1px solid #ce8181;
 
   background-color: #cc0000;
+  color: white;
 }
 
 .footer-btn:hover {
@@ -553,7 +557,17 @@ input {
   flex-grow: 10;
   -webkit-flex-grow: 10;
 }
+
+.titleOption{
+  font-weight: 600;
+}
 .optionVisualId{
   flex-grow: 1;
   -webkit-flex-grow: 1;
+}
+
+.multiOptionsFooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
