@@ -34,6 +34,7 @@
     <script src="js/addGroup.js"></script>
     <script src="js/addTopic.js"></script>
     <script src="js/addQuestion.js"></script>
+    <script src="js/editQuestion.js"></script>
     <script src="js/login.js"></script>
 <!--    <script src="js/pushNotifications.js"></script>-->
   </head>
@@ -325,6 +326,13 @@
     <script type="text/x-handlebars-template" id="createQuestionFooter-tmpl">
       <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
       <div class="footer-btn material-ripple action" onclick="addNewQuestion()"><span>אישור</span></div>
+    </script>
+
+    <!--  question edit footer  -->
+
+    <script type="text/x-handlebars-template" id="editQuestionFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick=updateQuestion('{{uuid}}')><span>אישור</span></div>
     </script>
 
     <!-- simpleVoting wrapper -->

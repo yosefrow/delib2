@@ -43,94 +43,38 @@ function newQuestion(){
 
 };
 
-function editQuestion(questionUid){
-
-  //intiate temp options object
-  for (i=1;i<9;i++){
-    optionsTempInput["option"+i]={title:"", description:""};
-  }
-
-
-  //bring data from DB
-  DB.child("questions/"+questionUid).once("value", function(dataSnapshot){
-
-    numberOfOptionsTemp = dataSnapshot.val().numberOfOptions;
-    console.log("Number of Options: "+ numberOfOptionsTemp);
-
-    var title = dataSnapshot.val().title;
-    var description = dataSnapshot.val().description;
-
-    convertTemplate("#createQuestion-tmpl",{title: title, description:description}, "wrapper");
-    convertTemplate("#createQuestionFooter-tmpl",{}, "footer")
-
-    convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
-
-//    setNumberOfOptions(numberOfOptionsTemp);
-
-    $('input[type=radio][name=type]').change(function(){
-
-      var selcation = this.value;
-
-      switch (selcation) {
-        case "forAgainst":
-          convertTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
-          break;
-        case "limitedOptions":
-          convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
-          if(numberOfOptionsTemp>0){
-            setNumberOfOptions(numberOfOptionsTemp);
-          }
-          break;
-        default:
-          $("#questionOptions").html("");
-      }
-    })
-
-    //bring options from database
-
-    DB.child("questions/"+questionUid+"/options").once("value", function(optionsSnapshot){
-      var i=1;
-      optionsSnapshot.forEach(function(optionData){
-        optionsTempInput["option"+i]={title:optionData.val().title, description:optionData.val().description};
-        console.log(JSON.stringify(optionsTempInput["option"+i]));
-        i++;
-      })
-      setNumberOfOptions(numberOfOptionsTemp)
-      console.dir(optionsTempInput);
-    });
-  });
-}
 
 
 
-function setTwoOptions(){
 
-  var nameText1 = optionsTempInput["optionName1"];
-  var nameText2 = optionsTempInput["optionName2"];
-  var descriptionText1 = optionsTempInput["optionDescription1"];
-  var descriptionText2 = optionsTempInput["optionDescription2"];
-
-  convertTemplate("#questionOptionsTwoOptions-tmpl", {nameText1:nameText1, nameText2:nameText2, descriptionText1:descriptionText1, descriptionText2: descriptionText2 }, "#questionOptions");
-
-  for( i=1; i< 3; i++){
-    $("#optionName"+i).keyup(function(e){
-      var dinput = this.value;
-
-      optionsTempInput[e.currentTarget.id] = dinput;
-      console.log(optionsTempInput);
-
-    })
-  }
-
-  for( i=1; i< 3; i++){
-    $("#optionDescription"+i).keyup(function(e){
-      var dinput = this.value;
-      optionsTempInput[e.currentTarget.id] = dinput;
-      console.log(optionsTempInput);
-
-    })
-  }
-}
+//function setTwoOptions(){
+//
+//  var nameText1 = optionsTempInput["optionName1"];
+//  var nameText2 = optionsTempInput["optionName2"];
+//  var descriptionText1 = optionsTempInput["optionDescription1"];
+//  var descriptionText2 = optionsTempInput["optionDescription2"];
+//
+//  convertTemplate("#questionOptionsTwoOptions-tmpl", {nameText1:nameText1, nameText2:nameText2, descriptionText1:descriptionText1, descriptionText2: descriptionText2 }, "#questionOptions");
+//
+//  for( i=1; i< 3; i++){
+//    $("#optionName"+i).keyup(function(e){
+//      var dinput = this.value;
+//
+//      optionsTempInput[e.currentTarget.id] = dinput;
+//      console.log(optionsTempInput);
+//
+//    })
+//  }
+//
+//  for( i=1; i< 3; i++){
+//    $("#optionDescription"+i).keyup(function(e){
+//      var dinput = this.value;
+//      optionsTempInput[e.currentTarget.id] = dinput;
+//      console.log(optionsTempInput);
+//
+//    })
+//  }
+//}
 
 function setNumberOfOptions(numberOfOptions){
 
@@ -187,6 +131,8 @@ function addNewQuestion(){
 
   showTopic(activeEntity.uid);
 }
+
+
 
 //create new question
 function setNewQuestionToDB (title, description, type){
