@@ -232,11 +232,11 @@
           <div class="cardsTopicsSubmenu" >
             <div class="cardsTopicsSubmenuDots clickables" onclick=openMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
             <div></div>
-            <div id=questionMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=showAddQuestionScreen('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+            <div id=questionMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editQuestion('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
           </div>
       </div>
       {{/each}}
-      <button id="btnAddQuestion" class="action btnAddEntity" onclick="showAddQuestionScreen()">+</button>
+      <button id="btnAddQuestion" class="action btnAddEntity" onclick="newQuestion()">+</button>
     </script>
     
 <!--    create topic page-->
@@ -265,10 +265,9 @@
      <script type="text/x-handlebars-template" id="createQuestion-tmpl">
       <div class="addEntityDiv">
         <form>
-          <input id="createQuestionName" name="name" placeholder="שם שאלה"><br>
-          <textarea id="createQuestionDescription" class="inputErea" name="description" placeholder="תיאור השאלה"></textarea><br>
+          <input id="createQuestionName" name="name" placeholder="שם שאלה" value={{title}}><br>
+          <textarea id="createQuestionDescription" class="inputErea" name="description" placeholder="תיאור השאלה">{{description}}</textarea><br>
           <input type="radio" class="radioInput" name="type" value="forAgainst" checked><span> בעד-נגד</span><br>
-          <input type="radio" class="radioInput" name="type" value="twoOptions" checked><span> שתי אופציות</span><br>
           <input type="radio" class="radioInput" name="type" value="limitedOptions" checked><span> מעט אופציות</span><br>
           <input type="radio" class="radioInput" name="type" value="infOptions"> ריבוי אופציות<br>
           <input type="radio" class="radioInput" name="type" value="document"> מסמך
@@ -287,7 +286,8 @@
       <label>הסבר נגד</label><br>
       <textarea id="conExplain" class="inputErea" name="description" placeholder="הסבירו מדוע להתנגד" style="box-shadow: 0px 0px 20px red"></textarea>
     </script>
-      <!--  Tow options     -->
+<!--
+        Tow options
     <script type="text/x-handlebars-template" id="questionOptionsTwoOptions-tmpl">
       <label>אופציה א'</label><br>
         <input type="text" id="optionName1" placeholder="שם האופציה" value={{nameText1}}>
@@ -296,6 +296,7 @@
         <input type="text" id="optionName1" placeholder="שם האופציה" value={{nameText2}}>
         <textarea id="optionDescription2" class="inputErea" name="description" placeholder="הסבר">{{descriptionText2}}</textarea>
     </script>
+-->
       <!--  Limited options  -->
     <script type="text/x-handlebars-template" id="questionOptionsLimitedOptions-tmpl">
       <label>מספר האופציות:</label>

@@ -2,34 +2,11 @@ var optionsTempInput = new Array();
 
 var numberOfOptionsTemp = 2;
 
+function newQuestion(){
 
-function showAddQuestionScreen(questionUid){
-
-  //if questionUid is not empty, bring it from database and pupulate optionsTempInput
-  console.log("qustion ID: " + questionUid);
-  if (questionUid != undefined){
-
-    //bring data from DB
-    DB.child("questions/"+questionUid+"/options").once("value", function(dataSnapshot){
-      console.log(JSON.stringify(dataSnapshot.val()));
-      dataSnapshot.forEach(function(optionData){
-        console.log(optionData.key)
-        optionsTempInput["options"][optionData.key]={title:optionData.val().title, description:optionData.val().description}
-      })
-      console.log(JSON.stringify(optionsTempInput));
-      console.dir(optionsTempInput);
-    })
-
-  } else {
-
-    //intiate temp options object
-    for (i=1;i<9;i++){
-      optionsTempInput["option"+i]={title:"", description:""}
-      console.log(i+") "+JSON.stringify(optionsTempInput["option"+i]));
-    }
-    console.log(JSON.stringify(optionsTempInput));
+  for (i=1;i<9;i++){
+    optionsTempInput["option"+i]={title:"", description:""};
   }
-
 
   convertTemplate("#createQuestion-tmpl",{}, "wrapper");
   convertTemplate("#createQuestionFooter-tmpl",{}, "footer")
@@ -46,9 +23,12 @@ function showAddQuestionScreen(questionUid){
     switch (selcation) {
       case "forAgainst":
         convertTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
+        listenToOptionsInput();
+        setForAgainst();
         break;
-      case "twoOptions":        
-        setTowOptions();
+      case "twoOptions":
+        listenToOptionsInput();
+        setTwoOptions();
         break;
       case "limitedOptions":
         convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
@@ -61,12 +41,69 @@ function showAddQuestionScreen(questionUid){
     }
   })
 
+};
 
+function editQuestion(questionUid){
+
+  //intiate temp options object
+  for (i=1;i<9;i++){
+    optionsTempInput["option"+i]={title:"", description:""};
+  }
+
+
+  //bring data from DB
+  DB.child("questions/"+questionUid).once("value", function(dataSnapshot){
+
+    numberOfOptionsTemp = dataSnapshot.val().numberOfOptions;
+    console.log("Number of Options: "+ numberOfOptionsTemp);
+
+    var title = dataSnapshot.val().title;
+    var description = dataSnapshot.val().description;
+
+    convertTemplate("#createQuestion-tmpl",{title: title, description:description}, "wrapper");
+    convertTemplate("#createQuestionFooter-tmpl",{}, "footer")
+
+    convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
+
+//    setNumberOfOptions(numberOfOptionsTemp);
+
+    $('input[type=radio][name=type]').change(function(){
+
+      var selcation = this.value;
+
+      switch (selcation) {
+        case "forAgainst":
+          convertTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
+          break;
+        case "limitedOptions":
+          convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
+          if(numberOfOptionsTemp>0){
+            setNumberOfOptions(numberOfOptionsTemp);
+          }
+          break;
+        default:
+          $("#questionOptions").html("");
+      }
+    })
+
+    //bring options from database
+
+    DB.child("questions/"+questionUid+"/options").once("value", function(optionsSnapshot){
+      var i=1;
+      optionsSnapshot.forEach(function(optionData){
+        optionsTempInput["option"+i]={title:optionData.val().title, description:optionData.val().description};
+        console.log(JSON.stringify(optionsTempInput["option"+i]));
+        i++;
+      })
+      setNumberOfOptions(numberOfOptionsTemp)
+      console.dir(optionsTempInput);
+    });
+  });
 }
 
 
 
-function setTowOptions(){
+function setTwoOptions(){
 
   var nameText1 = optionsTempInput["optionName1"];
   var nameText2 = optionsTempInput["optionName2"];
@@ -99,15 +136,16 @@ function setNumberOfOptions(numberOfOptions){
 
   numberOfOptionsTemp = numberOfOptions;
 
+  //color the menu
   for (i=2; i<9;i++){
     $("#numberOfOptions"+i).css("background", "linear-gradient(to bottom,  #cc0000 0%,#cc3535 52%,#6d0000 100%)");
   }
   $("#numberOfOptions"+numberOfOptions).css("background", "linear-gradient(to top,  #cc0000 0%,#cc3535 52%,#6d0000 100%)");
-
+  console.dir(optionsTempInput)
   var preContext = new Array();
   for (i=1; i < numberOfOptions+1 ;i++){
-    var nameText = optionsTempInput["optionName"+i];
-    var descriptionText = optionsTempInput["optionDescription"+i];
+    var nameText = optionsTempInput["option"+i].title;
+    var descriptionText = optionsTempInput["option"+i].description;
 
     preContext.push({optionNumber: i, nameText:nameText, descriptionText: descriptionText});
   }
@@ -203,13 +241,14 @@ function setNewQuestionToDB (title, description, type){
 //}
 
 function listenToOptionsInput(numberOfOptions){
+
   for( i=1; i< numberOfOptions+1; i++){
     $("#optionName"+i).keyup(function(e){
       var dinput = this.value;
       var id = e.currentTarget.id;
       var optionNumber = id.substr(-1);
       optionsTempInput["option"+optionNumber].title = dinput;
-
+      console.log("input: "+ dinput);
     })
   }
 
@@ -219,6 +258,7 @@ function listenToOptionsInput(numberOfOptions){
       var id = e.currentTarget.id;
       var optionNumber = id.substr(-1);
       optionsTempInput["option"+optionNumber].description = dinput;
+      console.log("input: "+ dinput);
     })
   }
 }
