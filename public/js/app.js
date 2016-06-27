@@ -63,6 +63,7 @@ var config = {
   databaseURL: "https://synthesistalyaron.firebaseio.com",
   storageBucket: "gs://synthesistalyaron.appspot.com"
 };
+
 firebase.initializeApp(config);
 
 var DB = firebase.database().ref();

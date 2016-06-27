@@ -1,8 +1,8 @@
 var dataCacheName = 'Delib-v1';
 var cacheName = 'Delib-Cache-1';
 var filesToCache = [
-    '/public/css/',
-    '/public/js/'
+    '/css/',
+    '/js/'
 ];
 
 self.addEventListener('install', function(e) {
@@ -32,7 +32,7 @@ self.addEventListener('activate', function(e) {
 
 self.addEventListener('fetch', function(e) {
     console.log('[DelibServiceWorker] Fetch', e.request.url);
-    var dataUrl = 'http://127.0.0.1:5000/';
+    var dataUrl = 'https://synthesistalyaron.firebaseapp.com/';
     if (e.request.url.indexOf(dataUrl) === 0) {
         console.log('insidde!!!~');
         e.respondWith(
@@ -56,11 +56,11 @@ self.addEventListener('fetch', function(e) {
 
 self.addEventListener('push', function(event) {
     console.log('Push message', event);
-    var notificaionData = event.data.toJSON()
+    var notificaionData = event.data.toJSON();
     var title = notificaionData.title;
 
     event.waitUntil(
-        self.registration.showNotification(title, {
+        self.registration.showNotification("blarr", {
             'body': 'The Message',
             'icon': 'images/icon.png'
         }));
@@ -72,7 +72,7 @@ self.addEventListener('notificationclick', function(event) {
     // See http://crbug.com/463146
     event.notification.close();
 
-    var url = 'http://127.0.0.1:5000/';
+    var url = 'https://synthesistalyaron.firebaseapp.com/';
     // Check if there's already a tab open with this URL.
     // If yes: focus on the tab.
     // If no: open a tab with the URL.
