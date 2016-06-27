@@ -9,6 +9,7 @@ function openGroupMenu(groupUid){
 function editGroup(groupUid){
 
   convertTemplate("#createGroup-tmpl",{},"wrapper");
+  convertTemplate("#editGroupFooter-tmpl", {groupUid:groupUid}, "footer");
 
   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;
@@ -20,6 +21,14 @@ function editGroup(groupUid){
     $("#createGroupDescription").text(description);
 
   })
+}
 
+function updateGroupToDB(groupUid){
+  var title=$("#createGroupName").val();
+  var description = $("#createGroupDescription").val();
+
+  DB.child("groups/"+groupUid).update({title:title, description:description });
+
+  showOwnedGroups();
 
 }

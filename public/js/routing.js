@@ -9,13 +9,12 @@ function getUrl(){
 function routTo(currentUrl, back){
 
   if (back == undefined){back = false};
-  console.log("back: "+back);
 
   var slashPostion = currentUrl.indexOf("/");
   var currentType = currentUrl.slice(0,slashPostion);
 
   var currentEntety = currentUrl.slice(slashPostion+1);
-
+  console.log("type: "+ currentType+", currentEntety: "+currentEntety);
   switch (currentType){
     case "group":
       DB.child("groups/"+currentEntety).once("value", function (group){

@@ -226,6 +226,12 @@
       <div class="footer-btn material-ripple action" onclick="addNewGroup()"><span>אישור</span></div>
     </script>
 
+    <!--    edit group footer-->
+    <script type="text/x-handlebars-template" id="editGroupFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick="updateGroupToDB('{{groupUid}}')"><span>אישור</span></div>
+    </script>
+
     <!-- *************   Topic page *************-->
     <!-- header    -->
     <script type="text/x-handlebars-template" id="topicHeaderTitle-tmpl">

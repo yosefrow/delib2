@@ -13,7 +13,7 @@ function showQuestion(questionUid, back){
   if (back == undefined){back = false};
   setNewEntity("questions", questionUid);
   if (!back){
-    setUrl("questions", questionUid);
+    setUrl("question", questionUid);
     console.log("setting url");
   }
 
