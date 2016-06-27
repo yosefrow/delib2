@@ -56,8 +56,8 @@ self.addEventListener('fetch', function(e) {
 
 self.addEventListener('push', function(event) {
     console.log('Push message', event);
-
-    var title = 'Push message';
+    var notificaionData = event.data.toJSON()
+    var title = notificaionData.title;
 
     event.waitUntil(
         self.registration.showNotification(title, {

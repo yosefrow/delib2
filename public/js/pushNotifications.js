@@ -4,7 +4,6 @@ var isSubscribed = false;
 var subFcm;
 
 
-
 // Request notifications permission on page load
 
 document.addEventListener('DOMContentLoaded', function () {
