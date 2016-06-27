@@ -1,0 +1,25 @@
+function openGroupMenu(groupUid){
+  if ($("#groupMenu"+groupUid).is(':visible')){
+    $("#groupMenu"+groupUid).hide(400);
+  } else {
+    $("#groupMenu"+groupUid).show(400);
+  }
+}
+
+function editGroup(groupUid){
+
+  convertTemplate("#createGroup-tmpl",{},"wrapper");
+
+  DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
+    var title = dataSnapshot.val().title;
+    var description = dataSnapshot.val().description;
+    var type = dataSnapshot.val().type;
+
+    $("input[name=type][value=" + type + "]").attr('checked', 'checked');
+    $("#createGroupName").val(title);
+    $("#createGroupDescription").text(description);
+
+  })
+
+
+}

@@ -1,65 +1,6 @@
-
-
-//show header and question
-
-
-//show question
-
-//type of question
-
-function showQuestion(questionUid){
-
-  setNewEntity("questions", questionUid);
-
-
-  activeEntity = {
-    entity: "questions",
-    uid: questionUid
-  };
-  
-  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-  userEntityNotifications.once('value', function(data){
-    userEntityNotificationsExists = data.val() !== null;
-  });
-
-  console.dir(userEntityNotificationsExists);
-  
-  
-
-  console.log("show question: "+ questionUid);
-
-  //get question info
-  DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
-    var title = dataSnapshot.val().title;
-    convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
-    convertTemplate("#headerMenu-tmpl", {chatUid: questionUid}, "#headerMenu");
-//    getLocalNotifications();
-
-    if (userEntityNotificationsExists) {
-      $("#globalNotificationsSub").css("color", activeColor);
-    } else {
-      $("#globalNotificationsSub").css("color", inactiveColor);
-    }
-    
-    var description = dataSnapshot.val().description;
-    var typeOfQuestion = dataSnapshot.val().type;
-    var numberOfOptions = dataSnapshot.val().numberOfOptions;
-    console.log(description, typeOfQuestion, numberOfOptions);
-    switch (typeOfQuestion){
-      case "simpleVote":
-        showLimitedOptionsQuestion(questionUid, numberOfOptions);
-        break;
-
-      default:
-        showLimitedOptionsQuestion(questionUid, numberOfOptions);
-    }
-  });
-}
-
 function showLimitedOptionsQuestion(questionUid, numberOfOptions){
-  console.log("show simple vote")
-  DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
+
+  DB.child("questions/"+questionUid+"/options").off("value"); DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
 
     if(options.exists()){
       setUrl("question", questionUid);
@@ -112,7 +53,7 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
       var relativeToMaxBar = (optionsArray[i].votes/maxVotes)*x;
 
       $("#"+optionsArray[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth);
-          $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
+      $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
     }
 
     $(".voteBtn").ePulse({
@@ -132,10 +73,10 @@ function voteSimple(questionUid, optionUid){
 
   DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).once("value", function(vote){
     var isExists = vote.exists();
-    console.log("exists:"+isExists);
+
     if (!isExists){
       DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).set(optionUid);
-      console.log("do not exist... created");
+
       DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").transaction(function(currentVote){
         return currentVote +1;
       })
@@ -148,7 +89,7 @@ function voteSimple(questionUid, optionUid){
           return currentVote -1;
         })
         DB.child("questions/"+questionUid+"/simpleVoting/"+userUuid).remove();
-        console.log("equal");
+
         $(".voteBtn").css("border" , "0px solid black");
       } else {
         DB.child("questions/"+questionUid+"/options/"+lastVoted+"/votes").transaction(function(currentVote){
@@ -172,36 +113,4 @@ function lightCheckedBtn(questionUid){
     $(".voteBtn").css("border" , "0px solid black");
     $("#"+checkedOption.val()+"_btn").css("border" , "3px solid black");
   })
-}
-
-function showOptionInfo(question, option){
-
-  if ($("#info").is(":visible")){
-    $("#info").hide(400);
-  } else{
-    console.log("question: "+ question + ", option: "+ option)
-    DB.child("questions/"+question+"/options/"+option).once("value", function(dataSnapshot){
-
-      var title = dataSnapshot.val().title;
-      var description = dataSnapshot.val().description;
-      var explanation = dataSnapshot.val().explanation;
-
-      var context = {title: title, description: description, explanation: explanation}
-
-      convertTemplate("#optionsInfo-tmpl", context, "#info");
-
-      console.log("option info:" + option);
-      //get wrapper dimentions
-      var headerHeight = $("header").height();
-      var wrapperHeight = $("wrapper").height();
-      var footerHeight = $("footer").height();
-      var infoHeight = wrapperHeight-footerHeight;
-      var headerWidth = $("header").width();
-
-      $("#info").css("top", headerHeight).css("height", infoHeight).css("width", headerWidth).show(400);
-
-    })
-
-
-  }
 }

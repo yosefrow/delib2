@@ -19,7 +19,9 @@ function createNewTopic(title, description, explanation, imgTopic){
   DB.child("topics").push({title: title, description: description, explanation: explanation, imgTopic: imgTopic});
 }
 
-function showTopic(topicUid){
+function showTopic(topicUid, back){
+
+  if (back == undefined){back = false};
 
   activeEntity = {
     entity: "topics",
@@ -30,20 +32,22 @@ function showTopic(topicUid){
   userEntityNotifications.once('value', function(data){
     userEntityNotificationsExists = data.val() !== null;
   });
-  
-  
+
+
   setNewEntity("topics", topicUid);
 
   //show header
   DB.child("topics/"+topicUid).once("value", function(dataSnapshot){
     if(dataSnapshot.exists()){
-      setUrl("topic", topicUid);
+      if (!back){
+        setUrl("topic", topicUid);
+      }
     }
     var title = dataSnapshot.val().title;
     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: topicUid}, "#headerMenu");
     getLocalNotifications();
-    
+
     console.dir(userEntityNotificationsExists);
 
     if (userEntityNotificationsExists) {
@@ -99,7 +103,7 @@ function showTopicQuestions(topicUid){
             convertTemplate("#topicPage-tmpl", context, "wrapper");
             $(".cardsTopicsSubmenuDotsMenu").hide()
 
-          } 
+          }
 
           i++;
         })

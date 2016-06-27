@@ -23,6 +23,6 @@ function addNewTopic(){
     DB.child("groups/"+group+"/topics/"+newTopic.key).set(true);
   }
   DB.child("users/"+userUuid+"/topics/"+newTopic.key).set("owner");
-  
+
   showGroup(activeEntity.uid);
 }

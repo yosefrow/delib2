@@ -1,31 +1,32 @@
-function showGroup(groupUid){
-  
-  console.log("group: "+ groupUid);
+function showGroup(groupUid, back){
+
+  if (back == undefined){back = false};
+
   activeEntity = {
     entity: "groups",
     uid: groupUid
   };
-  
+
   userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userEntityNotifications.once('value', function(data){
     userEntityNotificationsExists = data.val() !== null;
   });
 
-  console.dir(userEntityNotificationsExists);
-
   setNewEntity("groups", groupUid);
   //get state of notifications
 
 
   //  $("globalNotifications").click(function())
+  if(!back){
+    setUrl("group", groupUid);
+  }
 
-  setUrl("group", groupUid);
   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid}, "#headerMenu");
-//    getLocalNotifications();
+    //    getLocalNotifications();
   });
 
   if (userEntityNotificationsExists) {
@@ -33,7 +34,7 @@ function showGroup(groupUid){
   } else {
     $("#globalNotificationsSub").css("color", inactiveColor);
   }
-  
+
   showGroupTopics (groupUid);
   $("footer").html("");
 }
@@ -77,7 +78,7 @@ function showGroupTopics(groupUid){
           if (i === numberOfTopics){
             var context = {groups: topicsArray};
             convertTemplate("#groupPage-tmpl", context, "wrapper");
-
+//            $(".cardsTopicsSubmenuDotsMenu").hide();
           }
 
           i++;
