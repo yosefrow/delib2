@@ -78,7 +78,7 @@ function showGroupTopics(groupUid){
           if (i === numberOfTopics){
             var context = {groups: topicsArray};
             convertTemplate("#groupPage-tmpl", context, "wrapper");
-
+//            $(".cardsTopicsSubmenuDotsMenu").hide();
           }
 
           i++;

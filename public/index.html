@@ -30,10 +30,12 @@
 
     <script src="js/groups/group.js"></script>
     <script src="js/groups/addGroup.js"></script>
+    <script src="js/groups/editGroup.js"></script>
     <script src="js/groups/mainScreenGroups.js"></script>
 
     <script src="js/topics/topic.js"></script>
     <script src="js/topics/addTopic.js"></script>
+    <script src="js/topics/editTopic.js"></script>
 
     <script src="js/questions/question.js"></script>
     <script src="js/questions/addQuestion.js"></script>
@@ -112,11 +114,7 @@
         <h4>{{type}} : {{title}}</h4>
         <p>תיאור: {{description}}</p>
         <hr>
-        <div>
-          <span>
-          </span></div>
       </div>
-
       {{/each}}
     </script>
 
@@ -142,12 +140,17 @@
       {{/each}}
       <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
     </script>
+
     <script type="text/x-handlebars-template" id="groups_owner-tmpl">
       {{#each groups}}
       <div id={{uuid}}_Div class="card">
         <div class="groupDescription clickables" onclick="showGroup('{{uuid}}')">
           <h4>קבוצה: {{title}}</h4>
           <p>תיאור: {{description}}</p>
+        </div>
+        <div class="cardsTopicsSubmenu" >
+          <div class="cardsTopicsSubmenuDots clickables" onclick=openGroupMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+          <div id=groupMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editGroup('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
         </div>
       </div>
       {{/each}}
@@ -194,8 +197,13 @@
           <h4>נושא: {{title}}</h4>
           <p>תיאור: {{description}}</p>
         </div>
+        <div class="cardsTopicsSubmenu" >
+          <div class="cardsTopicsSubmenuDots clickables" onclick=openTopicMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+          <div id=topicMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editTopic('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+        </div>
       </div>
       {{/each}}
+
       <button id="btnAddTopic" class="action btnAddEntity" onclick="showAddTopicScreen()">+</button>
     </script>
 
@@ -257,6 +265,15 @@
       <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
       <div class="footer-btn material-ripple action" onclick="addNewTopic()"><span>אישור</span></div>
     </script>
+
+    <!--- Edit topic Page ---->
+
+    <script type="text/x-handlebars-template" id="editTopicFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick="sendTopicToDB('{{topicUid}}')"><span>אישור</span></div>
+    </script>
+
+
     
     <!-- *************   Question page *************-->
     <!-- header    -->

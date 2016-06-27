@@ -489,6 +489,7 @@ input {
 
 .cardsTopicsSubmenu{
 /*  display: block;*/
+  max-height: 30px;
 }
 
 .cardsTopicsSubmenuDots{

@@ -102,6 +102,7 @@ function listenToOwned_MemberGroups (role){
               var context = {groups: groupsArray};
 
               convertTemplate("#groups_"+role+"-tmpl", context, "wrapper");
+              $(".cardsTopicsSubmenuDotsMenu").hide();
             }
             i++;
           })
