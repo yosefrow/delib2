@@ -58,6 +58,7 @@ function prependTemplate (template, context, destination){
 function goHome(){
   $("#globalNotificationsSub").css("color", inactiveColor)
   showPublicGroups();
+  convertTemplate("#LogoHeaderTitle-tmpl",{}, "#headerTitle");
 }
 
 

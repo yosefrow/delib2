@@ -23,19 +23,25 @@
 
     <link href='https://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
 
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/routing.js"></script>
-    <script src="js/group.js"></script>
-    <script src="js/topic.js"></script>
-    <script src="js/question.js"></script>
-    <script src="js/option.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/routing.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/generalFunctions.js"></script>
-    <script src="js/addGroup.js"></script>
-    <script src="js/addTopic.js"></script>
-    <script src="js/addQuestion.js"></script>
-    <script src="js/editQuestion.js"></script>
-    <script src="js/multiOptions.js"></script>
+
+    <script src="js/groups/group.js"></script>
+    <script src="js/groups/addGroup.js"></script>
+    <script src="js/groups/mainScreenGroups.js"></script>
+
+    <script src="js/topics/topic.js"></script>
+    <script src="js/topics/addTopic.js"></script>
+
+    <script src="js/questions/question.js"></script>
+    <script src="js/questions/addQuestion.js"></script>
+    <script src="js/questions/limitedOptions.js"></script>
+    <script src="js/questions/editQuestion.js"></script>
+    <script src="js/questions/multiOptions.js"></script>
+    <script src="js/questions/option.js"></script>
+
     <script src="js/login.js"></script>
 
 <!--    <script src="js/pushNotifications.js"></script>-->
@@ -63,12 +69,6 @@
 
 
     <!-- ****************** Templates ****************     -->
-
-
-
-    <script type="text/javascript" src="js/mainScreenGroups.js"></script>
-
-
     <!-- meta templates-->
     <!--      headers -->
 
@@ -129,7 +129,7 @@
         </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
     </script>
     <script type="text/x-handlebars-template" id="groups_member-tmpl">
       {{#each groups}}
@@ -140,7 +140,7 @@
         </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
     </script>
     <script type="text/x-handlebars-template" id="groups_owner-tmpl">
       {{#each groups}}
@@ -151,7 +151,7 @@
         </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
     </script>
 
     <!--- Login ------->
@@ -272,7 +272,7 @@
           <textarea id="createQuestionDescription" class="inputErea" name="description" placeholder="תיאור השאלה">{{questionDescription}}</textarea><br>
           <input type="radio" class="radioInput" name="type" value="forAgainst" checked><span> בעד-נגד</span><br>
           <input type="radio" class="radioInput" name="type" value="limitedOptions" checked><span> מעט אופציות</span><br>
-          <input type="radio" class="radioInput" name="type" value="infOptions"> ריבוי אופציות<br>
+          <input type="radio" class="radioInput" name="type" value="multiOptions"> ריבוי אופציות<br>
           <input type="radio" class="radioInput" name="type" value="document"> מסמך
         </form>
         <hr>

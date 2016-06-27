@@ -50,3 +50,36 @@ function editMultiOptionToDB (questionUid, optionUid){
 
   showMultiOptions(questionUid);
 }
+
+//show option info in limited options
+
+function showOptionInfo(question, option){
+
+  if ($("#info").is(":visible")){
+    $("#info").hide(400);
+  } else{
+
+    DB.child("questions/"+question+"/options/"+option).once("value", function(dataSnapshot){
+
+      var title = dataSnapshot.val().title;
+      var description = dataSnapshot.val().description;
+      var explanation = dataSnapshot.val().explanation;
+
+      var context = {title: title, description: description, explanation: explanation}
+
+      convertTemplate("#optionsInfo-tmpl", context, "#info");
+
+      //get wrapper dimentions
+      var headerHeight = $("header").height();
+      var wrapperHeight = $("wrapper").height();
+      var footerHeight = $("footer").height();
+      var infoHeight = wrapperHeight-footerHeight;
+      var headerWidth = $("header").width();
+
+      $("#info").css("top", headerHeight).css("height", infoHeight).css("width", headerWidth).show(400);
+
+    })
+
+
+  }
+}

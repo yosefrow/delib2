@@ -1,5 +1,7 @@
 function showMultiOptions(questionUid){
 
+  DB.child("questions/"+questionUid+"/options").off("value");
+
   convertTemplate("#multiOptionsFooter-tmpl",{questionUid: questionUid}, "footer");
 
   //get options
@@ -31,7 +33,6 @@ function showMultiOptions(questionUid){
 
       //watch for changes in position
       DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").on("value",function(currentVote){
-        console.log(optionUid, currentVote.val());
         $("#"+optionUid+"voteCount").text("הצבעות: "+currentVote.val());
       });
     })
