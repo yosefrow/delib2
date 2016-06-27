@@ -27,6 +27,7 @@ function showMultiOptions(questionUid){
       })
 
       prependTemplate("#multiOption-tmpl",{title:title, description: description, questionUid: questionUid, optionUid: optionUid, optionColor:optionColor }, "wrapper");
+      $("#optionMenu"+optionUid).hide();
 
       //watch for changes in position
       DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").on("value",function(currentVote){

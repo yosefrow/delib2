@@ -371,20 +371,24 @@
       <script type="text/x-handlebars-template" id="multiOption-tmpl">
         <div class="card multiOptionCard">
           <div class="mainOption">
-            <div class="interactionOption">
-              <div class="voteUpOption clickables" onclick=voteUpOption('{{questionUid}}','{{optionUid}}')><img src="img/thumbUpInactive.png" id={{optionUid}}voteImg></div>
-              <div class="talkOption"></div>
-            </div>
+            <div class="optionVisualId" style=background-color:{{optionColor}}></div>
             <div class="optionDetails">
               <div class="titleOption">{{title}}</div>
               <div class="descriptionOption">{{description}}</div>
             </div>
-            <div class="optionVisualId" style=background-color:{{optionColor}}></div>
+            <div class="interactionOption"></div>
+              <div class="voteUpOption clickables" onclick=voteUpOption('{{questionUid}}','{{optionUid}}')><img src="img/thumbUpInactive.png" id={{optionUid}}voteImg></div>
+              <div class="talkOption"></div>
+            </div>
+            <div class="footerOption">
+              <div class="cardsTopicsSubmenu" >
+                <div class="cardsTopicsSubmenuDots clickables" onclick=openOptionMenu('{{optionUid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+                <div></div>
+                <div id=optionMenu{{optionUid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editOption('{{questionUid}}','{{optionUid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+              </div>
+              <div id={{optionUid}}voteCount></div>
+            </div>
           </div>
-          <div class="footerOption">
-            <div id={{optionUid}}voteCount></div>
-          </div>
-        </div>
       </script>
 
       <!-- multi options footer --->
@@ -410,6 +414,12 @@
     <script type="text/x-handlebars-template" id="createMultiOptionFooter-tmpl">
       <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
       <div class="footer-btn material-ripple action" onclick=addMultiOptionToDB('{{questionUid}}')><span>אישור</span></div>
+    </script>
+
+    <!-- footer for edit multiOptions -->
+    <script type="text/x-handlebars-template" id="editMultiOptionFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick=editMultiOptionToDB('{{questionUid}}','{{optionUid}}')><span>אישור</span></div>
     </script>
       <!-- footer ---->
       <!--    Info   -->

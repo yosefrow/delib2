@@ -10,7 +10,7 @@
 function showQuestion(questionUid){
 
   setNewEntity("questions", questionUid);
-
+  setUrl("questions", questionUid);
 
   activeEntity = {
     entity: "questions",
@@ -60,8 +60,7 @@ function showQuestion(questionUid){
 }
 
 function showLimitedOptionsQuestion(questionUid, numberOfOptions){
-  console.log("show simple vote")
-  DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
+    DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
 
     if(options.exists()){
       setUrl("question", questionUid);

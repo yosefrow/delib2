@@ -12,8 +12,6 @@ function showGroup(groupUid){
     userEntityNotificationsExists = data.val() !== null;
   });
 
-  console.dir(userEntityNotificationsExists);
-
   setNewEntity("groups", groupUid);
   //get state of notifications
 

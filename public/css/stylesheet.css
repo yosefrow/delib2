@@ -566,10 +566,19 @@ input {
 .optionVisualId{
   flex-grow: 1;
   -webkit-flex-grow: 1;
+  margin-left: 5px;
+
 }
 
 .multiOptionsFooter{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.footerOption{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-height: 30px;
 }
