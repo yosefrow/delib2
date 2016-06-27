@@ -18,6 +18,9 @@
   footer{
     width:100%;
     right:0%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
   }
 
 }
@@ -194,6 +197,7 @@ wrapper{
 
   overflow-y:scroll;
   background-color: #dbdbdb;
+  padding-top: 12px;
 }
 
 footer{
@@ -205,6 +209,7 @@ footer{
   font-size: 1.25em;
   font-weight: 700;
   overflow: hidden;
+  display: flex;
   display: -webkit-flex;
 
   flex-direction: row;
@@ -231,6 +236,7 @@ footer{
   border-right: 1px solid #ce8181;
 
   background-color: #cc0000;
+  color: white;
 }
 
 .footer-btn:hover {
@@ -483,6 +489,7 @@ input {
 
 .cardsTopicsSubmenu{
 /*  display: block;*/
+  max-height: 30px;
 }
 
 .cardsTopicsSubmenuDots{
@@ -534,3 +541,45 @@ input {
 
 }
 
+.multiOptionCard{
+  display: flex;
+  flex-direction: column;
+
+}
+.mainOption{
+  display: flex;
+  flex-direction: row;
+}
+
+.interactionOption{
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+}
+
+.optionDetails {
+  flex-grow: 10;
+  -webkit-flex-grow: 10;
+}
+
+.titleOption{
+  font-weight: 600;
+}
+.optionVisualId{
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  margin-left: 5px;
+
+}
+
+.multiOptionsFooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.footerOption{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-height: 30px;
+}

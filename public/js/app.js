@@ -27,12 +27,13 @@ $(function(){
   });
 
   var currentUrl = getUrl();
-  routTo(currentUrl);
+  routTo(currentUrl, false);
   //  showPublicGroups();
   $(window).on('popstate', function() {
     console.log('Back button was pressed.');
     var currentUrl = getUrl();
-    routTo(currentUrl);
+    var back = true;
+    routTo(currentUrl,back);
 
   });
 

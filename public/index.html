@@ -23,20 +23,34 @@
 
     <link href='https://fonts.googleapis.com/css?family=Alef:400,700' rel='stylesheet' type='text/css'>
 
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/routing.js"></script>
-    <script src="js/group.js"></script>
-    <script src="js/topic.js"></script>
-    <script src="js/question.js"></script>
-    <script src="js/option.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/routing.js"></script>
     <script src="js/chat.js"></script>
     <script src="js/generalFunctions.js"></script>
-    <script src="js/addGroup.js"></script>
-    <script src="js/addTopic.js"></script>
-    <script src="js/addQuestion.js"></script>
-    <script src="js/editQuestion.js"></script>
+
+    <script src="js/groups/group.js"></script>
+    <script src="js/groups/addGroup.js"></script>
+    <script src="js/groups/editGroup.js"></script>
+    <script src="js/groups/mainScreenGroups.js"></script>
+
+    <script src="js/topics/topic.js"></script>
+    <script src="js/topics/addTopic.js"></script>
+    <script src="js/topics/editTopic.js"></script>
+
+    <script src="js/questions/question.js"></script>
+    <script src="js/questions/addQuestion.js"></script>
+    <script src="js/questions/limitedOptions.js"></script>
+    <script src="js/questions/editQuestion.js"></script>
+    <script src="js/questions/multiOptions.js"></script>
+    <script src="js/questions/option.js"></script>
+
     <script src="js/login.js"></script>
+<<<<<<< HEAD
     <script src="js/pushNotifications.js"></script>
+=======
+
+<!--    <script src="js/pushNotifications.js"></script>-->
+>>>>>>> master
   </head>
 
   <body dir="rtl">
@@ -61,12 +75,6 @@
 
 
     <!-- ****************** Templates ****************     -->
-
-
-
-    <script type="text/javascript" src="js/mainScreenGroups.js"></script>
-
-
     <!-- meta templates-->
     <!--      headers -->
 
@@ -110,11 +118,7 @@
         <h4>{{type}} : {{title}}</h4>
         <p>תיאור: {{description}}</p>
         <hr>
-        <div>
-          <span>
-          </span></div>
       </div>
-
       {{/each}}
     </script>
 
@@ -127,7 +131,7 @@
         </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
     </script>
     <script type="text/x-handlebars-template" id="groups_member-tmpl">
       {{#each groups}}
@@ -138,8 +142,9 @@
         </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
     </script>
+
     <script type="text/x-handlebars-template" id="groups_owner-tmpl">
       {{#each groups}}
       <div id={{uuid}}_Div class="card">
@@ -147,9 +152,13 @@
           <h4>קבוצה: {{title}}</h4>
           <p>תיאור: {{description}}</p>
         </div>
+        <div class="cardsTopicsSubmenu" >
+          <div class="cardsTopicsSubmenuDots clickables" onclick=openGroupMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+          <div id=groupMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editGroup('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+        </div>
       </div>
       {{/each}}
-      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroupScreen()">+</button>
+      <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
     </script>
 
     <!--- Login ------->
@@ -192,8 +201,13 @@
           <h4>נושא: {{title}}</h4>
           <p>תיאור: {{description}}</p>
         </div>
+        <div class="cardsTopicsSubmenu" >
+          <div class="cardsTopicsSubmenuDots clickables" onclick=openTopicMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+          <div id=topicMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editTopic('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+        </div>
       </div>
       {{/each}}
+
       <button id="btnAddTopic" class="action btnAddEntity" onclick="showAddTopicScreen()">+</button>
     </script>
 
@@ -255,6 +269,15 @@
       <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
       <div class="footer-btn material-ripple action" onclick="addNewTopic()"><span>אישור</span></div>
     </script>
+
+    <!--- Edit topic Page ---->
+
+    <script type="text/x-handlebars-template" id="editTopicFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick="sendTopicToDB('{{topicUid}}')"><span>אישור</span></div>
+    </script>
+
+
     
     <!-- *************   Question page *************-->
     <!-- header    -->
@@ -270,7 +293,7 @@
           <textarea id="createQuestionDescription" class="inputErea" name="description" placeholder="תיאור השאלה">{{questionDescription}}</textarea><br>
           <input type="radio" class="radioInput" name="type" value="forAgainst" checked><span> בעד-נגד</span><br>
           <input type="radio" class="radioInput" name="type" value="limitedOptions" checked><span> מעט אופציות</span><br>
-          <input type="radio" class="radioInput" name="type" value="infOptions"> ריבוי אופציות<br>
+          <input type="radio" class="radioInput" name="type" value="multiOptions"> ריבוי אופציות<br>
           <input type="radio" class="radioInput" name="type" value="document"> מסמך
         </form>
         <hr>
@@ -365,7 +388,60 @@
 
       </script>
 
+      <!-- multioptions -->
+      <script type="text/x-handlebars-template" id="multiOption-tmpl">
+        <div class="card multiOptionCard">
+          <div class="mainOption">
+            <div class="optionVisualId" style=background-color:{{optionColor}}></div>
+            <div class="optionDetails">
+              <div class="titleOption">{{title}}</div>
+              <div class="descriptionOption">{{description}}</div>
+            </div>
+            <div class="interactionOption"></div>
+              <div class="voteUpOption clickables" onclick=voteUpOption('{{questionUid}}','{{optionUid}}')><img src="img/thumbUpInactive.png" id={{optionUid}}voteImg></div>
+              <div class="talkOption"></div>
+            </div>
+            <div class="footerOption">
+              <div class="cardsTopicsSubmenu" >
+                <div class="cardsTopicsSubmenuDots clickables" onclick=openOptionMenu('{{optionUid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+                <div></div>
+                <div id=optionMenu{{optionUid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editOption('{{questionUid}}','{{optionUid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+              </div>
+              <div id={{optionUid}}voteCount></div>
+            </div>
+          </div>
+      </script>
 
+      <!-- multi options footer --->
+
+      <script type="text/x-handlebars-template" id="multiOptionsFooter-tmpl">
+<!--        <div class="multiOptionsFooter">-->
+          <div class="footer-btn clickables" id="optionsRefresh" onclick=showMultiOptions('{{questionUid}}')><i class="fa fa-refresh" aria-hidden="true"></i></div>
+          <div class="footer-btn clickables" id="addOption" onclick=addMultiOption('{{questionUid}}')><i class="fa fa-plus" aria-hidden="true"></i></div>
+<!--        </div>-->
+      </script>
+
+      <!--        add multi options-->
+
+      <script type="text/x-handlebars-template" id="createMultiOption-tmpl">
+      <div class="addEntityDiv">
+        <form>
+          <input id="createMultiOptionName" name="name" placeholder="שם האפשרות"><br>
+          <textarea id="createMultiOptionDescription" class="inputErea" name="description" placeholder="תיאור האפשרות"></textarea>
+        </form>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars-template" id="createMultiOptionFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick=addMultiOptionToDB('{{questionUid}}')><span>אישור</span></div>
+    </script>
+
+    <!-- footer for edit multiOptions -->
+    <script type="text/x-handlebars-template" id="editMultiOptionFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick=editMultiOptionToDB('{{questionUid}}','{{optionUid}}')><span>אישור</span></div>
+    </script>
       <!-- footer ---->
       <!--    Info   -->
       <script type="text/x-handlebars-template" id="optionsInfo-tmpl">
