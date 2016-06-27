@@ -205,6 +205,7 @@
 
     <!-- topics   -->
     <script type="text/x-handlebars-template" id="groupPage-tmpl">
+<<<<<<< HEAD
         {{#each groups}}
         <div id={{uuid}} class="card">
             <div class="groupDescription clickables" onclick="showTopic('{{uuid}}')">
@@ -215,6 +216,17 @@
                 <div class="cardsTopicsSubmenuDots clickables" onclick=openTopicMenu( '{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
                 <div id=topicMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editTopic( '{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
             </div>
+=======
+      {{#each groups}}
+      <div id={{uuid}} class="card">
+        <div class="groupDescription clickables" onclick="showTopic('{{uuid}}')">
+          <h4>נושא: {{title}}</h4>
+          <p>תיאור: {{description}}</p>
+        </div>
+        <div class="cardsTopicsSubmenu" >
+          <div class="cardsTopicsSubmenuDots clickables" onclick=openTopicMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+          <div id=topicMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" style="display:none" onclick=editTopic('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+>>>>>>> origin/master
         </div>
         {{/each}}
 
@@ -242,6 +254,12 @@
     <script type="text/x-handlebars-template" id="createGroupFooter-tmpl">
         <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
         <div class="footer-btn material-ripple action" onclick="addNewGroup()"><span>אישור</span></div>
+    </script>
+
+    <!--    edit group footer-->
+    <script type="text/x-handlebars-template" id="editGroupFooter-tmpl">
+      <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+      <div class="footer-btn material-ripple action" onclick="updateGroupToDB('{{groupUid}}')"><span>אישור</span></div>
     </script>
 
     <!-- *************   Topic page *************-->
