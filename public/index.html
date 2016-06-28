@@ -132,7 +132,7 @@
             </div>
         </div>
         {{/each}}
-        <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
+        <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()"><i class="fa fa-plus" aria-hidden="true"></button>
     </script>
     <script type="text/x-handlebars-template" id="groups_member-tmpl">
         {{#each groups}}
@@ -143,7 +143,7 @@
             </div>
         </div>
         {{/each}}
-        <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
+        <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()"><i class="fa fa-plus" aria-hidden="true"></button>
     </script>
 
     <script type="text/x-handlebars-template" id="groups_owner-tmpl">
@@ -159,7 +159,7 @@
             </div>
         </div>
         {{/each}}
-        <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()">+</button>
+        <button id="btnAddGroup" class="action btnAddEntity" onclick="showAddGroup()"><i class="fa fa-plus" aria-hidden="true"></button>
     </script>
 
     <!--- Login ------->
@@ -205,18 +205,6 @@
 
     <!-- topics   -->
     <script type="text/x-handlebars-template" id="groupPage-tmpl">
-<<<<<<< HEAD
-        {{#each groups}}
-        <div id={{uuid}} class="card">
-            <div class="groupDescription clickables" onclick="showTopic('{{uuid}}')">
-                <h4>נושא: {{title}}</h4>
-                <p>תיאור: {{description}}</p>
-            </div>
-            <div class="cardsTopicsSubmenu">
-                <div class="cardsTopicsSubmenuDots clickables" onclick=openTopicMenu( '{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
-                <div id=topicMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editTopic( '{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
-            </div>
-=======
       {{#each groups}}
       <div id={{uuid}} class="card">
         <div class="groupDescription clickables" onclick="showTopic('{{uuid}}')">
@@ -226,11 +214,10 @@
         <div class="cardsTopicsSubmenu" >
           <div class="cardsTopicsSubmenuDots clickables" onclick=openTopicMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
           <div id=topicMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" style="display:none" onclick=editTopic('{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
->>>>>>> origin/master
         </div>
-        {{/each}}
-
-        <button id="btnAddTopic" class="action btnAddEntity" onclick="showAddTopicScreen()">+</button>
+      </div>
+      {{/each}}
+        <button id="btnAddTopic" class="action btnAddEntity" onclick="showAddTopicScreen()"><i class="fa fa-plus" aria-hidden="true"></button>
     </script>
 
 
@@ -277,13 +264,13 @@
                 <p>תיאור: {{description}}</p>
             </div>
             <div class="cardsTopicsSubmenu">
-                <div class="cardsTopicsSubmenuDots clickables" onclick=openMenu( '{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
+                <div class="cardsTopicsSubmenuDots clickables" onclick=openTopicMenu('{{uuid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
                 <div></div>
-                <div id=questionMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editQuestion( '{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+                <div id=questionMenu{{uuid}} class="cardsTopicsSubmenuDotsMenu clickables" style="display:none" onclick=editQuestion( '{{uuid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
             </div>
         </div>
         {{/each}}
-        <button id="btnAddQuestion" class="action btnAddEntity" onclick="newQuestion()">+</button>
+        <button id="btnAddQuestion" class="action btnAddEntity" onclick="newQuestion()"></button>
     </script>
 
     <!--    create topic page-->
