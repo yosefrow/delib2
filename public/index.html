@@ -270,7 +270,7 @@
             </div>
         </div>
         {{/each}}
-        <button id="btnAddQuestion" class="action btnAddEntity" onclick="newQuestion()"></button>
+        <button id="btnAddQuestion" class="action btnAddEntity" onclick="newQuestion()"><i class="fa fa-plus" aria-hidden="true"></button>
     </script>
 
     <!--    create topic page-->
@@ -425,7 +425,7 @@
                         <div class="descriptionOption">{{description}}</div>
                     </div>
                     <div class="interactionOption"></div>
-                    <div class="voteUpOption clickables" onclick=voteUpOption( '{{questionUid}}', '{{optionUid}}')><img src="img/thumbUpInactive.png" id={{optionUid}}voteImg></div>
+                    <div class="voteUpOption clickables" onclick=voteUpOption('{{questionUid}}','{{optionUid}}')><img src="img/thumbUpInactive.png" id={{optionUid}}voteImg></div>
                     <div class="talkOption"></div>
                 </div>
                 <div class="footerOption">
