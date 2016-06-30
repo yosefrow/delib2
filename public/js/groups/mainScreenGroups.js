@@ -9,7 +9,8 @@ function showMemberGroupsPage(){
   DB.child("users/"+userUuid+"/membership").once("value", function(groups){
 
     var groupsUnderMebership = groups.val();
-    var numberOfTopics = Object.keys(groupsUnderMebership).length;
+    var numberOfGroups = Object.keys(groupsUnderMebership).length;
+    console.log("numberOfTopics: "+numberOfGroups);
 
     var preContext = new Object();
     var groupsArray = new Array();
@@ -19,28 +20,32 @@ function showMemberGroupsPage(){
 
     groups.forEach(function(group){
 
-      if(group.val()){
-        //get group details
-        DB.child("groups/"+group.key).once("value",function(group){
+      console.log(group.key, group.val());
 
-          var title = group.val().title;
-          var description = group.val().description;
+      //get group details
+      DB.child("groups/"+group.key).once("value",function(groupDB){
+        if (group.val()){
+          console.log(group.key+": add to db")
+          var title = groupDB.val().title;
+          var description = groupDB.val().description;
+          console.log(group.key,title, description);
 
           preContext = {
             uuid: group.key,
             title: title,
             description: description
-          }
-
+          };
           groupsArray.push(preContext);
-
-          if (groupsUnderMebership == i){
+        }
+        console.log(i);
+        if (numberOfGroups == i){
           var context = {groups: groupsArray};
+          console.log(JSON.stringify(context));
           convertTemplate("#groupsGeneral-tmpl", context, "wrapper");
         }
         i++;
-        })
-      }
+      })
+
     });
   })
 
