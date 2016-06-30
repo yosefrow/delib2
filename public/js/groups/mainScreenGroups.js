@@ -6,7 +6,44 @@ function showFooterGroupsBtn(){
 
 function showMemberGroupsPage(){
 
-  listenToOwned_MemberGroups("member");
+  DB.child("users/"+userUuid+"/membership").once("value", function(groups){
+
+    var groupsUnderMebership = groups.val();
+    var numberOfTopics = Object.keys(groupsUnderMebership).length;
+
+    var preContext = new Object();
+    var groupsArray = new Array();
+    var numberOfGroups;
+
+    var i = 1;
+
+    groups.forEach(function(group){
+
+      if(group.val()){
+        //get group details
+        DB.child("groups/"+group.key).once("value",function(group){
+
+          var title = group.val().title;
+          var description = group.val().description;
+
+          preContext = {
+            uuid: group.key,
+            title: title,
+            description: description
+          }
+
+          groupsArray.push(preContext);
+
+          if (groupsUnderMebership == i){
+          var context = {groups: groupsArray};
+          convertTemplate("#groupsGeneral-tmpl", context, "wrapper");
+        }
+        i++;
+        })
+      }
+    });
+  })
+
   showFooterGroupsBtn();
   setUrl();
 
@@ -110,7 +147,7 @@ function listenToOwned_MemberGroups (role){
       } else {
         console.log("groups don't exists");
         convertTemplate("#groups_"+role+"-tmpl", {}, "wrapper");
-//        $("wrapper").html("");
+        //        $("wrapper").html("");
       }
     })
   } else {console.log("type of role is not recognized")}
