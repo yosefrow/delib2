@@ -1,9 +1,9 @@
 function openTopicMenu(topicUid){
   console.log($("#topicMenu"+topicUid).is(':visible'))
-  if ($("#topicMenu"+topicUid).is(':visible')){
-    $("#topicMenu"+topicUid).hide(400);
+  if ($("#questionMenu"+topicUid).is(':visible')){
+    $("#questionMenu"+topicUid).hide(400);
   } else {
-    $("#topicMenu"+topicUid).show(400);
+    $("#questionMenu"+topicUid).show(400);
   }
 }
 

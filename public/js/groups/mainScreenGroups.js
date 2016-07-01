@@ -6,7 +6,49 @@ function showFooterGroupsBtn(){
 
 function showMemberGroupsPage(){
 
-  listenToOwned_MemberGroups("member");
+  DB.child("users/"+userUuid+"/membership").once("value", function(groups){
+
+    var groupsUnderMebership = groups.val();
+    var numberOfGroups = Object.keys(groupsUnderMebership).length;
+    console.log("numberOfTopics: "+numberOfGroups);
+
+    var preContext = new Object();
+    var groupsArray = new Array();
+    var numberOfGroups;
+
+    var i = 1;
+
+    groups.forEach(function(group){
+
+      console.log(group.key, group.val());
+
+      //get group details
+      DB.child("groups/"+group.key).once("value",function(groupDB){
+        if (group.val()){
+          console.log(group.key+": add to db")
+          var title = groupDB.val().title;
+          var description = groupDB.val().description;
+          console.log(group.key,title, description);
+
+          preContext = {
+            uuid: group.key,
+            title: title,
+            description: description
+          };
+          groupsArray.push(preContext);
+        }
+        console.log(i);
+        if (numberOfGroups == i){
+          var context = {groups: groupsArray};
+          console.log(JSON.stringify(context));
+          convertTemplate("#groupsGeneral-tmpl", context, "wrapper");
+        }
+        i++;
+      })
+
+    });
+  })
+
   showFooterGroupsBtn();
   setUrl();
 
@@ -110,7 +152,7 @@ function listenToOwned_MemberGroups (role){
       } else {
         console.log("groups don't exists");
         convertTemplate("#groups_"+role+"-tmpl", {}, "wrapper");
-//        $("wrapper").html("");
+        //        $("wrapper").html("");
       }
     })
   } else {console.log("type of role is not recognized")}

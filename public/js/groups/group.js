@@ -7,6 +7,7 @@ function showGroup(groupUid, back){
     uid: groupUid
   };
 
+
   userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userEntityNotifications.once('value', function(data){
@@ -28,6 +29,8 @@ function showGroup(groupUid, back){
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid}, "#headerMenu");
     //    getLocalNotifications();
   });
+
+  isMembership();
 
   if (userEntityNotificationsExists) {
     $("#globalNotificationsSub").css("color", activeColor);
