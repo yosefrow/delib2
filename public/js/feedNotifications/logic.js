@@ -33,7 +33,7 @@ DB.child("/users/"+userUuid+"/entityNotifications").on('value', function (notifi
 function feedPusher (entityDatum, subEntityType) {
 
     var feedJson = {};
-    var chatMessagesCounter
+    var chatMessagesCounter;
     const FEEDVolume = 20;
 
     if (Object.keys(feedJson).length >= FEEDVolume)
