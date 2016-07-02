@@ -14,7 +14,7 @@ function routTo(currentUrl, back){
   var currentType = currentUrl.slice(0,slashPostion);
 
   var currentEntety = currentUrl.slice(slashPostion+1);
-  console.log("type: "+ currentType+", currentEntety: "+currentEntety);
+
   switch (currentType){
     case "group":
       DB.child("groups/"+currentEntety).once("value", function (group){
@@ -48,8 +48,6 @@ function routTo(currentUrl, back){
 };
 
 function setUrl(type, uid){
-
-  console.log("pushing new state: "+ type, uid)
   //get domain
   var currentUrl = window.location.href;
   var locationToCut = currentUrl.indexOf("?");
