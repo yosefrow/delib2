@@ -46,7 +46,7 @@ function showTopic(topicUid, back){
     var title = dataSnapshot.val().title;
     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: topicUid}, "#headerMenu");
-    getLocalNotifications();
+    // getLocalNotifications();
 
     console.dir(userEntityNotificationsExists);
 

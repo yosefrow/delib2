@@ -57,6 +57,13 @@ var activeColor = "white";
 var userEntityNotifications;
 var userEntityNotificationsExists;
 
+const subEntity = {
+  groups: "topics",
+  topics: "questions",
+  questions: "options",
+  chat: "room"
+};
+
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo",
