@@ -28,15 +28,16 @@ function showGroup(groupUid, back){
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid}, "#headerMenu");
     //    getLocalNotifications();
+    if (userEntityNotificationsExists) {
+      $("#globalNotificationsSub").css("color", activeColor);
+    } else {
+      $("#globalNotificationsSub").css("color", inactiveColor);
+    }
   });
 
   isMembership();
 
-  if (userEntityNotificationsExists) {
-    $("#globalNotificationsSub").css("color", activeColor);
-  } else {
-    $("#globalNotificationsSub").css("color", inactiveColor);
-  }
+
 
   showGroupTopics (groupUid);
   $("footer").html("");

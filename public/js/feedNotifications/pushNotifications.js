@@ -48,22 +48,21 @@ function fcmUnsubscribe() {
 
 
 function setGlobalNotifications() {
-
-    userEntityNotifications.on('value', function(data) {
-        userEntityNotificationsExists = data.val() !== null;
-    });
-
+    
     if(activeEntity !== 'undefined') {
 
-        console.dir(userEntityNotificationsExists);
+        // console.dir(userEntityNotificationsExists);
+        
+        var GlobalNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/globalNotifications");
+            
         if (userEntityNotificationsExists)
         {
 
-            DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid).remove();
+            GlobalNotifications.remove();
             $("#globalNotificationsSub").css("color", inactiveColor);
             console.log('Unsubscribed!');
         } else {
-            DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid).set(true);
+            GlobalNotifications.set(true);
 
             $("#globalNotificationsSub").css("color", activeColor);
             console.log('Subscribed!');
