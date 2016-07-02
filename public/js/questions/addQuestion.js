@@ -9,7 +9,7 @@ function newQuestion(){
   }
 
   convertTemplate("#createQuestion-tmpl",{}, "wrapper");
-  convertTemplate("#createQuestionFooter-tmpl",{}, "footer")
+  convertTemplate("#createQuestionFooter-tmpl",{}, "footer");
 
   convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
 
@@ -100,7 +100,6 @@ function addNewQuestion(){
 }
 
 
-
 //create new question
 function setNewQuestionToDB (title, description, type){
 
@@ -131,33 +130,10 @@ function setNewQuestionToDB (title, description, type){
 
 
 
-  var questionId = DB.child("questions").push({title: title, description: description, type: type, numberOfOptions: numberOfOptionsTemp, options:optionsTempInput});
+  var questionId = DB.child("questions").push({dateAdded: firebase.database.ServerValue.TIMESTAMP, title: title, description: description, type: type, numberOfOptions: numberOfOptionsTemp, options:optionsTempInput, owner: userUuid});
 
   return questionId;
 }
-
-//function setQuestionToDB(){
-//  console.log("seeting question")
-//  for (i=1;i<9;i++){
-//    //find name and description
-//    var optionName = "optionName"+i;
-//    var optionDescription = "optionDescription"+i;
-//    var isName = optionsTempInput.indexOf(optionName);
-//    console.log("isName: "+ isName);
-//    var isDescription = optionsTempInput.indexOf(optionDescription);
-//    console.log("isDescription: "+ isDescription)
-//    if (isName >-1 || isDescription >-1){
-//      if (isName >-1){
-//        var dbName = optionsTempInput[optionName];
-//      }
-//      if (isDescription>-1){
-//        var dbDescription = optionsTempInput[optionDescription];
-//      }
-//      console.log(i+") dbName: "+dbName + "dbDescription: "+dbDescription );
-//    }
-//  }
-//
-//}
 
 function listenToOptionsInput(numberOfOptions){
 
@@ -181,32 +157,3 @@ function listenToOptionsInput(numberOfOptions){
     })
   }
 }
-
-//function setTwoOptions(){
-//
-//  var nameText1 = optionsTempInput["optionName1"];
-//  var nameText2 = optionsTempInput["optionName2"];
-//  var descriptionText1 = optionsTempInput["optionDescription1"];
-//  var descriptionText2 = optionsTempInput["optionDescription2"];
-//
-//  convertTemplate("#questionOptionsTwoOptions-tmpl", {nameText1:nameText1, nameText2:nameText2, descriptionText1:descriptionText1, descriptionText2: descriptionText2 }, "#questionOptions");
-//
-//  for( i=1; i< 3; i++){
-//    $("#optionName"+i).keyup(function(e){
-//      var dinput = this.value;
-//
-//      optionsTempInput[e.currentTarget.id] = dinput;
-//      console.log(optionsTempInput);
-//
-//    })
-//  }
-//
-//  for( i=1; i< 3; i++){
-//    $("#optionDescription"+i).keyup(function(e){
-//      var dinput = this.value;
-//      optionsTempInput[e.currentTarget.id] = dinput;
-//      console.log(optionsTempInput);
-//
-//    })
-//  }
-//}

@@ -57,7 +57,6 @@ var activeColor = "white";
 var userEntityNotifications;
 var userEntityNotificationsExists;
 
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo",

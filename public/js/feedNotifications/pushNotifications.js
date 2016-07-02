@@ -91,16 +91,29 @@ function pushNotification(EntityData, entityType) {
         notification.onclick = function () {
             switch (entityType){
                 case "groups": showGroup(EntityData.key); break;
-                case "topics": showGroup(EntityData.key); break;
-                case "questions": showGroup(EntityData.key); break;
+                case "topics": showTopic(EntityData.key); break;
+                case "questions": showQuestion(EntityData.key); break;
+                // for a later use
+                // case "options": showOptionInfo(EntityData.key); break;
             }
         };
-
     }
-
 }
 
+function sendOwnerCall() {
+    
+    DB.ref("/"+activeEntity.entity+"/"+activeEntity.uid+"/ownerNotifications").push($("#callBox").val());
+    
+    
+    
+}
 
+function groupOwnerShoutout() {
+    
+
+
+    pushNotification(EntityData, entityType)
+}
 
 
 

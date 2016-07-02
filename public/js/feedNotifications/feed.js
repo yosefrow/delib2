@@ -1,14 +1,12 @@
 //------Feed List-------
 
-function setLocalNotifications(){
-    var entity = activeEntity.entity;
-    var uid = activeEntity.uid;
+function setFeed(){
 
-    var userNotificationsDB = DB.child("users/"+userUuid+"/localNotifications/"+entity+"/"+uid);
+    var userNotificationsDB = DB.child("users/"+userUuid+"/localNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
     userNotificationsDB.once("value", function(dataSnapshot){
         if (dataSnapshot.val() == true){
-            userNotificationsDB.set(false);
+            userNotificationsDB.remove();
             $("#feedSubscribe").css("color", inactiveColor);
         } else {
             userNotificationsDB.set(true);
@@ -17,24 +15,11 @@ function setLocalNotifications(){
     })
 }
 
-function getLocalNotifications(){
-    var entity = activeEntity.entity;
-    var uid = activeEntity.uid;
-    var userNotificationsDB = DB.child("users/"+userUuid+"/localNotifications/"+entity+"/"+uid);
 
-    userNotificationsDB.once("value", function(localNotifications){
-
-        if (localNotifications.val() == true){
-            $("#feedSubscribe").css("color", activeColor);
-        } else {
-            $("#feedSubscribe").css("color", inactiveColor);
-        }
-    })
-}
 
 const subEntitys = {groups: "topics", topics: "questions", questions: "", chats: ""};
 
-function showLocalNotifications(){
+function showfeed(){
 
     //get active notifications
     DB.child("users/"+userUuid+"/localNotifications").on("value", function(notifications){

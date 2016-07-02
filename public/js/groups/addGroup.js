@@ -10,6 +10,7 @@ function addNewGroup(){
   groupName = $("#createGroupName").val();
   groupDescription = $("#createGroupDescription").val();
   groupType = $("input[name=type]:checked").val();
+  dateAdded=  
   console.log("name: " + groupName + ", group description: "+ groupDescription + ", type: " + groupType);
 
   if (groupName == "") {
@@ -24,7 +25,7 @@ function addNewGroup(){
 
 
 
-  var newGroup = DB.child("groups").push({title: groupName, description: groupDescription, type:groupType, owner: userUuid });
+  var newGroup = DB.child("groups").push({dateAdded: firebase.database.ServerValue.TIMESTAMP, title: groupName, description: groupDescription, type:groupType, owner: userUuid });
 
   var groupRole= new Object;
   groupRole[newGroup.key] = "owner";

@@ -58,14 +58,7 @@
 
     <script src="js/login.js"></script>
     <script src="js/feedNotifications/pushNotifications.js"></script>
-
-<<<<<<< HEAD
-  </head>
-=======
-    <!--    <script src="js/pushNotifications.js"></script>-->
 </head>
->>>>>>> b3a7d48b5b700e8b99d8092ecee7cab74f61ea5f
-
 <body dir="rtl">
 
 
@@ -176,55 +169,54 @@
 
     <!--- Login ------->
 
-    <script type="text/x-handlebars-template" id="login-tmpl">
-<<<<<<< HEAD
-      <div class="card" style="height: 100%">
-        <h4>התחברות</h4>
-        <div>
-          <label>התחברות עם שם משתמש וסיסמה<br>
-            <input type="email" placeholder="email"><br>
-            <input type="password" placeholder="password"><br>
-            <input type="button" onclick="loginMe()" value="התחברות">
-          </label><br>
+    <script type="text/x-han    dlebars-template" id="login-tmpl">
 
-          <label>התחברות חברתית:<br>
-            <input type="button" onclick="facebookLogin()" value="Facebook"><br>
-            <input type="button" onclick="googleLogin()" value="Google"><br>
-            <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית"><br>
-            <input type="button" onclick="signout()" value="Sign out"><br>
-            <input type="button"  id="fcmPushNotiificationsBtn" value="Subscribe" onclick="sefFcmPushNotiifications()" type="button"><br>
-          </label>
-        </div>
-=======
-        <div class="card login" style="height: 100%; width:auto">
+        <div class="card" style="height: 100%">
             <h4>התחברות</h4>
-            <div id="login-general">
-                <p>התחברות עם שם משתמש וסיסמה</p>
-                <label>אימייל
-                    <input type="email">
-                </label>
-                <br>
-                <label>סיסמה
-                    <input type="password">
-                </label>
-                <br>
-                <button onclick="loginMe()">התחברות</button>
-            </div>
-            <div id="login-social">
-                <p>התחברות באמצעות</p>
-                <button onclick="facebookLogin()">פייסבוק</button>
-                <button onclick="googleLogin()">גוגל</button>
-<!--                <button onclick="loginMeAnonymus()">אנונימי</button>-->
-<!--
             <div>
-                <button class="btn-signout" onclick="signout()" >התנתקות</button>
-            </div>
--->
->>>>>>> b3a7d48b5b700e8b99d8092ecee7cab74f61ea5f
+                <label>התחברות עם שם משתמש וסיסמה<br>
+                    <input type="email" placeholder="email"><br>
+                    <input type="password" placeholder="password"><br>
+                    <input type="button" onclick="loginMe()" value="התחברות">
+                </label><br>
 
-                <!-- <button id="fcmPushNotiificationsBtn" value="Subscribe" onclick="sefFcmPushNotiifications()" type="button">Subscribe</button>-->
+                <label>התחברות חברתית:<br>
+                    <input type="button" onclick="facebookLogin()" value="Facebook"><br>
+                    <input type="button" onclick="googleLogin()" value="Google"><br>
+                    <input type="button" onclick="loginMeAnonymus()" value="התחברות אנונימית"><br>
+                    <input type="button" onclick="signout()" value="Sign out"><br>
+                    <input type="button"  id="fcmPushNotiificationsBtn" value="Subscribe" onclick="sefFcmPushNotiifications()" type="button"><br>
+                </label>
             </div>
-        </div>
+
+            <div class="card login" style="height: 100%; width:auto">
+                <h4>התחברות</h4>
+                <div id="login-general">
+                    <p>התחברות עם שם משתמש וסיסמה</p>
+                    <label>אימייל
+                        <input type="email">
+                    </label>
+                    <br>
+                    <label>סיסמה
+                        <input type="password">
+                    </label>
+                    <br>
+                    <button onclick="loginMe()">התחברות</button>
+                </div>
+                <div id="login-social">
+                    <p>התחברות באמצעות</p>
+                    <button onclick="facebookLogin()">פייסבוק</button>
+                    <button onclick="googleLogin()">גוגל</button>
+                    <!--                <button onclick="loginMeAnonymus()">אנונימי</button>-->
+                    <!--
+                               <div>
+                                   <button class="btn-signout" onclick="signout()" >התנתקות</button>
+                               </div>
+                    -->
+
+                    <!-- <button id="fcmPushNotiificationsBtn" value="Subscribe" onclick="sefFcmPushNotiifications()" type="button">Subscribe</button>-->
+                </div>
+            </div>
     </script>
 
 
