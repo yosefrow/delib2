@@ -1,6 +1,6 @@
 
- DB.child("/users/"+userUuid+"/entityNotifications").on('value', function (entitiesUpdates) {
-     console.log(entitiesUpdates.val());
+ DB.child("users/"+userUuid+"/entityNotifications").on('value', function (entitiesUpdates) {
+     console.log(JSON.stringify(entitiesUpdates.val()), userUuid);
      // search inside entities
          entitiesUpdates.forEach(function (entityUpdates) {
              // search inside entity
