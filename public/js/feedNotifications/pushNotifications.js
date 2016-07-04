@@ -82,6 +82,7 @@ function pushNotification(EntityData, entityType) {
     if (Notification.permission !== "granted")
         Notification.requestPermission(EntityData);
     else {
+        console.log(EntityData.val(), entityType );
         var notification = new Notification(EntityData.val().title, {
             icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
             body: EntityData.val().description

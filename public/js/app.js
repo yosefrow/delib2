@@ -56,6 +56,11 @@ var inactiveColor = "#5f1f1f";
 var activeColor = "white";
 var userEntityNotifications;
 var userEntityNotificationsExists;
+var mostUpdatedUid = null;
+
+
+const FEEDVolume = 20;
+var feedJson = {};
 
 const subEntity = {
   groups: "topics",

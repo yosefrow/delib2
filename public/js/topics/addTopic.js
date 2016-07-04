@@ -20,7 +20,7 @@ function addNewTopic(){
   var newTopic = DB.child("topics").push({dateAdded: firebase.database.ServerValue.TIMESTAMP, title: topicName, description: topicDescription, owner: userUuid });
   if (activeEntity.entity == "groups"){
     var group = activeEntity.uid;
-    DB.child("groups/"+group+"/topics/"+newTopic.key).set(true);
+    DB.child("groups/"+group+"/topics/"+newTopic.key+"/dateAdded").set(firebase.database.ServerValue.TIMESTAMP);
   }
   DB.child("users/"+userUuid+"/topics/"+newTopic.key).set("owner");
 
