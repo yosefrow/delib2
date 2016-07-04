@@ -48,8 +48,7 @@ function fcmUnsubscribe() {
 
 
 function setGlobalNotifications() {
-<<<<<<< HEAD
-    
+
     if(activeEntity !== 'undefined') {
 
         console.dir(userEntityNotificationsExists);
@@ -71,31 +70,10 @@ function setGlobalNotifications() {
         userEntityNotifications.once('value', function(data) {
             userEntityNotificationsExists = data.child("globalNotifications").exists();
         });
-=======
-  console.log("setGlobalNotifications");
 
-  if(activeEntity !== 'undefined') {
-
-    // console.dir(userEntityNotificationsExists);
-
-    var GlobalNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/globalNotifications");
-
-    if (userEntityNotificationsExists)
-    {
-
-      GlobalNotifications.remove();
-      $("#globalNotificationsSub").css("color", inactiveColor);
-      console.log('Unsubscribed!');
-    } else {
-      GlobalNotifications.set(true);
-
-      $("#globalNotificationsSub").css("color", activeColor);
-      console.log('Subscribed!');
-
->>>>>>> master
     }
   }
-}
+
 
 
 function pushNotification(EntityData, entityType) {
@@ -135,13 +113,9 @@ function sendOwnerCall() {
 }
 
 function groupOwnerShoutout() {
-
-
-<<<<<<< HEAD
-=======
-
+    
   pushNotification(EntityData, entityType)
->>>>>>> master
+
 }
 
 
