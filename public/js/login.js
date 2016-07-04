@@ -28,8 +28,7 @@ function listenToAuth(){
   });
 }
 
-//var DB = firebase.database().ref();
-//var storage = firebase.storage();
+
 //Google login
 function googleLogin() {
   var provider2 = new firebase.auth.GoogleAuthProvider();

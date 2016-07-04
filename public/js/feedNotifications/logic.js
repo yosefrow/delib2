@@ -1,78 +1,42 @@
 
-DB.on('child_changed', function (entityChanged) {
+ DB.child("/users/"+userUuid+"/entityNotifications").on('value', function (entitiesUpdates) {
+     console.log("lakalakalalla");
+     // search inside entities
+         entitiesUpdates.forEach(function (entityUpdates) {
+             // search inside entity
+                 entityUpdates.forEach(function (entityUpdate) {
+                     console.log(entityUpdate.key, entityUpdates.key);
 
-    // if users changed - get out.
-    if(entityChanged.key == "users")
-        return;
+                     var isGlobalReg    = entityUpdate.child('globalNotifications').exists();
+                     var isOwnerCallReg = entityUpdate.child('ownerCalls').exists();
+                     var isFeedReg      = entityUpdate.child('feed').exists();
 
-    // child changed get a snapshot of the child which children or its children-childrens changed. not the actual changed child
-    console.log(entityChanged.val());
-    console.log(entityChanged.key);
+                     // if subscribed to ownerCalls
+                     if (isOwnerCallReg) {
+                         DB.child(entityUpdates.key + "/" + entityUpdate.key + "/ownerCalls").limitToLast(1).on('child_added', function (ownerCall) {
+                             pushNotification(ownerCall, "ownerCalls");
+                         }).catch(function (error) { console.log(error, "no ownerCalls") });
 
+                         return;
+                     }
 
-    // if other entity changed - move on
-    DB.child("/users/" + userUuid + "/entityNotifications/" + entityChanged.key).once('value', function (snapshot) {
-        snapshot.forEach(function (entityUpdated) {
+                     // check if sub-entity added, only if registered to Global or Feed. if not registered fo both - move on
 
-            // check what updates
+                    if (isGlobalReg || isFeedReg) {
+                        DB.child(entityUpdates.key + "/" + entityUpdate.key + "/" + subEntity[entityUpdates.key]).limitToLast(1).on('child_added', function (entityAddedUid) {
 
-            var isGlobalReg    = entityUpdated.child('globalNotifications').exists();
-            var isOwnerCallReg = entityUpdated.child('ownerCalls').exists();
-            var isFeedReg      = entityUpdated.child('feed').exists();
+                            if (isGlobalReg)
+                                pushNotification(entityAddedUid, subEntity[entityUpdates.key]);
 
-            // check if sub-entity added, only if registered to Global or Feed. if not registered fo both - move on
-            if (isGlobalReg || isFeedReg) {
+                            if (isFeedReg)
+                                feedPusher(entityAddedUid, subEntity[entityUpdates.key]);
 
-                // check if sub-entity added.
-                // if a sub-entity added to an entity (example: if a topic_uid added to group_uid under "topics"),
-                DB.child(entityChanged.key + "/" + entityUpdated.key+ "/" + subEntity[entityChanged.key]).orderByChild('dateAdded').limitToLast(1).once('child_added', function (entityAddedUid) {
-
-                    if(mostUpdatedUid == null)
-                        mostUpdatedUid = entityAddedUid;
-                    else if (mostUpdatedUid.val().dateAdded < entityAddedUid.val().dateAdded)
-                        mostUpdatedUid = entityAddedUid;
-                    else
-                        return;
-
-                    // if sub-entity added, go to sub entity's actual content.
-                    DB.child(subEntity[entityChanged.key] + "/" + entityAddedUid.key).once('value', function (entityAddedContent) {
-
-                        // if registered to Global
-                        if (isGlobalReg == true) {
-                            pushNotification(entityAddedContent, subEntity[entityChanged.key]);
-                            return;
-                        }
-
-                        // if registered to feed then push feed chunk
-                        if (isFeedReg == true)
-                        {
-                            feedPusher(entityAddedContent, subEntity[entityChanged.key]);
-                        }
-                    });
-                }).catch(function (error) { console.log(error, "no entity path") });
-
-                // do not proceed
-                return;
-            }
-
-            if (isOwnerCallReg == true) {
-                // if registered to ownerCalls then push an owner call notification
-                DB.child(entityChanged.key + "/" + entityUpdated.key + "/ownerCalls").orderByChild('dateAdded').limitToLast(1).once('child_added', function (ownerCall) {
-
-                    if(mostUpdatedUid == null)
-                        mostUpdatedUid = ownerCall;
-                    else if  (mostUpdatedUid.val().dateAdded < ownerCall.val().dateAdded) {
-                        mostUpdatedUid = ownerCall;
-                        pushNotification(ownerCall, "ownerCalls");
+                       }).catch(function (error) { console.log(error, "no entity path") });
                     }
+                 });
+         });
+ });
 
-                }).catch(function (error) {
-                    console.log(error, "no ownerCalls")
-                });
-            }
-            });
-        }).catch(function (error) { console.log(error, "no such entity registered") });
-});
 
 function feedPusher (entityDatum, subEntityType) {
 

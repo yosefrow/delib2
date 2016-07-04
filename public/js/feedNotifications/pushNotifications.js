@@ -51,7 +51,7 @@ function setGlobalNotifications() {
     
     if(activeEntity !== 'undefined') {
 
-        // console.dir(userEntityNotificationsExists);
+        console.dir(userEntityNotificationsExists);
         
         var GlobalNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/globalNotifications");
             
@@ -66,7 +66,6 @@ function setGlobalNotifications() {
 
             $("#globalNotificationsSub").css("color", activeColor);
             console.log('Subscribed!');
-
         }
     }
 }
@@ -112,7 +111,6 @@ function groupOwnerShoutout() {
     
 
 
-    pushNotification(EntityData, entityType)
 }
 
 

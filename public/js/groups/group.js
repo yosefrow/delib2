@@ -1,18 +1,19 @@
 function showGroup(groupUid, back){
 
-  if (back == undefined){back = false};
+  if (back == undefined){back = false}
 
   activeEntity = {
     entity: "groups",
     uid: groupUid
   };
+  
+  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/globalNotifications");
 
-
-  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-  userEntityNotifications.once('value', function(data){
-    userEntityNotificationsExists = data.val() !== null;
+  userEntityNotifications.once('value', function(data) {
+    userEntityNotificationsExists = data.exists();
   });
+
+  console.dir(userEntityNotificationsExists);
 
   setNewEntity("groups", groupUid);
   //get state of notifications
