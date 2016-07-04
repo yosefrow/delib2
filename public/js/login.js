@@ -12,7 +12,7 @@ function listenToAuth(){
       console.log("User is signed in.");
       $("#loginScreen").hide(300);
       userUuid = user.uid;
-      DB.child("users/"+user.u).update({name: user.displayName});
+      DB.child("users/"+user.uid).update({name: user.displayName});
       showLocalNotifications();
       goHome();
       //get name
