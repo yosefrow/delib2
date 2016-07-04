@@ -7,13 +7,14 @@ function showGroup(groupUid, back){
     uid: groupUid
   };
   
-  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/globalNotifications");
+  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userEntityNotifications.once('value', function(data) {
-    userEntityNotificationsExists = data.exists();
-  });
+    userEntityNotificationsExists = data.child("globalNotifications").exists();
 
-  console.dir(userEntityNotificationsExists);
+    console.dir(userEntityNotificationsExists);
+
+  });
 
   setNewEntity("groups", groupUid);
   //get state of notifications

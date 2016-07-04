@@ -27,10 +27,10 @@ function showTopic(topicUid, back){
     entity: "topics",
     uid: topicUid
   };
-  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/globalNotifications");
+  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
-  userEntityNotifications.once('value', function(data){
-    userEntityNotificationsExists = data.exists();
+  userEntityNotifications.once('value', function(data) {
+    userEntityNotificationsExists = data.child("globalNotifications").exists();
   });
 
 

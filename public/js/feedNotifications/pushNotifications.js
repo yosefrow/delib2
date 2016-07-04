@@ -53,20 +53,23 @@ function setGlobalNotifications() {
 
         console.dir(userEntityNotificationsExists);
         
-        var GlobalNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/globalNotifications");
+        var GlobalNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
             
         if (userEntityNotificationsExists)
         {
-
-            GlobalNotifications.remove();
+            GlobalNotifications.child("globalNotifications").remove();
             $("#globalNotificationsSub").css("color", inactiveColor);
+            userEntityNotificationsExists = 
             console.log('Unsubscribed!');
         } else {
-            GlobalNotifications.set(true);
-
+            GlobalNotifications.child("globalNotifications").set(true);
             $("#globalNotificationsSub").css("color", activeColor);
             console.log('Subscribed!');
         }
+
+        userEntityNotifications.once('value', function(data) {
+            userEntityNotificationsExists = data.child("globalNotifications").exists();
+        });
     }
 }
 

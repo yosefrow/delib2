@@ -22,11 +22,11 @@ function showQuestion(questionUid, back){
     uid: questionUid
   };
 
-  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/globalNotifications");
+    userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
-  userEntityNotifications.once('value', function(data){
-    userEntityNotificationsExists = data.exists();
-  });
+    userEntityNotifications.once('value', function(data) {
+        userEntityNotificationsExists = data.child("globalNotifications").exists();
+    });
 
 
 

@@ -1,9 +1,10 @@
 
  DB.child("/users/"+userUuid+"/entityNotifications").on('value', function (entitiesUpdates) {
-     console.log("lakalakalalla");
+     console.log(entitiesUpdates.val());
      // search inside entities
          entitiesUpdates.forEach(function (entityUpdates) {
              // search inside entity
+             console.log(entityUpdates.key);
                  entityUpdates.forEach(function (entityUpdate) {
                      console.log(entityUpdate.key, entityUpdates.key);
 

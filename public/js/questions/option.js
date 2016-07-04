@@ -57,7 +57,7 @@ function showOptionInfo(question, option){
 
   if ($("#info").is(":visible")){
     $("#info").hide(400);
-  } else{
+  } else{ 
 
     DB.child("questions/"+question+"/options/"+option).once("value", function(dataSnapshot){
 
