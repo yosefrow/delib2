@@ -1,10 +1,12 @@
-//imports
+//*** imports ***//
 @import "login.less";
+@import "headers.less";
 @import "cards.less";
+@import "votes.less";
+@import "chat.less";
+@import "footer.less";
 
-
-
-//general variables
+//*** general variables ***//
 @bg-main700: #cc0000;  //default background color
 @bg-accent: #212121;  //accent color
 
@@ -68,15 +70,17 @@
   }
 
   header{
-    width:60%;
+    width:100%;
     right:20%;
   }
 
   footer{
-    width:60%;
+    width:100%;
     right:20%;
   }
 }
+
+
 
 body{
   font-family: 'Alef', sans-serif;
@@ -126,78 +130,6 @@ body{
 
 }
 
-header {
-  /*  display: table-row;*/
-  height: 100px;
-  /*  display: table;*/
-  width: 100%
-}
-
-#headerTitle{
-  background-color: @bg-main700;
-  color: white;
-  border-bottom: 1px solid @bg-main700;
-  font-size: 1.5em;
-  padding: 3px;
-
-  text-align: center;
-
-  z-index: 5;
-
-  height: 30px;
-}
-
-#headerBreadCrumbs {
-
-  /*  display: table-row;*/
-  height: 20px;
-  width: 100%;
-
-
-  background-color:@bg-main700;
-  color: white;
-  border-bottom: 1px solid #ce8181;
-}
-
-#headerMenu{
-  display: table-row;
-
-  width:100%;
-  height: 50px;
-  display: flex;
-  justify-content:space-between;
-  background-color: @bg-main700;
-
-}
-
-.headerMenuBtn{
-  color: white;
-  text-align:center;
-
-  text-decoration: none;
-  border-right: 1px solid #cb4a4a;
-  width:100%;
-  height: 50px;
-  background-color: @bg-main700;
-
-}
-
-.headerMenuBtn i{
-  position: relative;
-  top:50%;
-  transform: translateY(-50%);
-}
-
-
-.btn-header {
-  background-color: @bg-main700;
-}
-.btn-header:hover {
-  background-color: #A10000;
-}
-
-
-
 wrapper{
 
   flex: 1;
@@ -207,49 +139,7 @@ wrapper{
   padding-top: 12px;
 }
 
-footer{
 
-  height: 50px;
-  width: 100%;
-
-
-  font-size: 1.25em;
-  font-weight: 700;
-  overflow: hidden;
-  display: flex;
-  display: -webkit-flex;
-
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: stretch;
-
-  align-content: stretch;
-}
-
-
-
-.footer-btn {
-
-  padding: 5px;
-
-  flex-grow: 1;
-
-  text-align: center;
-  vertical-align: text-bottom;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-right: 1px solid #ce8181;
-
-  background-color: @bg-main700;
-  color: white;
-}
-
-.footer-btn:hover {
-  position: relative;
-  background-color:#A10000;
-}
 
 
 .titles {
@@ -281,16 +171,6 @@ footer{
   margin: 10px;
 }
 
-.card {
-  box-shadow: 2px 2px 2px gray;
-  border-radius: 5px;
-  border-color: #9a9a9a;
-  border-style: solid;
-  border-width: 1px;
-  padding: 5px;
-  margin-bottom: 5px;
-  background-color: white;
-}
 
 .groupDescription{
   border-bottom: 1px solid gray;
@@ -330,59 +210,6 @@ input {
   padding-left: 5px;
 }
 
-/* --- Simple voting */
-.simpleVoteWrapper1{
-  width: 100%;
-  position: absolute;
-  bottom: 50px;
-  left:0px
-}
-
-.simpleVoteWrapper2{
-  display: flex;
-  flex-direction: row;
-  justify-content:space-around;
-  align-items: flex-start;
-
-  width: 100%;
-
-
-}
-
-.simpleVotingBar{
-  margin: 5px;
-  padding: 5px;
-  height: 90px;
-  background-color: #cc4545;
-  color: white;
-  align-self: flex-end;
-  display: flex;
-  justify-content: center;
-
-}
-
-.voteBtnContainer{
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  height: 50px;
-}
-
-.voteInfoContainer{
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  height: 50px;
-}
-
-.voteBtn{
-  background-color: #cc4545;
-  width: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
 #tmpMulCon{
   width: 100%;
@@ -402,70 +229,7 @@ input {
   transform: translateX(-50%)
 }
 
-/********** chat ***********/
 
-.chatContainer{
-  background-color: chocolate;
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-
-}
-.chatMessages{
-  background-color: white;
-  /*
-  position: absolute;
-  bottom: 50px;
-  height: 100%;
-  */
-}
-
-.chatInput{
-  background-color: #cc0000;
-  width: 100%;
-  padding: 5px;
-
-  display: flex;
-  flex-direction: row;
-
-}
-
-.chatInput texterea {
-  width:600px;
-  border-radius: 5px;
-  margin: 10px;
-}
-
-.chatInput button {
-  background-color: #171717;
-}
-
-#messages {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-.message {
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 5px 5px 5px gray;
-  margin: 5px;
-  padding: 5px;
-}
-
-.messageDate{
-  font-size: 0.65em;
-  color: gray;
-  font-weight: 100;
-}
-.messageAuthor {
-  font-size: 0.8em;
-  color: gray;
-}
-
-.action {
-  background-color: #1a1a1a;
-}
 
 /*  add group */
 .addEntityDiv{
@@ -490,28 +254,6 @@ input {
 }
 
 /* topics*/
-
-.cardsTopicsSubmenu{
-/*  display: block;*/
-  max-height: 30px;
-}
-
-.cardsTopicsSubmenuDots{
-  padding-left: 5px;
-  padding-right: 5px;
-}
-.cardsTopicsSubmenuDotsMenu{
-  position: relative;
-  top:-20px;
-  right: 10px;
-  display: inline-block;
-  padding: 5px;
-  background-color: white;
-  border: 1px solid #b2b2b2;
-
-  box-shadow: 5px 5px 5px rgba(74, 74, 74, 0.81);
-}
-
 
 
 /* set question */
@@ -544,46 +286,46 @@ input {
   user-select: none;          /* Likely future */
 
 }
-
-.multiOptionCard{
-  display: flex;
-  flex-direction: column;
-
-}
-.mainOption{
-  display: flex;
-  flex-direction: row;
-}
-
-.interactionOption{
-  flex-grow: 1;
-  -webkit-flex-grow: 1;
-}
-
-.optionDetails {
-  flex-grow: 10;
-  -webkit-flex-grow: 10;
-}
-
-.titleOption{
-  font-weight: 600;
-}
-.optionVisualId{
-  flex-grow: 1;
-  -webkit-flex-grow: 1;
-  margin-left: 5px;
-
-}
-
-.multiOptionsFooter{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.footerOption{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  max-height: 30px;
-}
+//
+//.multiOptionCard{
+//  display: flex;
+//  flex-direction: column;
+//
+//}
+//.mainOption{
+//  display: flex;
+//  flex-direction: row;
+//}
+//
+//.interactionOption{
+//  flex-grow: 1;
+//  -webkit-flex-grow: 1;
+//}
+//
+//.optionDetails {
+//  flex-grow: 10;
+//  -webkit-flex-grow: 10;
+//}
+//
+//.titleOption{
+//  font-weight: 600;
+//}
+//.optionVisualId{
+//  flex-grow: 1;
+//  -webkit-flex-grow: 1;
+//  margin-left: 5px;
+//
+//}
+//
+//.multiOptionsFooter{
+//  display: flex;
+//  flex-direction: row;
+//  justify-content: space-between;
+//}
+//
+//.footerOption{
+//  display: flex;
+//  flex-direction: row;
+//  justify-content: space-between;
+//  max-height: 30px;
+//}
