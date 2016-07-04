@@ -75,7 +75,7 @@ function addMultiOption(questionUid){
 function addMultiOptionToDB(questionUid){
   var title = $("#createMultiOptionName").val();
   var description = $("#createMultiOptionDescription").val();
-
+  console.log("hi")
   if (title == ""){
     alert("Title can't be empty");
     return;
