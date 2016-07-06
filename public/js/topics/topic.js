@@ -21,7 +21,7 @@ function createNewTopic(title, description, explanation, imgTopic){
 
 function showTopic(topicUid, back){
 
-  if (back == undefined){back = false};
+  if (back == undefined){back = false}
 
   activeEntity = {
     entity: "topics",
@@ -45,7 +45,7 @@ function showTopic(topicUid, back){
     }
     var title = dataSnapshot.val().title;
     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
-    convertTemplate("#headerMenu-tmpl", {chatUid: topicUid}, "#headerMenu");
+    convertTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
     // getLocalNotifications();
 
     console.dir(userEntityNotificationsExists);

@@ -28,7 +28,7 @@ function showGroup(groupUid, back){
   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
-    convertTemplate("#headerMenu-tmpl", {chatUid: groupUid}, "#headerMenu");
+    convertTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
     //    getLocalNotifications();
     if (userEntityNotificationsExists) {
       $("#globalNotificationsSub").css("color", activeColor);

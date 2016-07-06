@@ -90,9 +90,9 @@ function addNewQuestion(){
   }
   var newQuestion = setNewQuestionToDB(questionName,questionDescription,questionType);
   //  var newQuestion = DB.child("questions").push({title: questionName, description: questionDescription, type: questionType, owner: userUuid });
-  if (activeEntity.entity == "topics"){
+  if (activeEntity.entity == "topics") {
     var topic = activeEntity.uid;
-    DB.child("topics/"+topic+"/questions/"+newQuestion.key).set(true);
+    DB.child("topics/"+topic+"/questions/"+newQuestion.key+"/dateAdded").set(firebase.database.ServerValue.TIMESTAMP);
   }
   DB.child("users/"+userUuid+"/questions/"+newQuestion.key).set("owner");
 

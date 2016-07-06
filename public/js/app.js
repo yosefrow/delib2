@@ -1,18 +1,18 @@
    
 $(function(){
 
-  if ('serviceWorker' in navigator) {
-    console.log('Service Worker is supported');
-    navigator.serviceWorker.register('../delib-service-worker.js').then(function() {
-      return navigator.serviceWorker.ready;
-    }).then(function(serviceWorkerRegistration) {
-      SWreg = serviceWorkerRegistration;
-      // fcmNotificationsBtn.disabled = false;
-      console.log('Service Worker is ready :^)', SWreg);
-    }).catch(function(error) {
-      console.log('Service Worker Error :^(', error);
-    });
-  }
+  // if ('serviceWorker' in navigator) {
+  //   console.log('Service Worker is supported');
+  //   navigator.serviceWorker.register('../delib-service-worker.js').then(function() {
+  //     return navigator.serviceWorker.ready;
+  //   }).then(function(serviceWorkerRegistration) {
+  //     SWreg = serviceWorkerRegistration;
+  //     // fcmNotificationsBtn.disabled = false;
+  //     console.log('Service Worker is ready :^)', SWreg);
+  //   }).catch(function(error) {
+  //     console.log('Service Worker Error :^(', error);
+  //   });
+  // }
 
   //start ripple effect
   $(".footer-btn").ePulse({
@@ -48,26 +48,37 @@ $(function(){
   listenToAuth();
 })
 
-// Global Variables
-
+// Global General Variables and Constants
 var userUuid;
 var activeEntity = new Object();
-var inactiveColor = "#5f1f1f";
-var activeColor = "white";
-var userEntityNotifications;
-var userEntityNotificationsExists;
-var mostUpdatedUid = null;
-
-
-const FEEDVolume = 20;
-var feedJson = {};
-
 const subEntity = {
   groups: "topics",
   topics: "questions",
   questions: "options",
   chat: "room"
 };
+
+const toHebrew = {
+  groups: "קבוצה חדשה: ",
+  topics: "נושא חדש: ",
+  questions: "שאלה חדשה: ",
+  owner: "קריאה: ",
+  chat: "room"
+};
+
+var inactiveColor = "#5f1f1f";
+var activeColor = "white";
+
+// Updates Variables and Constants
+var userEntityNotifications;
+var userEntityNotificationsExists;
+var mostUpdatedContent = null;
+
+// Feed 
+var feedQueue = [];
+const feedVolume = 20;
+
+
 
 // Initialize Firebase
 var config = {

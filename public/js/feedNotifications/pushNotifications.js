@@ -59,10 +59,13 @@ function setGlobalNotifications() {
         {
             GlobalNotifications.child("globalNotifications").remove();
             $("#globalNotificationsSub").css("color", inactiveColor);
-            userEntityNotificationsExists = 
             console.log('Unsubscribed!');
         } else {
-            GlobalNotifications.child("globalNotifications").set(true);
+            if (activeEntity.entity !== "chats")
+                GlobalNotifications.child("globalNotifications").set(true);
+            else
+                GlobalNotifications.child("globalNotifications").set(0);
+            
             $("#globalNotificationsSub").css("color", activeColor);
             console.log('Subscribed!');
         }
@@ -76,7 +79,7 @@ function setGlobalNotifications() {
 
 
 
-function pushNotification(EntityData, entityType) {
+function pushNotification(EntityData, entityType, messagesSent) {
 
   if (!Notification) {
     alert('Desktop notifications not available in your browser. Try Chromium.');
@@ -87,22 +90,32 @@ function pushNotification(EntityData, entityType) {
     Notification.requestPermission(EntityData);
   else {
     console.log(EntityData.val(), entityType );
-    var notification = new Notification(EntityData.val().title, {
-      icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-      body: EntityData.val().description
-    });
+      if (entityType !== "chats"){
+          var notification = new Notification(toHebrew[entityType] + EntityData.val().title, {
+              icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+              body: EntityData.val().description
+          }); 
+      } else {
+          var notification = new Notification(EntityData.val().title, {
+              icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+              body: messagesSent
+          });
+      }
 
     notification.onclick = function () {
       switch (entityType){
-        case "groups": showGroup(EntityData.key); break;
-        case "topics": showTopic(EntityData.key); break;
-        case "questions": showQuestion(EntityData.key); break;
+          case "groups": showGroup(EntityData.key); break;
+          case "topics": showTopic(EntityData.key); break;
+          case "questions": showQuestion(EntityData.key); break;
+          case "chats": showChat(EntityData.key); break;
+          // case "ownerCalls": showGroup(EntityData.key);
           // for a later use
           // case "options": showOptionInfo(EntityData.key); break;
       }
     };
   }
 }
+
 
 function sendOwnerCall() {
 
@@ -113,7 +126,7 @@ function sendOwnerCall() {
 }
 
 function groupOwnerShoutout() {
-    
+
   pushNotification(EntityData, entityType)
 
 }

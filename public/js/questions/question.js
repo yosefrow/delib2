@@ -34,7 +34,7 @@ function showQuestion(questionUid, back){
   DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
-    convertTemplate("#headerMenu-tmpl", {chatUid: questionUid}, "#headerMenu");
+    convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
     //    getLocalNotifications();
 
     if (userEntityNotificationsExists) {

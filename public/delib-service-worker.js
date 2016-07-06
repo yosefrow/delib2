@@ -31,10 +31,10 @@ self.addEventListener('activate', function(e) {
 
 
 self.addEventListener('fetch', function(e) {
-    console.log('[DelibServiceWorker] Fetch', e.request.url);
+    // console.log('[DelibServiceWorker] Fetch', e.request.url);
     var dataUrl = 'https://synthesistalyaron.firebaseapp.com/';
     if (e.request.url.indexOf(dataUrl) === 0) {
-        console.log('insidde!!!~');
+        // console.log('insidde!!!~');
         e.respondWith(
             fetch(e.request)
                 .then(function(response) {

@@ -1,6 +1,6 @@
 function listenToAuth(){
 
-  firebase.auth().onAuthStateChanged(function(user) {
+   firebase.auth().onAuthStateChanged(function(user) {
     console.log("status login change");
 
     if (user) {
@@ -13,7 +13,7 @@ function listenToAuth(){
       $("#loginScreen").hide(300);
       userUuid = user.uid;
       DB.child("users/"+user.uid).update({name: user.displayName});
-      showLocalNotifications();
+      updatesListener();
       goHome();
       //get name
       //get picture
