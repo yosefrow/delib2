@@ -6,9 +6,9 @@ function getUrl(){
   return currentUrl;
 }
 
-function routTo(currentUrl){
+function routTo(currentUrl, back){
 
-  //get type of refernce
+  if (back == undefined){back = false};
 
   var slashPostion = currentUrl.indexOf("/");
   var currentType = currentUrl.slice(0,slashPostion);
@@ -19,32 +19,35 @@ function routTo(currentUrl){
     case "group":
       DB.child("groups/"+currentEntety).once("value", function (group){
         if(group.exists()){
-          showGroup(currentEntety);
+          showGroup(currentEntety, back);
+//          if (!back){setUrl("groups", currentEntety)};
         } else { console.log("group "+currentEntety+" do not exist"); }
       })
       break;
     case "topic":
       DB.child("topics/"+currentEntety).once("value", function (topic){
         if (topic.exists()){
-          showTopic(currentEntety);
+          showTopic(currentEntety, back);
+//          if (!back){setUrl("topics", currentEntety)};
         } else { console.log("topic "+currentEntety+" do not exist");}
       })
       break;
     case "question":
       DB.child("questions/"+currentEntety).once("value", function (question){
         if (question.exists()){
-          showQuestion(currentEntety);
+          showQuestion(currentEntety, back);
+//          if (!back){setUrl("questions", currentEntety)};
         } else { console.log("question "+currentEntety+" do not exist");}
       })
       break;
     default:
+      showPublicGroups();
       console.log("type did not match");
   }
 
 };
 
 function setUrl(type, uid){
-
   //get domain
   var currentUrl = window.location.href;
   var locationToCut = currentUrl.indexOf("?");

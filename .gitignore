@@ -1,1 +1,7 @@
 node_modules
+*.log
+.idea/workspace.xml
+.idea/*
+.firebaserc
+database.rules.json
+firebase.json
