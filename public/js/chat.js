@@ -2,7 +2,21 @@
 function clearChat(){
   $("wrapper").html("");
 }
-function showChat(chatUid){
+function showChat(chatUid, entityType){
+
+  activeEntity = {
+    entity: "chats",
+    uid: chatUid
+  };
+
+  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+
+  userEntityNotifications.once('value', function(data) {
+    userEntityNotificationsExists = data.child("globalNotifications").exists();
+
+    console.dir(userEntityNotificationsExists);
+
+  });
 
   clearChat();
   setNewEntity("chats", chatUid)
@@ -16,14 +30,14 @@ function showChat(chatUid){
       e.preventDefault();
 
       var inputValue=$("#chatInputTxt").val();
-      addChatMessage(chatUid, userUuid, inputValue);
+      addChatMessage(chatUid, userUuid, inputValue, entityType);
       $("#chatInputTxt").val("");
     }
   });
 
   //get chat messages
   DB.child("chats/"+chatUid).off();
-  DB.child("chats/"+chatUid).orderByChild("time").limitToLast(20).on("child_added", function(chats){
+  DB.child("chats/"+chatUid+"/messages").orderByChild("time").limitToLast(20).on("child_added", function(chats){
     if(chats.exists()){
       var text = chats.val().text;
       var time =  parseDate(chats.val().time);
@@ -34,16 +48,23 @@ function showChat(chatUid){
 
       $('wrapper').scrollTop($('wrapper')[0].scrollHeight);
     }
+
+    if (userEntityNotificationsExists) {
+      $("#globalNotificationsSub").css("color", activeColor);
+    } else {
+      $("#globalNotificationsSub").css("color", inactiveColor);
+    }
   })
 }
 
 
-function addChatMessage(chatUid, userUid, text){
+function addChatMessage(chatUid, userUid, text, entityType){
   //  var x= firebase.database(app);
   if (text != ""){
 
     //get user name
     DB.child("users/"+userUid).once("value", function(user){
+
       var userName = user.val().name;      
       DB.child("chats/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
     })

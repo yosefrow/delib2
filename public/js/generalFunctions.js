@@ -33,24 +33,11 @@ function parseDate(dateInMillisec){
 
 }
 
-//Handelbars shortcut function
-function convertTemplate (template, context, destination){
-  var groupsPublicTmpl = $(template).html();
-  var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
-  var groupPublicHTML = groupPublicHandl(context);
-  $(destination).html(groupPublicHTML);
-}
-
-function appendTemplate (template, context, destination){
-  var groupsPublicTmpl = $(template).html();
-  var groupPublicHandl = Handlebars.compile(groupsPublicTmpl);
-  var groupPublicHTML = groupPublicHandl(context);
-  $(destination).append(groupPublicHTML);
-}
 
 function goHome(){
   showPublicGroups();
   setNewEntity("","");
 }
+
 
 

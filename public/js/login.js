@@ -1,6 +1,6 @@
 function listenToAuth(){
 
-  firebase.auth().onAuthStateChanged(function(user) {
+   firebase.auth().onAuthStateChanged(function(user) {
     console.log("status login change");
 
     if (user) {
@@ -12,8 +12,9 @@ function listenToAuth(){
       console.log("User is signed in.");
       $("#loginScreen").hide(300);
       userUuid = user.uid;
-      DB.child("users/"+user.u).update({name: user.displayName});
-      showLocalNotifications();
+
+      DB.child("users/"+user.uid).update({name: user.displayName});
+      updatesListener();
       goHome();
       //get name
       //get picture
@@ -28,8 +29,7 @@ function listenToAuth(){
   });
 }
 
-//var DB = firebase.database().ref();
-//var storage = firebase.storage();
+
 //Google login
 function googleLogin() {
   var provider2 = new firebase.auth.GoogleAuthProvider();
