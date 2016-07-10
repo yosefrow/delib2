@@ -1,24 +1,4 @@
 //create new topic
-function createNewTopic(title, description, explanation, imgTopic){
-
-  if (title == undefined){
-    title = "";
-    console.log("Error: new topic do not have title");
-  };
-
-  if (description == undefined){
-    description = "";
-  };
-  if (explanation == undefined){
-    explanation = "";
-  };
-  if (imgTopic == undefined){
-    imgTopic = "";
-  };
-
-  DB.child("topics").push({title: title, description: description, explanation: explanation, imgTopic: imgTopic});
-}
-
 function showTopic(topicUid, back){
 
   if (back == undefined){back = false}
@@ -27,6 +7,7 @@ function showTopic(topicUid, back){
     entity: "topics",
     uid: topicUid
   };
+
   userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userEntityNotifications.once('value', function(data) {
@@ -34,7 +15,7 @@ function showTopic(topicUid, back){
   });
 
 
-  setNewEntity("topics", topicUid);
+  setAcitveEntity("topics", topicUid);
 
   //show header
   DB.child("topics/"+topicUid).once("value", function(dataSnapshot){
@@ -113,13 +94,3 @@ function showTopicQuestions(topicUid){
   });
 }
 
-//function openMenu(menuID){
-//  console.log($("#questionMenu"+menuID).is(':visible'))
-//  if ($("#questionMenu"+menuID).is(':visible')){
-//    $("#questionMenu"+menuID).hide(400);
-//  } else {
-//    $("#questionMenu"+menuID).show(400);
-//  }
-//
-//
-//}

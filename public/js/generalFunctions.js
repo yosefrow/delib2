@@ -36,8 +36,11 @@ function parseDate(dateInMillisec){
 
 function goHome(){
   showPublicGroups();
-  setNewEntity("","");
+  setAcitveEntity("","");
 }
 
+function activeWrapper (entity, uid){
+
+}
 
 

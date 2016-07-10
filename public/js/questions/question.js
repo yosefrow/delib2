@@ -11,7 +11,7 @@ function showQuestion(questionUid, back){
 
 
   if (back == undefined){back = false};
-  setNewEntity("questions", questionUid);
+  setAcitveEntity("questions", questionUid);
   if (!back){
     setUrl("question", questionUid);
     console.log("setting url");

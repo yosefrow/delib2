@@ -16,7 +16,7 @@ function showGroup(groupUid, back){
 
   });
 
-  setNewEntity("groups", groupUid);
+  setAcitveEntity("groups", groupUid);
   //get state of notifications
 
 
