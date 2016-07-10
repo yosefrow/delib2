@@ -2,10 +2,10 @@ function showGroup(groupUid, back){
 
   if (back == undefined){back = false}
 
-//  activeEntity = {
-//    entity: "groups",
-//    uid: groupUid
-//  };
+  //  activeEntity = {
+  //    entity: "groups",
+  //    uid: groupUid
+  //  };
 
   userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
@@ -14,8 +14,8 @@ function showGroup(groupUid, back){
 
   });
 
-//  setAcitveEntity("groups", groupUid);
-//  //get state of notifications
+  //  setAcitveEntity("groups", groupUid);
+  //  //get state of notifications
 
 
 
@@ -26,6 +26,7 @@ function showGroup(groupUid, back){
   var showGroupCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
+    $("#headerTitle").fadeIn(50).fadeOut(50).fadeIn(50);
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
     //    getLocalNotifications();
     if (userEntityNotificationsExists) {
@@ -36,14 +37,10 @@ function showGroup(groupUid, back){
   };
 
   setAcitveEntity("groups", groupUid, "value", showGroupCallback);
-
-
-
   isMembership();
 
-
-
   showGroupTopics (groupUid);
+
   $("footer").html("");
 }
 
@@ -86,6 +83,9 @@ function showGroupTopics(groupUid){
           if (i === numberOfTopics){
             var context = {groups: topicsArray};
             convertTemplate("#groupPage-tmpl", context, "wrapper");
+            $("wrapper").hide();
+            $("wrapper").show(600);
+
             //            $(".cardsTopicsSubmenuDotsMenu").hide();
           }
 
@@ -93,6 +93,8 @@ function showGroupTopics(groupUid){
         })
 
       })
-    } else {convertTemplate("#groupPage-tmpl",{}, "wrapper");}
+    } else {convertTemplate("#groupPage-tmpl",{}, "wrapper");
+
+           }
   });
 }

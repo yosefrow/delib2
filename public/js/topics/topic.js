@@ -3,10 +3,10 @@ function showTopic(topicUid, back){
 
   if (back == undefined){back = false}
 
-//  activeEntity = {
-//    entity: "topics",
-//    uid: topicUid
-//  };
+  //  activeEntity = {
+  //    entity: "topics",
+  //    uid: topicUid
+  //  };
 
   userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
@@ -15,9 +15,6 @@ function showTopic(topicUid, back){
   });
 
 
-//  setAcitveEntity("topics", topicUid);
-
-  //show header
 
 
 
@@ -29,10 +26,11 @@ function showTopic(topicUid, back){
     }
     var title = dataSnapshot.val().title;
     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
+    $("#headerTitle").fadeIn(50).fadeOut(50).fadeIn(50);
     convertTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
     // getLocalNotifications();
 
-//    console.dir(userEntityNotificationsExists);
+    //    console.dir(userEntityNotificationsExists);
 
     if (userEntityNotificationsExists) {
       $("#globalNotificationsSub").css("color", activeColor);
@@ -41,10 +39,12 @@ function showTopic(topicUid, back){
     }
 
   };
-  console.log("go to topic");
+
   setAcitveEntity("topics", topicUid, "value", showTopicCallback);
   //show questions in topic
   showTopicQuestions (topicUid);
+
+
 
 }
 
@@ -87,7 +87,8 @@ function showTopicQuestions(topicUid){
           if (i === numberOfQuestions){
             var context = {questions: questionsArray};
             convertTemplate("#topicPage-tmpl", context, "wrapper");
-//            $(".cardsTopicsSubmenuDotsMenu").hide();
+            $("wrapper").hide();
+            $("wrapper").show(700);
 
           }
 

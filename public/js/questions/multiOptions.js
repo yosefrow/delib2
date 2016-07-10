@@ -36,6 +36,8 @@ function showMultiOptions(questionUid){
         $("#"+optionUid+"voteCount").text("הצבעות: "+currentVote.val());
       });
     })
+    $("wrapper").hide();
+  $("wrapper").show(700);
   })
 
 
