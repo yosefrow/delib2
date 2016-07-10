@@ -93,20 +93,4 @@ firebase.initializeApp(config);
 var DB = firebase.database().ref();
 var storage = firebase.storage();
 
-function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
-  var previuosEntity = activeEntity.entity;
-  var previuosUid = activeEntity.uid;
-  var previuosEventType = activeEntity.eventType;
-  var previuosCallback = activeEntity.callback;
 
-  if(oldUid != undefined){
-    console.log("setting off: "+oldEntity+"/"+oldUid)
-    DB.child(oldEntity+"/"+oldUid).off(previuosEntity, previuosCallback);
-  }
-  activeEntity.entity = newEntity;
-  activeEntity.uid = newUid;
-  activeEntity.eventType = newEventType;
-  activeEntity.callback = newCallback;
-
-  DB.child(newEntity+"/"+newUid)
-}

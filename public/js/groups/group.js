@@ -2,30 +2,28 @@ function showGroup(groupUid, back){
 
   if (back == undefined){back = false}
 
-  activeEntity = {
-    entity: "groups",
-    uid: groupUid
-  };
+//  activeEntity = {
+//    entity: "groups",
+//    uid: groupUid
+//  };
 
   userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userEntityNotifications.once('value', function(data) {
     userEntityNotificationsExists = data.child("globalNotifications").exists();
 
-    console.dir(userEntityNotificationsExists);
-
   });
 
-  setAcitveEntity("groups", groupUid);
-  //get state of notifications
+//  setAcitveEntity("groups", groupUid);
+//  //get state of notifications
 
 
-  //  $("globalNotifications").click(function())
+
   if(!back){
     setUrl("group", groupUid);
   }
 
-  DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
+  var showGroupCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
@@ -35,7 +33,11 @@ function showGroup(groupUid, back){
     } else {
       $("#globalNotificationsSub").css("color", inactiveColor);
     }
-  });
+  };
+
+  setAcitveEntity("groups", groupUid, "value", showGroupCallback);
+
+
 
   isMembership();
 
@@ -84,7 +86,7 @@ function showGroupTopics(groupUid){
           if (i === numberOfTopics){
             var context = {groups: topicsArray};
             convertTemplate("#groupPage-tmpl", context, "wrapper");
-//            $(".cardsTopicsSubmenuDotsMenu").hide();
+            //            $(".cardsTopicsSubmenuDotsMenu").hide();
           }
 
           i++;

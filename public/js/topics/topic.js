@@ -3,10 +3,10 @@ function showTopic(topicUid, back){
 
   if (back == undefined){back = false}
 
-  activeEntity = {
-    entity: "topics",
-    uid: topicUid
-  };
+//  activeEntity = {
+//    entity: "topics",
+//    uid: topicUid
+//  };
 
   userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
@@ -15,10 +15,13 @@ function showTopic(topicUid, back){
   });
 
 
-  setAcitveEntity("topics", topicUid);
+//  setAcitveEntity("topics", topicUid);
 
   //show header
-  DB.child("topics/"+topicUid).once("value", function(dataSnapshot){
+
+
+
+  var showTopicCallback = function(dataSnapshot){
     if(dataSnapshot.exists()){
       if (!back){
         setUrl("topic", topicUid);
@@ -29,7 +32,7 @@ function showTopic(topicUid, back){
     convertTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
     // getLocalNotifications();
 
-    console.dir(userEntityNotificationsExists);
+//    console.dir(userEntityNotificationsExists);
 
     if (userEntityNotificationsExists) {
       $("#globalNotificationsSub").css("color", activeColor);
@@ -37,7 +40,9 @@ function showTopic(topicUid, back){
       $("#globalNotificationsSub").css("color", inactiveColor);
     }
 
-  });
+  };
+  console.log("go to topic");
+  setAcitveEntity("topics", topicUid, "value", showTopicCallback);
   //show questions in topic
   showTopicQuestions (topicUid);
 
