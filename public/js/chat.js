@@ -19,7 +19,7 @@ function showChat(chatUid, entityType){
   });
 
   clearChat();
-  setNewEntity("chats", chatUid)
+  setAcitveEntity("chats", chatUid)
 
   //create footer input box
   convertTemplate("#chatInput-tmpl",{},"footer");

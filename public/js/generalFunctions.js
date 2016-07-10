@@ -36,8 +36,34 @@ function parseDate(dateInMillisec){
 
 function goHome(){
   showPublicGroups();
-  setNewEntity("","");
+  setAcitveEntity("","", "", "");
 }
 
+function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
+  var previuosEntity = activeEntity.entity;
+  var previuosUid = activeEntity.uid;
+  var previuosEventType = activeEntity.eventType;
+  var previuosCallback = activeEntity.callback;
+
+  if(previuosUid != "" && previuosUid != undefined ){
+    console.log("setting off: "+previuosEntity+"/"+previuosUid)
+    if (previuosEventType != "" || previuosEventType == undefined){
+      console.log("eventType = "+ previuosEventType);
+      DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
+    } else {
+      console.log("no eventType");
+      DB.child(previuosEntity+"/"+previuosUid).off();
+    }
+  }
+
+  activeEntity.entity = newEntity;
+  activeEntity.uid = newUid;
+  activeEntity.eventType = newEventType;
+  activeEntity.callback = newCallback;
+
+  if (newUid != "" && newUid != undefined){
+    DB.child(newEntity+"/"+newUid).once(newEventType, newCallback);
+  }
+}
 
 

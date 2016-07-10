@@ -11,27 +11,23 @@ function showQuestion(questionUid, back){
 
 
   if (back == undefined){back = false};
-  setNewEntity("questions", questionUid);
+
   if (!back){
     setUrl("question", questionUid);
     console.log("setting url");
   }
 
-  activeEntity = {
-    entity: "questions",
-    uid: questionUid
-  };
 
-    userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
-    userEntityNotifications.once('value', function(data) {
-        userEntityNotificationsExists = data.child("globalNotifications").exists();
-    });
+  userEntityNotifications.once('value', function(data) {
+    userEntityNotificationsExists = data.child("globalNotifications").exists();
+  });
 
 
 
   //get question info
-  DB.child("questions/"+questionUid).once("value",function(dataSnapshot){
+  var showQuestionCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
@@ -57,11 +53,13 @@ function showQuestion(questionUid, back){
       default:
         showLimitedOptionsQuestion(questionUid, numberOfOptions);
     }
-  });
+  };
+  console.log("go to question");
+  setAcitveEntity("questions", questionUid, "value", showQuestionCallback);
 }
 
 function showLimitedOptionsQuestion(questionUid, numberOfOptions){
-    DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
+  DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
 
     if(options.exists()){
       setUrl("question", questionUid);

@@ -6,7 +6,6 @@ function listenToAuth(){
     if (user) {
 
       console.log("user: " + user.uid);
-      console.dir(user);
 
       // User is signed in.
       console.log("User is signed in.");

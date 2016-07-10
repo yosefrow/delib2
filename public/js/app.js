@@ -93,14 +93,4 @@ firebase.initializeApp(config);
 var DB = firebase.database().ref();
 var storage = firebase.storage();
 
-function setNewEntity (newEntity, newUid){
-  var oldEntity = activeEntity.entity;
-  var oldUid = activeEntity.uid;
 
-  if(oldUid != undefined){
-    console.log("setting off: "+oldEntity+"/"+oldUid)
-    DB.child(oldEntity+"/"+oldUid).off();
-  }
-  activeEntity.entity = newEntity;
-  activeEntity.uid = newUid;
-}
