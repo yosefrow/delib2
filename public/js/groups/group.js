@@ -26,7 +26,7 @@ function showGroup(groupUid, back){
   var showGroupCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
-    $("#headerTitle").fadeIn(50).fadeOut(50).fadeIn(50);
+    animateHeader();
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
     //    getLocalNotifications();
     if (userEntityNotificationsExists) {

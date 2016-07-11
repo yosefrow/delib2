@@ -65,4 +65,9 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
   }
 }
 
+function animateHeader(){
+  $("header").hide();
+  $("header").show(400);
+}
+
 

@@ -30,7 +30,7 @@ function showQuestion(questionUid, back){
   var showQuestionCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
     convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
-    $("#headerTitle").fadeIn(50).fadeOut(50).fadeIn(50);
+    animateHeader();
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
     //    getLocalNotifications();
 

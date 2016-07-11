@@ -26,7 +26,7 @@ function showTopic(topicUid, back){
     }
     var title = dataSnapshot.val().title;
     convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
-    $("#headerTitle").fadeIn(50).fadeOut(50).fadeIn(50);
+    animateHeader();
     convertTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
     // getLocalNotifications();
 

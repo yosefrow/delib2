@@ -7,9 +7,11 @@ function showMultiOptions(questionUid){
   //get options
   DB.child("questions/"+questionUid+"/options").orderByChild("votes").once("value",function(options){
 
-    var optionsPosition = new Array();
 
     $("wrapper").html("");
+
+    var optionsPosition = new Array();
+    var optionsArray = new Array();
 
     options.forEach(function(option){
       var description = option.val().description;
@@ -20,7 +22,7 @@ function showMultiOptions(questionUid){
 
       optionsPosition.push({uid: optionUid, votes: votes});
 
-      DB.child("questions/"+questionUid+"/options/"+optionUid+"/thumbUp/"+userUuid).once("value", function(thumbUp){
+      DB.child("questions/"+questionUid+"/options/"+optionUid+"/thumbUp/"+userUuid).on("value", function(thumbUp){
         if (thumbUp.val()){
           $("#"+optionUid+"voteImg").attr("src", "img/thumbUpActive.png");
         } else {
@@ -33,11 +35,40 @@ function showMultiOptions(questionUid){
 
       //watch for changes in position
       DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").on("value",function(currentVote){
-        $("#"+optionUid+"voteCount").text("הצבעות: "+currentVote.val());
+        $("#"+optionUid+"voteCount").text("בעד: "+currentVote.val());
+
+
+        //get new votes and postion accordingly
+        DB.child("questions/"+questionUid+"/options/").once("value", function(options){
+          var previousOptionsArray = optionsArray;
+          optionsArray = [];
+
+          options.forEach(function(option){
+            //set by order
+            optionsArray.push([option.key,option.val().votes])
+            console.log(JSON.stringify(optionsArray));
+
+          })
+          optionsArray.sort(function(a,b){return a[1]<b[1]});
+          var currentOptionsArrayStr = JSON.stringify(optionsArray);
+          var previousOptionsArrayStr = JSON.stringify(previousOptionsArray);
+
+          if (currentOptionsArrayStr != previousOptionsArrayStr){
+            console.log("they are not eqauls");
+            for (i in optionsArray){
+              var divHight = $("#"+optionsArray[i][0]+"Div").height();
+              console.log("#"+optionsArray[i][0]+"Div: "+ divHight*i);
+              $("#"+optionsArray[i][0]+"Div").animate({top: divHight*i})
+            }
+          } else {
+            console.log("they are eqauls");
+          }
+        })
+
       });
     })
-    $("wrapper").hide();
-  $("wrapper").show(700);
+    //    $("wrapper").hide();
+    //    $("wrapper").show(700);
   })
 
 
