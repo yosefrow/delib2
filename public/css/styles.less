@@ -10,7 +10,20 @@
 @bg-main700: #cc0000;  //default background color
 @bg-accent: #212121;  //accent color
 
-
+*{
+    display:  -webkit-flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+     flex-wrap: wrap;
+    //todo: handle and check buttons in iPhone with:
+    /*
+    -webkit-box-flex-grow: 1;
+    -moz-box-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-grow: 1;
+     flex-grow: 1;
+    */
+}
 
 @media screen and (max-width: 479px) {
   #container{
