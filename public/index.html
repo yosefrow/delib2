@@ -5,7 +5,7 @@
     <title>דליב: מחליטים ביחד</title>
     <meta charset="utf-8">
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 
@@ -13,6 +13,7 @@
     <!-- Material Ripple JS -->
     <link rel="stylesheet" href="css/ripple.min.css">
     <script src="js/jquery-epulse.min.js"></script>
+
 
     <link rel="stylesheet" href="css/font-awesome-4.6.1/css/font-awesome.min.css">
     <!--    <link rel="stylesheet" type="text/css" href="css/stylesheet.css">-->
@@ -447,7 +448,7 @@
 
         <!-- multioptions -->
         <script type="text/x-handlebars-template" id="multiOption-tmpl">
-            <div class="card multiOptionCard">
+            <div class="card multiOptionCard" id={{optionUid}}Div>
                 <div class="mainOption">
                     <div class="optionVisualId" style=background-color:{{optionColor}}></div>
                     <div class="optionDetails">
@@ -455,7 +456,7 @@
                         <div class="descriptionOption">{{description}}</div>
                     </div>
                     <div class="interactionOption"></div>
-                    <div class="voteUpOption clickables" onclick=voteUpOption('{{questionUid}}','{{optionUid}}')><img src="img/thumbUpInactive.png" id={{optionUid}}voteImg></div>
+                    <div class="voteUpOption clickables" onclick=voteUpOption('{{questionUid}}','{{optionUid}}')><img src={{userVote}} id={{optionUid}}voteImg></div>
                     <div class="talkOption"></div>
                 </div>
                 <div class="footerOption">
@@ -464,7 +465,7 @@
                         <div></div>
                         <div id=optionMenu{{optionUid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editOption('{{questionUid}}', '{{optionUid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
                     </div>
-                    <div id={{optionUid}}voteCount></div>
+                    <div id={{optionUid}}voteCount>בעד: {{votes}}</div>
                 </div>
             </div>
         </script>
@@ -491,8 +492,8 @@
         </script>
 
         <script type="text/x-handlebars-template" id="createMultiOptionFooter-tmpl">
-            <div class="footer-btn material-ripple" onclick="back()"><span>2 ביטול</span></div>
-            <div class="footer-btn material-ripple action" onclick=addMultiOptionToDB('{{questionUid}}')><span>איש4ור</span></div>
+            <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
+            <div class="footer-btn material-ripple action" onclick=addMultiOptionToDB('{{questionUid}}')><span>אישור</span></div>
         </script>
 
         <!-- footer for edit multiOptions -->

@@ -1,71 +1,75 @@
 .card {
-    box-shadow: 2px 2px 2px gray;
-    border-radius: 5px;
-    border-color: #9a9a9a;
-    border-style: solid;
-    border-width: 1px;
-    padding: 5px;
-    margin-bottom: 5px;
-    background-color: white;
+  box-shadow: 2px 2px 2px gray;
+  border-radius: 5px;
+  border-color: #9a9a9a;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px;
+  margin-bottom: 5px;
+  background-color: white;
 }
 .multiOptionCard {
-    display: flex;
-    flex-direction: column;
+  position:absolute;
+  left: 0px;
+  width: 95%;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .mainOption {
-    display: flex;
-    flex-direction: row;
-    .optionVisualId {
-        flex-grow: 1;
-        -webkit-flex-grow: 1;
-        margin-left: 5px;
+  display: flex;
+  flex-direction: row;
+  .optionVisualId {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+    margin-left: 5px;
+  }
+  .optionDetails {
+    flex-grow: 10;
+    -webkit-flex-grow: 10;
+    .titleOption {
+      font-weight: 600;
     }
-    .optionDetails {
-        flex-grow: 10;
-        -webkit-flex-grow: 10;
-        .titleOption {
-            font-weight: 600;
-        }
-        .descriptionOption{}
-    }
-    .interactionOption {
-        flex-grow: 1;
-        -webkit-flex-grow: 1;
-    }
-    .voteOptions{}
-    .talkOptions{}
+    .descriptionOption{}
+  }
+  .interactionOption {
+    flex-grow: 1;
+    -webkit-flex-grow: 1;
+  }
+  .voteOptions{}
+  .talkOptions{}
 }
 
 .multiOptionsFooter {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .footerOption {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    max-height: 30px;
-    .cardsTopicsSubmenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-height: 30px;
+  .cardsTopicsSubmenu {
     max-height: 30px;
     .cardsTopicsSubmenuDots {
-        padding-left: 5px;
-        padding-right: 5px;
-        i{
+      padding-left: 5px;
+      padding-right: 5px;
+      i{
 
-        }
+      }
     }
     .cardsTopicsSubmenuDotsMenu {
-        position: relative;
-        top: -20px;
-        right: 10px;
-        display: inline-block;
-        padding: 5px;
-        background-color: white;
-        border: 1px solid #b2b2b2;
-        box-shadow: 5px 5px 5px rgba(74, 74, 74, 0.81);
+      position: relative;
+      top: -20px;
+      right: 10px;
+      display: inline-block;
+      padding: 5px;
+      background-color: white;
+      border: 1px solid #b2b2b2;
+      box-shadow: 5px 5px 5px rgba(74, 74, 74, 0.81);
     }
-}
+  }
 }
