@@ -22,14 +22,25 @@ function showMultiOptions(questionUid){
 
     $("wrapper").html("");
 
+    var indexDiv = 0;
+    var numberOfDivs = options.numChildren();
+    console.log("numberOfDivs: "+numberOfDivs)
+
+
     options.forEach(function(option){
       var optionUid = option.key;
       var description = option.val().description;
       var title = option.val().title;
-      var optionUid = option.key;
       var optionColor = option.val().color;
+
       var votes = option.val().votes;
-      var userVote = option.val().thumbUp[userUuid];
+      if (votes == undefined){ votes = 0};
+      console.log("user: " + userUuid);
+      console.log(option.val().thumbUp);
+      if (option.val().thumbUp[userUuid] != undefined){
+        var userVote = option.val().thumbUp[userUuid];
+      }
+
 
       if (userVote) {
         userVote = "img/thumbUpActive.png";
@@ -40,6 +51,9 @@ function showMultiOptions(questionUid){
 
       prependTemplate("#multiOption-tmpl",{title:title, description: description, questionUid: questionUid, optionUid: optionUid, optionColor:optionColor, votes:votes, userVote: userVote}, "wrapper");
       $("#optionMenu"+optionUid).hide();
+
+      $("#"+optionUid+"Div").offset({top: ((numberOfDivs-indexDiv)*87)-30, right:5})
+      indexDiv++;
 
 
       DB.child("questions/"+questionUid+"/options/"+optionUid+"/thumbUp/"+userUuid).on("value",function(isThumbUp){
@@ -64,7 +78,8 @@ function showMultiOptions(questionUid){
 
           var isDifference = false;
           var newOrderLength = newOrder.length;
-          var tttt = new Array();
+          var tttt = $("#"+newOrder[0]+"Div").position();
+          console.dir(tttt);
 
           for (i in newOrder){
             if(newOrder[i] == optionsPosition[i]){
@@ -74,16 +89,17 @@ function showMultiOptions(questionUid){
               isDifference = true;
               var oldPostionLocation = $("#"+optionsPosition[i]+"Div").position();
               console.log(oldPostionLocation.top);
+//              $("#"+newOrder[i]+"Div").animate({top:i*87},1000);
 
-              tttt[i] = oldPostionLocation.top;
 
 //              $("#"+newOrder[i]+"Div").animate({top:oldPostionLocation.top},1000);
 ////              $("#"+newOrder[i]+"Div").animate({})
             }
           }
           if (isDifference){
+            var numberOfNewDivs = newOrder.length;
             for (i in newOrder){
-              $("#"+newOrder[i]+"Div").animate({top:tttt[i]},1000);
+              $("#"+newOrder[i]+"Div").animate({top:((numberOfNewDivs-i)*87)-70},1000);
             }
           }
           optionsPosition = newOrder;
