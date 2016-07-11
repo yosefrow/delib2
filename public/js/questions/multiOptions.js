@@ -1,80 +1,104 @@
+
+
 function showMultiOptions(questionUid){
+
+  var optionsPosition = new Array();
+  var optionsArray = new Array();
+
+  var optionsArrayOrder = new Array();
 
   DB.child("questions/"+questionUid+"/options").off("value");
 
   convertTemplate("#multiOptionsFooter-tmpl",{questionUid: questionUid}, "footer");
 
-  //get options
-  DB.child("questions/"+questionUid+"/options").orderByChild("votes").once("value",function(options){
+
+
+  //listen to vote change
+  DB.child("questions/"+questionUid+"/options").orderByChild("votes").once("value", function(options){
+    console.log("start options")
+
+
 
 
     $("wrapper").html("");
 
-    var optionsPosition = new Array();
-    var optionsArray = new Array();
-
     options.forEach(function(option){
+      var optionUid = option.key;
       var description = option.val().description;
       var title = option.val().title;
       var optionUid = option.key;
       var optionColor = option.val().color;
       var votes = option.val().votes;
+      var userVote = option.val().thumbUp[userUuid];
 
-      optionsPosition.push({uid: optionUid, votes: votes});
+      if (userVote) {
+        userVote = "img/thumbUpActive.png";
+      } else {
+        userVote = "img/thumbUpInactive.png";
+      }
+      optionsPosition.push(optionUid);
 
-      DB.child("questions/"+questionUid+"/options/"+optionUid+"/thumbUp/"+userUuid).on("value", function(thumbUp){
-        if (thumbUp.val()){
+      prependTemplate("#multiOption-tmpl",{title:title, description: description, questionUid: questionUid, optionUid: optionUid, optionColor:optionColor, votes:votes, userVote: userVote}, "wrapper");
+      $("#optionMenu"+optionUid).hide();
+
+
+      DB.child("questions/"+questionUid+"/options/"+optionUid+"/thumbUp/"+userUuid).on("value",function(isThumbUp){
+        if(isThumbUp.val()){
           $("#"+optionUid+"voteImg").attr("src", "img/thumbUpActive.png");
         } else {
           $("#"+optionUid+"voteImg").attr("src", "img/thumbUpInactive.png");
         }
       })
 
-      prependTemplate("#multiOption-tmpl",{title:title, description: description, questionUid: questionUid, optionUid: optionUid, optionColor:optionColor }, "wrapper");
-      $("#optionMenu"+optionUid).hide();
-
-      //watch for changes in position
+      //if changes in votes change in text
       DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").on("value",function(currentVote){
-        $("#"+optionUid+"voteCount").text("בעד: "+currentVote.val());
+        $("#"+optionUid+"voteCount").text("בעד: "+ currentVote.val());
 
-
-        //get new votes and postion accordingly
-        DB.child("questions/"+questionUid+"/options/").once("value", function(options){
-          var previousOptionsArray = optionsArray;
-          optionsArray = [];
-
+        //see if changes in locations
+        //get new order
+        DB.child("questions/"+questionUid+"/options").orderByChild("votes").once("value", function(options){
+          var newOrder = new Array();
           options.forEach(function(option){
-            //set by order
-            optionsArray.push([option.key,option.val().votes])
-            console.log(JSON.stringify(optionsArray));
-
+            newOrder.push(option.key);
           })
-          optionsArray.sort(function(a,b){return a[1]<b[1]});
-          var currentOptionsArrayStr = JSON.stringify(optionsArray);
-          var previousOptionsArrayStr = JSON.stringify(previousOptionsArray);
 
-          if (currentOptionsArrayStr != previousOptionsArrayStr){
-            console.log("they are not eqauls");
-            for (i in optionsArray){
-              var divHight = $("#"+optionsArray[i][0]+"Div").height();
-              console.log("#"+optionsArray[i][0]+"Div: "+ divHight*i);
-              $("#"+optionsArray[i][0]+"Div").animate({top: divHight*i})
+          var isDifference = false;
+          var newOrderLength = newOrder.length;
+          var tttt = new Array();
+
+          for (i in newOrder){
+            if(newOrder[i] == optionsPosition[i]){
+              console.log("Options "+i+" are equal");
+            } else {
+              console.log("Options "+i+" are not equal", newOrder[i], optionsPosition[i]);
+              isDifference = true;
+              var oldPostionLocation = $("#"+optionsPosition[i]+"Div").position();
+              console.log(oldPostionLocation.top);
+
+              tttt[i] = oldPostionLocation.top;
+
+//              $("#"+newOrder[i]+"Div").animate({top:oldPostionLocation.top},1000);
+////              $("#"+newOrder[i]+"Div").animate({})
             }
-          } else {
-            console.log("they are eqauls");
           }
+          if (isDifference){
+            for (i in newOrder){
+              $("#"+newOrder[i]+"Div").animate({top:tttt[i]},1000);
+            }
+          }
+          optionsPosition = newOrder;
         })
-
-      });
+      })
     })
-    //    $("wrapper").hide();
-    //    $("wrapper").show(700);
+    console.log(JSON.stringify(optionsPosition));
+    //if change in user vote, change indecation
+
+
   })
 
 
-  //get update when votes change
 
-  //get new options
+
 }
 
 function voteUpOption(questionUid, optionUid){
