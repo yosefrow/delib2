@@ -11,6 +11,12 @@ function showMultiOptions(questionUid){
 
   convertTemplate("#multiOptionsFooter-tmpl",{questionUid: questionUid}, "footer");
 
+  DB.child("questions/"+questionUid+"/options").on("child_added", function(options){
+    console.log("child added:" + JSON.stringify(options.val()));
+  })
+
+
+
 
 
   //listen to vote change
@@ -33,8 +39,13 @@ function showMultiOptions(questionUid){
 
       adjustCounting(questionUid,optionUid);
 
-      var isUserVoted = option.val().thumbUp.hasOwnProperty(userUuid);
-      console.log("isUserVoted: "+isUserVoted)
+      var isSomebodyVoted = option.val().hasOwnProperty("thumbUp")
+      if (isSomebodyVoted){
+        var isUserVoted = option.val().thumbUp.hasOwnProperty(userUuid);
+        console.log("isUserVoted: "+isUserVoted)
+      } else {
+        isUserVoted = false;
+      }
       if (!isUserVoted){
         DB.child("questions/"+questionUid+"/options/"+optionUid+"/thumbUp/"+userUuid).set(false)
         var userVote = false;
@@ -97,7 +108,7 @@ function showMultiOptions(questionUid){
           if (isDifference){
             var numberOfNewDivs = newOrder.length;
             for (i in newOrder){
-              $("#"+newOrder[i]+"Div").animate({top:((numberOfNewDivs-i)*87)-70},400);
+              $("#"+newOrder[i]+"Div").animate({top:((numberOfNewDivs-i)*87)-70},1500, "easeOutElastic");
             }
           }
           optionsPosition = newOrder;
