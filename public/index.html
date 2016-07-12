@@ -463,7 +463,7 @@
                     <div class="cardsTopicsSubmenu">
                         <div class="cardsTopicsSubmenuDots clickables" onclick=openOptionMenu('{{optionUid}}')><i class="fa fa-ellipsis-v" aria-hidden="true"></i></div>
                         <div></div>
-                        <div id=optionMenu{{optionUid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editOption('{{questionUid}}', '{{optionUid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
+                        <div id=optionMenu{{optionUid}} class="cardsTopicsSubmenuDotsMenu clickables" hidden onclick=editOption('{{questionUid}}','{{optionUid}}')><i class="fa fa-cog" aria-hidden="true"></i> Edit</div>
                     </div>
                     <div id={{optionUid}}voteCount>בעד: {{votes}}</div>
                 </div>
@@ -499,7 +499,7 @@
         <!-- footer for edit multiOptions -->
         <script type="text/x-handlebars-template" id="editMultiOptionFooter-tmpl">
             <div class="footer-btn material-ripple" onclick="back()"><span>ביטול</span></div>
-            <div class="footer-btn material-ripple action" onclick=editMultiOptionToDB('{{questionUid}}', '{{optionUid}}')><span>אישור</span></div>
+            <div class="footer-btn material-ripple action" onclick=editMultiOptionToDB('{{questionUid}}','{{optionUid}}')><span>אישור</span></div>
         </script>
         <!-- footer ---->
         <!--    Info   -->

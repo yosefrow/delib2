@@ -29,15 +29,22 @@ function showMultiOptions(questionUid){
       var description = option.val().description;
       var title = option.val().title;
       var optionColor = option.val().color;
+      console.log("user id: "+userUuid, JSON.stringify(option.val().thumbUp));
 
-      var isUserVoted = option.val().hasOwnProperty(userUuid);
+      adjustCounting(questionUid,optionUid);
+
+      var isUserVoted = option.val().thumbUp.hasOwnProperty(userUuid);
       console.log("isUserVoted: "+isUserVoted)
       if (!isUserVoted){
         DB.child("questions/"+questionUid+"/options/"+optionUid+"/thumbUp/"+userUuid).set(false)
         var userVote = false;
+        console.log("user dosn't in DB")
       } else {
         var userVote = option.val().thumbUp[userUuid];
+        console.log("user voted: "+ userVote);
       }
+
+
       var votes = option.val().votes;
       if (votes == undefined){ votes = 0};
 
@@ -77,21 +84,13 @@ function showMultiOptions(questionUid){
 
           var isDifference = false;
           var newOrderLength = newOrder.length;
-          var tttt = $("#"+newOrder[0]+"Div").position();
-          console.dir(tttt);
 
           for (i in newOrder){
             if(newOrder[i] == optionsPosition[i]){
-              console.log("Options "+i+" are equal");
+
             } else {
-              console.log("Options "+i+" are not equal", newOrder[i], optionsPosition[i]);
               isDifference = true;
               var oldPostionLocation = $("#"+optionsPosition[i]+"Div").position();
-              console.log(oldPostionLocation.top);
-              //              $("#"+newOrder[i]+"Div").animate({top:i*87},1000);
-
-
-              //              $("#"+newOrder[i]+"Div").animate({top:oldPostionLocation.top},1000);
               ////              $("#"+newOrder[i]+"Div").animate({})
             }
           }
@@ -105,15 +104,7 @@ function showMultiOptions(questionUid){
         })
       })
     })
-    console.log(JSON.stringify(optionsPosition));
-    //if change in user vote, change indecation
-
-
   })
-
-
-
-
 }
 
 function voteUpOption(questionUid, optionUid){
@@ -147,7 +138,7 @@ function addMultiOption(questionUid){
 function addMultiOptionToDB(questionUid){
   var title = $("#createMultiOptionName").val();
   var description = $("#createMultiOptionDescription").val();
-  console.log("hi")
+
   if (title == ""){
     alert("Title can't be empty");
     return;
@@ -156,4 +147,17 @@ function addMultiOptionToDB(questionUid){
   createOption(questionUid, title, description);
 
   showMultiOptions(questionUid);
+}
+
+function adjustCounting(questionUid, optionUid){
+  DB.child("questions/"+questionUid+"/options/"+optionUid+"/thumbUp").once("value", function(thumbsUp){
+    //get numbe of true
+    var count = 0
+    thumbsUp.forEach(function(thumbUp){
+      if(thumbUp.val()){ count++}
+
+    })
+    console.log("option "+ optionUid+" count: "+count)
+    DB.child("questions/"+questionUid+"/options/"+optionUid+"/votes").set(count);
+  })
 }
