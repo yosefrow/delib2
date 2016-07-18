@@ -35,9 +35,9 @@ function updatesListener() {
                         DB.child(subEntity[entityUpdates.key] + "/" + entityAddedUid.key).once('value', function (actualContent) {
 
 
-                            console.log(mostUpdatedContent.val());
-                            console.log(actualContent.val());
-                            console.log(Number(mostUpdatedContent.val().dateAdded) < Number(entityAddedUid.val().dateAdded));
+//                            console.log(mostUpdatedContent.val());
+//                            console.log(actualContent.val());
+//                            console.log(Number(mostUpdatedContent.val().dateAdded); Number(entityAddedUid.val().dateAdded));
 
 
                             if (mostUpdatedContent == null)

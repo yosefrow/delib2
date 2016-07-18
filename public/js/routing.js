@@ -42,7 +42,6 @@ function routTo(currentUrl, back){
       break;
     default:
       showPublicGroups();
-      console.log("type did not match");
   }
 
 };

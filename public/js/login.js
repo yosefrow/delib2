@@ -1,14 +1,10 @@
 function listenToAuth(){
 
    firebase.auth().onAuthStateChanged(function(user) {
-    console.log("status login change");
 
     if (user) {
 
-      console.log("user: " + user.uid);
-
       // User is signed in.
-      console.log("User is signed in.");
       $("#loginScreen").hide(300);
       userUuid = user.uid;
 
@@ -56,10 +52,7 @@ firebase.auth().getRedirectResult().then(function(result) {
     console.log("token: "+ token);
     // ...
   }
-  // The sig  ned-in user info.
-  console.dir(result.user);
-  console.dir(result);
-  //        window.location = "";
+
 }).catch(function(error) {
   // Handle Errors here.
   console.log(error);
