@@ -27,7 +27,7 @@ $(function(){
   });
 
   var currentUrl = getUrl();
-  console.log("currentUrl: "+ currentUrl);
+
   routTo(currentUrl, false);
   //  showPublicGroups();
   $(window).on('popstate', function() {

@@ -9,44 +9,49 @@ function showMemberGroupsPage(){
   DB.child("users/"+userUuid+"/membership").once("value", function(groups){
 
     var groupsUnderMebership = groups.val();
-    var numberOfGroups = Object.keys(groupsUnderMebership).length;
-    console.log("numberOfTopics: "+numberOfGroups);
+    if (groupsUnderMebership != null){
+      var numberOfGroups = Object.keys(groupsUnderMebership).length;
 
-    var preContext = new Object();
-    var groupsArray = new Array();
-    var numberOfGroups;
+      console.log("numberOfTopics: "+numberOfGroups);
 
-    var i = 1;
 
-    groups.forEach(function(group){
 
-      console.log(group.key, group.val());
+      var preContext = new Object();
+      var groupsArray = new Array();
+      //    var numberOfGroups;
 
-      //get group details
-      DB.child("groups/"+group.key).once("value",function(groupDB){
-        if (group.val()){
-          console.log(group.key+": add to db")
-          var title = groupDB.val().title;
-          var description = groupDB.val().description;
-          console.log(group.key,title, description);
+      var i = 1;
 
-          preContext = {
-            uuid: group.key,
-            title: title,
-            description: description
-          };
-          groupsArray.push(preContext);
-        }
-        console.log(i);
-        if (numberOfGroups == i){
-          var context = {groups: groupsArray};
-          console.log(JSON.stringify(context));
-          convertTemplate("#groupsGeneral-tmpl", context, "wrapper");
-        }
-        i++;
-      })
+      groups.forEach(function(group){
 
-    });
+        //get group details
+        DB.child("groups/"+group.key).once("value",function(groupDB){
+          if (group.val()){
+
+            var title = groupDB.val().title;
+            var description = groupDB.val().description;
+
+            preContext = {
+              uuid: group.key,
+              title: title,
+              description: description
+            };
+            groupsArray.push(preContext);
+          }
+
+          if (numberOfGroups == i){
+            var context = {groups: groupsArray};
+
+            convertTemplate("#groupsGeneral-tmpl", context, "wrapper");
+          }
+          i++;
+        })
+
+      });
+    } else {
+      console.log("user is ont member in groups");
+      convertTemplate("#groupsGeneral-tmpl", {}, "wrapper");
+    }
   })
 
   showFooterGroupsBtn();
