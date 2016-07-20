@@ -45,15 +45,19 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
   var previuosEventType = activeEntity.eventType;
   var previuosCallback = activeEntity.callback;
 
-  if(previuosUid != undefined || previuosUid !=""){
+  console.log("hi: "+previuosEntity,previuosUid, previuosEventType, previuosCallback )
 
-    if (previuosEventType != undefined || previuosEventType != ""){
-
-      DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
-    } else {
-      DB.child(previuosEntity+"/"+previuosUid).off();
-    }
-  }
+//  if(isNotEmpty(previuosUid)){
+//
+//    console.log()
+//
+//    if (previuosEventType != undefined || previuosEventType != ""){
+//
+//      DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
+//    } else {
+//      DB.child(previuosEntity+"/"+previuosUid).off();
+//    }
+//  }
 
   activeEntity.entity = newEntity;
   activeEntity.uid = newUid;
@@ -68,6 +72,14 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
 function animateHeader(){
   $("header").hide();
   $("header").show(400);
+}
+
+function isNotEmpty(variable){
+  if (variable != null || variable != undefined || variable != "" ){
+    return true;
+  } else {
+    return false;
+  }
 }
 
 
