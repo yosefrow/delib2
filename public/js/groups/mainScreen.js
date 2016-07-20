@@ -1,3 +1,4 @@
+//comment
 const groupsDB = DB.child("groups");
 
 function showFooterGroupsBtn(){

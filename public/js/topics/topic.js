@@ -8,10 +8,10 @@ function showTopic(topicUid, back){
   //    uid: topicUid
   //  };
 
-  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+  userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
-  userEntityNotifications.once('value', function(data) {
-    userEntityNotificationsExists = data.child("globalNotifications").exists();
+  userUpdates.once('value', function(data) {
+    userUpdatesSet = data.child("globalNotifications").exists();
   });
 
 
@@ -32,7 +32,7 @@ function showTopic(topicUid, back){
 
     //    console.dir(userEntityNotificationsExists);
 
-    if (userEntityNotificationsExists) {
+    if (userUpdatesSet) {
       $("#globalNotificationsSub").css("color", activeColor);
     } else {
       $("#globalNotificationsSub").css("color", inactiveColor);

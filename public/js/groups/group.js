@@ -7,10 +7,10 @@ function showGroup(groupUid, back){
   //    uid: groupUid
   //  };
 
-  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+  userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
-  userEntityNotifications.once('value', function(data) {
-    userEntityNotificationsExists = data.child("globalNotifications").exists();
+  userUpdates.once('value', function(data) {
+    userUpdatesSet = data.child("globalNotifications").exists();
 
   });
 
@@ -29,7 +29,7 @@ function showGroup(groupUid, back){
     animateHeader();
     convertTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
     //    getLocalNotifications();
-    if (userEntityNotificationsExists) {
+    if (userUpdatesSet) {
       $("#globalNotificationsSub").css("color", activeColor);
     } else {
       $("#globalNotificationsSub").css("color", inactiveColor);
