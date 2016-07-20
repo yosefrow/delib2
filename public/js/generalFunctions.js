@@ -54,9 +54,9 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
   activeEntity.eventType = newEventType;
   activeEntity.callback = newCallback;
 
-  if (newUid != "" && newUid != undefined){
-    DB.child(newEntity+"/"+newUid).once(newEventType, newCallback);
-  }
+//  if (newUid != "" && newUid != undefined){
+//    DB.child(newEntity+"/"+newUid).once(newEventType, newCallback);
+//  }
 }
 
 function animateHeader(){

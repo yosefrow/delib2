@@ -17,11 +17,11 @@ function showQuestion(questionUid, back){
   }
 
 
-  userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-  userUpdates.once('value', function(data) {
-    userUpdatesSet = data.child("globalNotifications").exists();
-  });
+  // userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+  //
+  // userUpdates.once('value', function(data) {
+  //   userUpdatesSet = data.child("globalNotifications").exists();
+  // });
 
 
 
@@ -33,11 +33,11 @@ function showQuestion(questionUid, back){
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
     //    getLocalNotifications();
 
-    if (userUpdatesSet) {
-      $("#globalNotificationsSub").css("color", activeColor);
-    } else {
-      $("#globalNotificationsSub").css("color", inactiveColor);
-    }
+    // if (userUpdatesSet) {
+    //   $("#globalNotificationsSub").css("color", activeColor);
+    // } else {
+    //   $("#globalNotificationsSub").css("color", inactiveColor);
+    // }
 
     var description = dataSnapshot.val().description;
     var typeOfQuestion = dataSnapshot.val().type;

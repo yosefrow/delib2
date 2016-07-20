@@ -3,20 +3,11 @@ function showTopic(topicUid, back){
 
   if (back == undefined){back = false}
 
-  //  activeEntity = {
-  //    entity: "topics",
-  //    uid: topicUid
-  //  };
-
-  userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-  userUpdates.once('value', function(data) {
-    userUpdatesSet = data.child("globalNotifications").exists();
-  });
-
-
-
-
+  // userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+  //
+  // userUpdates.once('value', function(data) {
+  //   userUpdatesSet = data.child("globalNotifications").exists();
+  // });
 
   var showTopicCallback = function(dataSnapshot){
     if(dataSnapshot.exists()){
@@ -31,12 +22,12 @@ function showTopic(topicUid, back){
     // getLocalNotifications();
 
     //    console.dir(userEntityNotificationsExists);
-
-    if (userUpdatesSet) {
-      $("#globalNotificationsSub").css("color", activeColor);
-    } else {
-      $("#globalNotificationsSub").css("color", inactiveColor);
-    }
+    //
+    // if (userUpdatesSet) {
+    //   $("#globalNotificationsSub").css("color", activeColor);
+    // } else {
+    //   $("#globalNotificationsSub").css("color", inactiveColor);
+    // }
 
   };
 

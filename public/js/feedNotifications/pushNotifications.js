@@ -26,7 +26,7 @@ function fcmSubscribe() {
   SWreg.pushManager.subscribe({userVisibleOnly: true}).
   then(function(pushSubscription) {
     subFcm = pushSubscription;
-    console.log('Subscribed! Endpoint:', subFcm.endpoint);
+    // console.log('Subscribed! Endpoint:', subFcm.endpoint);
     $('#fcmPushNotiificationsBtn').prop('value', 'Unsubscribe');
     isSubscribed = true;
   });
@@ -35,10 +35,10 @@ function fcmSubscribe() {
 function fcmUnsubscribe() {
   subFcm.unsubscribe().then(function(event) {
     $('#fcmPushNotiificationsBtn').prop('value', 'Subscribe');
-    console.log('Unsubscribed!', event);
+    // console.log('Unsubscribed!', event);
     isSubscribed = false;
   }).catch(function(error) {
-    console.log('Error unsubscribing', error);
+    // console.log('Error unsubscribing', error);
     $('#fcmPushNotiificationsBtn').prop('value', 'Subscribe');
   });
 }
@@ -92,7 +92,7 @@ function pushNotification(EntityData, entityType, messagesSent) {
     Notification.requestPermission(EntityData);
   else {
       var notification;
-    console.log(EntityData.val(), entityType );
+    // console.log(EntityData.val(), entityType );
       if (entityType == "chats") {
           notification = new Notification(toHebrew[entityType] + EntityData.val().title, {
               icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',

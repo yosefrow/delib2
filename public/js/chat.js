@@ -4,23 +4,15 @@ function clearChat(){
 }
 function showChat(chatUid, entityType){
 
-  // activeEntity = {
-  //   entity: "chats",
-  //   uid: chatUid
-  // };
-
-//  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-//
-//  userEntityNotifications.once('value', function(data) {
-//    userEntityNotificationsExists = data.child("globalNotifications").exists();
-//
-//    console.dir(userEntityNotificationsExists);
-//
-//  });
-
   clearChat();
   
   setAcitveEntity("chats", chatUid);
+
+  userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+
+  userUpdates.once('value', function(data) {
+    userUpdatesSet = data.child("globalNotifications").exists();
+  });
 
   //create footer input box
   convertTemplate("#chatInput-tmpl",{},"footer");
@@ -66,7 +58,8 @@ function addChatMessage(chatUid, userUid, text, entityType){
     //get user name
     DB.child("users/"+userUid).once("value", function(user) {
       var userName = user.val().name;
-      DB.child("chats/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
+      DB.child("chats/messages/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
+
     })
   }
 }
