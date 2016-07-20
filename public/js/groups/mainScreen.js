@@ -2,7 +2,7 @@
 const groupsDB = DB.child("groups");
 
 function showFooterGroupsBtn(){
-  convertTemplate("#footerBtn-tmpl", {}, "footer");
+  renderTemplate("#footerBtn-tmpl", {}, "footer");
 }
 
 function showMemberGroupsPage(){
@@ -43,7 +43,7 @@ function showMemberGroupsPage(){
           if (numberOfGroups == i){
             var context = {groups: groupsArray};
 
-            convertTemplate("#groupsGeneral-tmpl", context, "wrapper");
+            renderTemplate("#groupsGeneral-tmpl", context, "wrapper");
           }
           i++;
         })
@@ -51,7 +51,7 @@ function showMemberGroupsPage(){
       });
     } else {
       console.log("user is ont member in groups");
-      convertTemplate("#groupsGeneral-tmpl", {}, "wrapper");
+      renderTemplate("#groupsGeneral-tmpl", {}, "wrapper");
     }
   })
 
@@ -99,7 +99,7 @@ function listenToGeneralGroups (typeOfGroup){
 
     var context = {"groups": groupsArray}
 
-    convertTemplate("#groupsGeneral-tmpl", context, "wrapper")
+    renderTemplate("#groupsGeneral-tmpl", context, "wrapper")
 
   })
 }
@@ -149,7 +149,7 @@ function listenToOwned_MemberGroups (role){
 
               var context = {groups: groupsArray};
 
-              convertTemplate("#groups_"+role+"-tmpl", context, "wrapper");
+              renderTemplate("#groups_"+role+"-tmpl", context, "wrapper");
               $(".cardsTopicsSubmenuDotsMenu").hide();
             }
             i++;
@@ -157,7 +157,7 @@ function listenToOwned_MemberGroups (role){
         })
       } else {
         console.log("groups don't exists");
-        convertTemplate("#groups_"+role+"-tmpl", {}, "wrapper");
+        renderTemplate("#groups_"+role+"-tmpl", {}, "wrapper");
         //        $("wrapper").html("");
       }
     })
@@ -168,18 +168,18 @@ function showUserGroups(){
 
   var context = {"groups": groupsArray};
 
-  convertTemplate("#groupsMember-tmpl", context,"wrapper" )
+  renderTemplate("#groupsMember-tmpl", context,"wrapper" )
 
 }
 
 $("#btnAddGroup").click(function(){
   //showCreateGroupPopup();
-  convertTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
+  renderTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
   alert("creating");
 });
 
 function showCreateGroupPopup(){
-  convertTemplate("#createGroupPopup-tmpl",{},"#createGroupPopup");
+  renderTemplate("#createGroupPopup-tmpl",{},"#createGroupPopup");
 }
 
 

@@ -18,7 +18,7 @@ function listenToAuth(){
       // No user is signed in.
       console.log("No user is signed in.");
       //show login screen
-      convertTemplate("#login-tmpl",{},"#loginScreen");
+      renderTemplate("#login-tmpl",{},"#loginScreen");
       $("#loginScreen").show(300);
     }
   });

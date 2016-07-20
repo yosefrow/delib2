@@ -15,7 +15,7 @@ function showChat(chatUid, entityType){
   });
 
   //create footer input box
-  convertTemplate("#chatInput-tmpl",{},"footer");
+  renderTemplate("#chatInput-tmpl",{},"footer");
 
   //listen to enter from input
   $("#chatInputTxt").keypress(function (e) {

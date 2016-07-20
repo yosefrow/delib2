@@ -28,9 +28,20 @@ function showQuestion(questionUid, back){
   //get question info
   var showQuestionCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
-    convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
+    renderTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     animateHeader();
+<<<<<<< HEAD
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
+=======
+    renderTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
+    //    getLocalNotifications();
+
+    // if (userUpdatesSet) {
+    //   $("#globalNotificationsSub").css("color", activeColor);
+    // } else {
+    //   $("#globalNotificationsSub").css("color", inactiveColor);
+    // }
+>>>>>>> origin/master
 
     var description = dataSnapshot.val().description;
     var typeOfQuestion = dataSnapshot.val().type;
@@ -87,8 +98,8 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
 
     }
     var context = {options: preContext};
-    convertTemplate("#simpleVote-tmpl", context, "wrapper");
-    convertTemplate("#simpleVoteBtns-tmpl", context, "footer");
+    renderTemplate("#simpleVote-tmpl", context, "wrapper");
+    renderTemplate("#simpleVoteBtns-tmpl", context, "footer");
     $("wrapper").hide();
     $("wrapper").show(700);
 

@@ -8,10 +8,10 @@ function newQuestion(){
     optionsTempInput["option"+i]={title:"", description:""};
   }
 
-  convertTemplate("#createQuestion-tmpl",{}, "wrapper");
-  convertTemplate("#createQuestionFooter-tmpl",{}, "footer");
+  renderTemplate("#createQuestion-tmpl",{}, "wrapper");
+  renderTemplate("#createQuestionFooter-tmpl",{}, "footer");
 
-  convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
+  renderTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
 
   setNumberOfOptions(numberOfOptionsTemp);
 
@@ -22,7 +22,7 @@ function newQuestion(){
 
     switch (selcation) {
       case "forAgainst":
-        convertTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
+        renderTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
         listenToOptionsInput();
         setForAgainst();
         break;
@@ -31,7 +31,7 @@ function newQuestion(){
 //        setTwoOptions();
 //        break;
       case "limitedOptions":
-        convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
+        renderTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
         if(numberOfOptionsTemp>0){
           setNumberOfOptions(numberOfOptionsTemp);
         }
@@ -64,7 +64,7 @@ function setNumberOfOptions(numberOfOptions){
 
   var context = {option: preContext};
 
-  convertTemplate("#questionOption-tmpl", context, "#optionsForLimitedOptions");
+  renderTemplate("#questionOption-tmpl", context, "#optionsForLimitedOptions");
 
 
 

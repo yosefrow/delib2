@@ -16,9 +16,9 @@ function showTopic(topicUid, back){
       }
     }
     var title = dataSnapshot.val().title;
-    convertTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
+    renderTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
     animateHeader();
-    convertTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
+    renderTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
     // getLocalNotifications();
 
     //    console.dir(userEntityNotificationsExists);
@@ -77,7 +77,7 @@ function showTopicQuestions(topicUid){
 
           if (i === numberOfQuestions){
             var context = {questions: questionsArray};
-            convertTemplate("#topicPage-tmpl", context, "wrapper");
+            renderTemplate("#topicPage-tmpl", context, "wrapper");
             $("wrapper").hide();
             $("wrapper").show(700);
 
@@ -87,7 +87,7 @@ function showTopicQuestions(topicUid){
         })
 
       })
-    } else {convertTemplate("#topicPage-tmpl",{}, "wrapper");}
+    } else {renderTemplate("#topicPage-tmpl",{}, "wrapper");}
   });
 }
 

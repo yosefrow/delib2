@@ -20,9 +20,9 @@ function showGroup(groupUid, back){
 
   var showGroupCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
-    convertTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
+    renderTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
     animateHeader();
-    convertTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
+    renderTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
     //    getLocalNotifications();
     if (userUpdatesSet) {
       $("#globalNotificationsSub").css("color", activeColor);
@@ -77,7 +77,7 @@ function showGroupTopics(groupUid){
 
           if (i === numberOfTopics){
             var context = {groups: topicsArray};
-            convertTemplate("#groupPage-tmpl", context, "wrapper");
+            renderTemplate("#groupPage-tmpl", context, "wrapper");
             $("wrapper").hide();
             $("wrapper").show(600);
 
@@ -88,7 +88,7 @@ function showGroupTopics(groupUid){
         })
 
       })
-    } else {convertTemplate("#groupPage-tmpl",{}, "wrapper");
+    } else {renderTemplate("#groupPage-tmpl",{}, "wrapper");
 
            }
   });
