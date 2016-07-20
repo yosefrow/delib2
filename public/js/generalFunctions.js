@@ -45,9 +45,9 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
   var previuosEventType = activeEntity.eventType;
   var previuosCallback = activeEntity.callback;
 
-  if(previuosUid != "" && previuosUid != undefined ){
-//    console.log("setting off: "+previuosEntity+"/"+previuosUid)
-    if (previuosEventType != "" || previuosEventType == undefined){
+  if(previuosUid != undefined || previuosUid !=""){
+
+    if (previuosEventType != undefined || previuosEventType != ""){
 
       DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
     } else {

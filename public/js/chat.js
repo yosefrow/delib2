@@ -9,17 +9,18 @@ function showChat(chatUid, entityType){
     uid: chatUid
   };
 
-  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-  userEntityNotifications.once('value', function(data) {
-    userEntityNotificationsExists = data.child("globalNotifications").exists();
-
-    console.dir(userEntityNotificationsExists);
-
-  });
+//  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+//
+//  userEntityNotifications.once('value', function(data) {
+//    userEntityNotificationsExists = data.child("globalNotifications").exists();
+//
+//    console.dir(userEntityNotificationsExists);
+//
+//  });
 
   clearChat();
-  setAcitveEntity("chats", chatUid)
+  console.log("goo");
+  setAcitveEntity("chats", chatUid);
 
   //create footer input box
   convertTemplate("#chatInput-tmpl",{},"footer");

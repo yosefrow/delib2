@@ -14,7 +14,6 @@ function showQuestion(questionUid, back){
 
   if (!back){
     setUrl("question", questionUid);
-    console.log("setting url");
   }
 
 
@@ -55,9 +54,8 @@ function showQuestion(questionUid, back){
         showLimitedOptionsQuestion(questionUid, numberOfOptions);
     }
   };
-  console.log("go to question");
-  setAcitveEntity("questions", questionUid, "value", showQuestionCallback);
 
+  setAcitveEntity("questions", questionUid, "value", showQuestionCallback);
 
 }
 
