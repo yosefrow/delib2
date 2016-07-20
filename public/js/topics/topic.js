@@ -8,11 +8,7 @@ function showTopic(topicUid, back){
   // userUpdates.once('value', function(data) {
   //   userUpdatesSet = data.child("globalNotifications").exists();
   // });
-<<<<<<< HEAD
 
-=======
-
->>>>>>> origin/master
   var showTopicCallback = function(dataSnapshot){
     if(dataSnapshot.exists()){
       if (!back){

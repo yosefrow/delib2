@@ -8,7 +8,7 @@
 //type of question
 
 function showQuestion(questionUid, back){
-
+  console.log("question: "+questionUid)
 
   if (back == undefined){back = false};
 
@@ -31,13 +31,6 @@ function showQuestion(questionUid, back){
     convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     animateHeader();
     convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
-    //    getLocalNotifications();
-
-    // if (userUpdatesSet) {
-    //   $("#globalNotificationsSub").css("color", activeColor);
-    // } else {
-    //   $("#globalNotificationsSub").css("color", inactiveColor);
-    // }
 
     var description = dataSnapshot.val().description;
     var typeOfQuestion = dataSnapshot.val().type;
@@ -56,6 +49,8 @@ function showQuestion(questionUid, back){
   };
 
   setAcitveEntity("questions", questionUid, "value", showQuestionCallback);
+
+  DB.child("questions/"+questionUid).once("value", showQuestionCallback);
 
 }
 
