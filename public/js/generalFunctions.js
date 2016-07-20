@@ -47,17 +47,13 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
 
   console.log("hi: "+previuosEntity,previuosUid, previuosEventType, previuosCallback )
 
-//  if(isNotEmpty(previuosUid)){
-//
-//    console.log()
-//
-//    if (previuosEventType != undefined || previuosEventType != ""){
-//
-//      DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
-//    } else {
-//      DB.child(previuosEntity+"/"+previuosUid).off();
-//    }
-//  }
+
+  if (isNotEmpty(previuosUid)){
+
+    console.log("not empty2")
+    DB.child(previuosEntity+"/"+previuosUid).off();
+
+  }
 
   activeEntity.entity = newEntity;
   activeEntity.uid = newUid;
