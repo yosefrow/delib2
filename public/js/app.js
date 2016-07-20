@@ -39,11 +39,11 @@ $(function(){
   });
 
   //
-  convertTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-  convertTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
-  convertTemplate("#headerMenu-tmpl",{},"#headerMenu");
+  renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
+  renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
+  renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
   goHome();
-  //convertTemplate("#login-tmpl",{},"body");
+  //renderTemplate("#login-tmpl",{},"body");
 
   listenToAuth();
 })

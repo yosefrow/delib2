@@ -28,9 +28,9 @@ function showQuestion(questionUid, back){
   //get question info
   var showQuestionCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
-    convertTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
+    renderTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     animateHeader();
-    convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
+    renderTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
     //    getLocalNotifications();
 
     // if (userUpdatesSet) {
@@ -92,8 +92,8 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
 
     }
     var context = {options: preContext};
-    convertTemplate("#simpleVote-tmpl", context, "wrapper");
-    convertTemplate("#simpleVoteBtns-tmpl", context, "footer");
+    renderTemplate("#simpleVote-tmpl", context, "wrapper");
+    renderTemplate("#simpleVoteBtns-tmpl", context, "footer");
     $("wrapper").hide();
     $("wrapper").show(700);
 
