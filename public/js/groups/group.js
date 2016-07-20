@@ -2,15 +2,10 @@ function showGroup(groupUid, back){
 
   if (back == undefined){back = false}
 
-  //  activeEntity = {
-  //    entity: "groups",
-  //    uid: groupUid
-  //  };
-
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userUpdates.once('value', function(data) {
-    userUpdatesSet = data.child("globalNotifications").exists();
+    userUpdatesSet = data.child("ownerCalls").exists();
 
   });
 

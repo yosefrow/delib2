@@ -24,7 +24,7 @@ function updatesListener() {
                         else
                             return;
 
-                        pushNotification(entityUpdate.key, "ownerCalls", ownerCall.val());
+                        pushNotification(entityUpdate.val(), "ownerCalls", ownerCall.val());
                     }); //.catch(function (error) { console.log(error, "no ownerCalls") })
                 }
 
@@ -59,23 +59,23 @@ function updatesListener() {
                 //     });
                 //
                 //     // chat logic
-                //     // if(entityUpdates.key == "chats") {
-                //     //     DB.child("chats/" + entityUpdate.key).on('child_added', function (chatUid) {
-                //     //         DB.child("users/"+userUuid+"/entityNotifications/chats/"+entityUpdate.key).once('value', function (messagesSent) {
-                //     //             DB.child(chatUid.val().entityType + "/" + entityUpdate.key).once('value', function (chatEntityContent) {
-                //     //                 var messagesSentInc = messagesSent.child("/globalNotifications").val();
-                //     //                 messagesSentInc++;
-                //     //                 DB.child("users/"+userUuid+"/entityNotifications/chats/"+chatUid.key+"/globalNotifications").set(messagesSentInc);
-                //     //                 console.log(chatUid.key, chatUid.val());
-                //     //                 if (messagesSentInc > 5)
-                //     //                     pushNotification(chatEntityContent,"chats",messagesSentInc);    
-                //     //
-                //     //             });
-                //     //         });
-                //     //
-                //     //     });
-                //     //
-                //     // }
+                    if(entityUpdates.key == "chats") {
+                        DB.child("chats/" + entityUpdate.key).on('child_added', function (chatUid) {
+                            DB.child("users/"+userUuid+"/entityNotifications/chats/"+entityUpdate.key).once('value', function (messagesSent) {
+                                DB.child(chatUid.val().entityType + "/" + entityUpdate.key).once('value', function (chatEntityContent) {
+                                    var messagesSentInc = messagesSent.child("/globalNotifications").val();
+                                    messagesSentInc++;
+                                    DB.child("users/"+userUuid+"/entityNotifications/chats/"+chatUid.key+"/globalNotifications").set(messagesSentInc);
+                                    console.log(chatUid.key, chatUid.val());
+                                    if (messagesSentInc > 5)
+                                        pushNotification(chatEntityContent,"chats",messagesSentInc);
+
+                                });
+                            });
+
+                        });
+
+                    }
                 // }
             });
         });
