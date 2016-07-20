@@ -10,12 +10,9 @@ function showMemberGroupsPage(){
   DB.child("users/"+userUuid+"/membership").once("value", function(groups){
 
     var groupsUnderMebership = groups.val();
+
     if (groupsUnderMebership != null){
       var numberOfGroups = Object.keys(groupsUnderMebership).length;
-
-      console.log("numberOfTopics: "+numberOfGroups);
-
-
 
       var preContext = new Object();
       var groupsArray = new Array();
@@ -27,7 +24,7 @@ function showMemberGroupsPage(){
 
         //get group details
         DB.child("groups/"+group.key).once("value",function(groupDB){
-          if (group.val()){
+          if (groupDB.val() != null){
 
             var title = groupDB.val().title;
             var description = groupDB.val().description;
@@ -38,6 +35,9 @@ function showMemberGroupsPage(){
               description: description
             };
             groupsArray.push(preContext);
+          } else {
+            DB.child("users/"+userUuid+"/membership/"+group.key).remove();
+
           }
 
           if (numberOfGroups == i){

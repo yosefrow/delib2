@@ -49,6 +49,12 @@
   }
 }
 
+@media screen and (min-width: 320px) {
+    .btnAddEntity{
+  left: 3%;
+    }
+}
+
 @media screen and (min-width: 480px) {
   #container{
     width:60%;
@@ -68,7 +74,9 @@
     width:100%;
     right:20%;
   }
-
+.btnAddEntity{
+        left: 22%;
+    }
 }
 
 @media screen and (min-width: 720px) {
@@ -90,6 +98,9 @@
     width:100%;
     right:20%;
   }
+    .btnAddEntity{
+        left: 22%;
+    }
 }
 
 body{
@@ -180,9 +191,9 @@ wrapper{
   font-size: 52px;
   text-align: center;
 
-  position: absolute;
+  position: fixed;
   bottom: 70px;
-  left: 10px;
+//  left: 22%;
   z-index: 50;
 
   box-shadow: 5px 5px 7px gray;
