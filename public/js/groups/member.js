@@ -5,10 +5,12 @@ function membership(){
     if(isMembership.val() != null){
       console.log("Membership exists");
       if (isMembership.val()){
-        DB.child("users/"+userUuid+"/membership/"+groupUid).set(false);
+        DB.child("users/"+userUuid+"/membership/"+groupUid).remove();
+        DB.child("users/"+userUuid+"/entityNotifications/groups/"+groupUid+"/ownerCalls").remove();
         $("#isMembership").css("color",inactiveColor);
       } else {
         DB.child("users/"+userUuid+"/membership/"+groupUid).set(true);
+        DB.child("users/"+userUuid+"/entityNotifications/groups/"+groupUid+"/ownerCalls").set(true);
         $("#isMembership").css("color",activeColor);
       }
     } else {

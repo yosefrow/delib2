@@ -4,10 +4,10 @@ function clearChat(){
 }
 function showChat(chatUid, entityType){
 
-  activeEntity = {
-    entity: "chats",
-    uid: chatUid
-  };
+  // activeEntity = {
+  //   entity: "chats",
+  //   uid: chatUid
+  // };
 
 //  userEntityNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 //
@@ -19,7 +19,7 @@ function showChat(chatUid, entityType){
 //  });
 
   clearChat();
-  console.log("goo");
+  
   setAcitveEntity("chats", chatUid);
 
   //create footer input box
@@ -38,7 +38,7 @@ function showChat(chatUid, entityType){
 
   //get chat messages
   DB.child("chats/"+chatUid).off();
-  DB.child("chats/"+chatUid+"/messages").orderByChild("time").limitToLast(20).on("child_added", function(chats){
+  DB.child("chats/"+chatUid).orderByChild("time").limitToLast(20).on("child_added", function(chats){
     if(chats.exists()){
       var text = chats.val().text;
       var time =  parseDate(chats.val().time);
@@ -47,10 +47,10 @@ function showChat(chatUid, entityType){
       var context = {text:text, time: time, author:author};
       appendTemplate("#chatMessage-tmpl", context, "wrapper");
 
-      $('wrapper').scrollTop($('wrapper')[0].scrollHeight);
+      $('wrapper').scrollTop($('wr apper')[0].scrollHeight);
     }
 
-    if (userEntityNotificationsExists) {
+    if (userUpdatesSet) {
       $("#globalNotificationsSub").css("color", activeColor);
     } else {
       $("#globalNotificationsSub").css("color", inactiveColor);
@@ -61,12 +61,11 @@ function showChat(chatUid, entityType){
 
 function addChatMessage(chatUid, userUid, text, entityType){
   //  var x= firebase.database(app);
-  if (text != ""){
+  if (text != "") {
 
     //get user name
-    DB.child("users/"+userUid).once("value", function(user){
-
-      var userName = user.val().name;      
+    DB.child("users/"+userUid).once("value", function(user) {
+      var userName = user.val().name;
       DB.child("chats/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
     })
   }

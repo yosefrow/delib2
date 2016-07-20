@@ -51,27 +51,29 @@ function setGlobalNotifications() {
 
     if(activeEntity !== 'undefined') {
 
-        console.dir(userEntityNotificationsExists);
+        console.dir(userUpdatesSet);
 
-        var GlobalNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+        var GlobalNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/notificaions/");
 
-        if (userEntityNotificationsExists)
+        if (activeEntity.entity !== "chats")
+            GlobalNotifications.child("globalNotifications").set(true);
+        else
+            GlobalNotifications.child("globalNotifications").set(0);
+        
+        if (userUpdatesSet)
         {
-            GlobalNotifications.child("globalNotifications").remove();
+            GlobalNotifications.child("newSubEntity").remove();
             $("#globalNotificationsSub").css("color", inactiveColor);
             console.log('Unsubscribed!');
         } else {
-            if (activeEntity.entity !== "chats")
-                GlobalNotifications.child("globalNotifications").set(true);
-            else
-                GlobalNotifications.child("globalNotifications").set(0);
+                GlobalNotifications.child("newSubEntity").set(true);
 
             $("#globalNotificationsSub").css("color", activeColor);
             console.log('Subscribed!');
         }
 
-        userEntityNotifications.once('value', function(data) {
-            userEntityNotificationsExists = data.child("globalNotifications").exists();
+        userUpdates.once('value', function(data) {
+            userUpdatesSet = data.child("newSubEntity").exists();
         });
 
     }
@@ -89,16 +91,22 @@ function pushNotification(EntityData, entityType, messagesSent) {
   if (Notification.permission !== "granted")
     Notification.requestPermission(EntityData);
   else {
+      var notification;
     console.log(EntityData.val(), entityType );
-      if (entityType !== "chats"){
-          var notification = new Notification(toHebrew[entityType] + EntityData.val().title, {
-              icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-              body: EntityData.val().description
-          });
-      } else {
-          var notification = new Notification(EntityData.val().title, {
+      if (entityType == "chats") {
+          notification = new Notification(toHebrew[entityType] + EntityData.val().title, {
               icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
               body: messagesSent
+          });
+      } else if(entityType == "ownerCalls") {
+          notification = new Notification("קריאת מנהל מ"+EntityData.val().title, {
+              icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+              body: messagesSent
+          });
+      } else {
+          notification = new Notification(EntityData.val().title, {
+              icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+              body: EntityData.val().description
           });
       }
 
@@ -108,29 +116,10 @@ function pushNotification(EntityData, entityType, messagesSent) {
           case "topics": showTopic(EntityData.key); break;
           case "questions": showQuestion(EntityData.key); break;
           case "chats": showChat(EntityData.key); break;
-          // case "ownerCalls": showGroup(EntityData.key);
+          case "ownerCalls": showGroup(EntityData.key);
           // for a later use
           // case "options": showOptionInfo(EntityData.key); break;
       }
     };
   }
 }
-
-
-function sendOwnerCall() {
-
-  DB.ref("/"+activeEntity.entity+"/"+activeEntity.uid+"/ownerNotifications").push($("#callBox").val());
-
-
-
-}
-
-function groupOwnerShoutout() {
-
-  pushNotification(EntityData, entityType)
-
-}
-
-
-
-
