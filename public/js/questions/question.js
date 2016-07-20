@@ -30,18 +30,10 @@ function showQuestion(questionUid, back){
     var title = dataSnapshot.val().title;
     renderTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     animateHeader();
-<<<<<<< HEAD
-    convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
-=======
-    renderTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
-    //    getLocalNotifications();
 
-    // if (userUpdatesSet) {
-    //   $("#globalNotificationsSub").css("color", activeColor);
-    // } else {
-    //   $("#globalNotificationsSub").css("color", inactiveColor);
-    // }
->>>>>>> origin/master
+    convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
+
+
 
     var description = dataSnapshot.val().description;
     var typeOfQuestion = dataSnapshot.val().type;
