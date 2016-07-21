@@ -1,7 +1,7 @@
 
 ## Synopsis
 
-Community-based, collabortive discussions & decision-making system.
+Community-based, collabortive discussions & decision-making system for desktop & mobile devices.
 
 ##group types
 
@@ -14,6 +14,10 @@ EDIT
 ## Motivation
 
 This project is an integral part of the "Kol Ha'am"(voice of the people) and the "Deliberative democracy" movement in Israel.
+
+["Kol Ha'am"](https://www.facebook.com/%D7%A7%D7%95%D7%9C-%D7%94%D7%A2%D7%9D-1724411721175093/info/?entry_point=about_section_header&tab=page_info) on facebook (This page is in Hebrew)
+
+["Democratia Ye'shira"](https://www.facebook.com/groups/119082888193298/) (Deliberative Democracy) on facebook (This page is also in Hebrew)
 
 ## Installation
 
