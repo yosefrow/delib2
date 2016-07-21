@@ -1,4 +1,4 @@
-# delib-fron2
+# delib-front2
 Collabortive decision making web-app
 
 ##group types
