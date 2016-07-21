@@ -1,7 +1,7 @@
 
 ## Synopsis
 
-Community-based Collabortive discussions & decision-making system.
+Community-based, collabortive discussions & decision-making system.
 
 ##group types
 
