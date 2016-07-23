@@ -51,30 +51,24 @@ function setGlobalNotifications() {
 
     if(activeEntity !== 'undefined') {
 
-        console.dir(userUpdatesSet);
-
-        var GlobalNotifications = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid+"/notificaions/");
-
-        if (activeEntity.entity !== "chats")
-            GlobalNotifications.child("globalNotifications").set(true);
-        else
-            GlobalNotifications.child("globalNotifications").set(0);
-        
-        if (userUpdatesSet)
-        {
-            GlobalNotifications.child("newSubEntity").remove();
-            $("#globalNotificationsSub").css("color", inactiveColor);
-            console.log('Unsubscribed!');
-        } else {
-                GlobalNotifications.child("newSubEntity").set(true);
-
-            $("#globalNotificationsSub").css("color", activeColor);
-            console.log('Subscribed!');
-        }
-
         userUpdates.once('value', function(data) {
             userUpdatesSet = data.child("newSubEntity").exists();
         });
+
+        
+        if (userUpdatesSet)
+        {
+            userUpdates.child("globalNotifications").remove();
+            $("#globalNotificationsSub").css("color", inactiveColor);
+        
+        } else {
+            if (activeEntity.entity !== "chats")
+                userUpdates.child("globalNotifications").set(true);
+            else
+                userUpdates.child("inboxMessages").set(0);
+            
+            $("#globalNotificationsSub").css("color", activeColor);
+        }
 
     }
   }
@@ -84,7 +78,7 @@ function setGlobalNotifications() {
 function pushNotification(EntityData, entityType, messagesSent) {
 
   if (!Notification) {
-    alert('Desktop notifications not available in your browser. Try Chromium.');
+    alert('Desktop notifications not available in your browser. Try Chrome.');
     return;
   }
 

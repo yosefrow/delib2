@@ -61,20 +61,27 @@ function updatesListener() {
                 //     // chat logic
                     if(entityUpdates.key == "chats") {
                         DB.child("chats/" + entityUpdate.key).on('child_added', function (chatUid) {
-                            DB.child("users/"+userUuid+"/entityNotifications/chats/"+entityUpdate.key).once('value', function (messagesSent) {
-                                DB.child(chatUid.val().entityType + "/" + entityUpdate.key).once('value', function (chatEntityContent) {
-                                    var messagesSentInc = messagesSent.child("/globalNotifications").val();
-                                    messagesSentInc++;
-                                    DB.child("users/"+userUuid+"/entityNotifications/chats/"+chatUid.key+"/globalNotifications").set(messagesSentInc);
-                                    console.log(chatUid.key, chatUid.val());
-                                    if (messagesSentInc > 5)
-                                        pushNotification(chatEntityContent,"chats",messagesSentInc);
+                            //dont send notifications if inside the chat, and only for groups
+                            if(chatUid.entityType == "groups" && activeEntity.entityType !== "chats" && activeEntity.entity !== chatUid.key) {
+                                DB.child("users/"+userUuid+"/entityNotifications/chats/"+entityUpdate.key+"/inboxMessages").once('value', function (inboxVolume) {
+                                        DB.child("/"+chatUid.entityType+"/"+chatUid.key).once('value', function (chatEntityContent) {
+                                            var messagesSentInc;
 
+                                            // get inbox volume
+                                            messagesSentInc = inboxVolume.val();
+                                            // increment inbox volume
+                                            messagesSentInc++;
+                                            //set incremented inbox volume
+                                            DB.child("users/" + userUuid + "/entityNotifications/chats/" + chatUid.key + "/inboxMessages").set(messagesSentInc);
+
+                                            console.log(chatUid.key, chatUid.val());
+                                            // send notifications in jumps of 5
+                                            if (messagesSentInc%5 == 0)
+                                                pushNotification(chatEntityContent, "chats", messagesSentInc);
+                                    });
                                 });
-                            });
-
+                            }
                         });
-
                     }
                 // }
             });

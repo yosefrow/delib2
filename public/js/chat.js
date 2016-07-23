@@ -11,7 +11,12 @@ function showChat(chatUid, entityType){
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userUpdates.once('value', function(data) {
-    userUpdatesSet = data.child("globalNotifications").exists();
+
+    userUpdatesSet = data.child("inboxMessages").exists();
+
+    if(userUpdatesSet)
+        userUpdates.child("inboxMessages").set(0);
+
   });
 
   //create footer input box
@@ -58,7 +63,8 @@ function addChatMessage(chatUid, userUid, text, entityType){
     //get user name
     DB.child("users/"+userUid).once("value", function(user) {
       var userName = user.val().name;
-      DB.child("chats/messages/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
+      DB.child("chats/"+chatUid+"/entityType").push(entityType);
+      DB.child("chats/"+chatUid+"/messages").push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
 
     })
   }
