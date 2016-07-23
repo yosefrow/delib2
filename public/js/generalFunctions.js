@@ -39,7 +39,7 @@ function goHome(){
   setAcitveEntity("","", "", "");
 }
 
-function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
+function setAcitveEntity (newEntity, newUid, newEventType, newCallback()){
   var previuosEntity = activeEntity.entity;
   var previuosUid = activeEntity.uid;
   var previuosEventType = activeEntity.eventType;
@@ -54,9 +54,16 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
   activeEntity.eventType = newEventType;
   activeEntity.callback = newCallback;
 
+<<<<<<< Updated upstream
 //  if (newUid != "" && newUid != undefined){
 //    DB.child(newEntity+"/"+newUid).once(newEventType, newCallback);
 //  }
+=======
+
+  if (newUid !== "" || newUid != undefined) {
+    DB.child(newEntity+"/"+newUid).once(newEventType, newCallback());
+  }
+>>>>>>> Stashed changes
 }
 
 function animateHeader(){
