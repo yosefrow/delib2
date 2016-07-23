@@ -16,10 +16,10 @@ function editQuestion(questionUid){
     var questionDescription = dataSnapshot.val().description;
     console.log("Number of Options: "+ numberOfOptionsTemp, questionTitle, questionDescription);
 
-    convertTemplate("#createQuestion-tmpl",{questionTitle: questionTitle, questionDescription:questionDescription}, "wrapper");
-    convertTemplate("#editQuestionFooter-tmpl",{uuid:questionUid}, "footer")
+    renderTemplate("#createQuestion-tmpl",{questionTitle: questionTitle, questionDescription:questionDescription}, "wrapper");
+    renderTemplate("#editQuestionFooter-tmpl",{uuid:questionUid}, "footer")
 
-    convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
+    renderTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
 
 //    setNumberOfOptions(numberOfOptionsTemp);
 
@@ -29,10 +29,10 @@ function editQuestion(questionUid){
 
       switch (selcation) {
         case "forAgainst":
-          convertTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
+          renderTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
           break;
         case "limitedOptions":
-          convertTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
+          renderTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
           if(numberOfOptionsTemp>0){
             setNumberOfOptions(numberOfOptionsTemp);
           }

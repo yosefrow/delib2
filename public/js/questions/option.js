@@ -28,8 +28,8 @@ function openOptionMenu(optionUid){
 
 function editOption(questionUid, optionUid){
 
-    convertTemplate("#editMultiOptionFooter-tmpl", {questionUid:questionUid, optionUid: optionUid}, "footer");
-    convertTemplate("#createMultiOption-tmpl", {}, "wrapper");
+    renderTemplate("#editMultiOptionFooter-tmpl", {questionUid:questionUid, optionUid: optionUid}, "footer");
+    renderTemplate("#createMultiOption-tmpl", {}, "wrapper");
 
     DB.child("questions/"+questionUid+"/options/"+optionUid).once("value", function(dataSnapshot){
         var title = dataSnapshot.val().title;
@@ -69,7 +69,7 @@ function showOptionInfo(question, option){
 
             var context = {title: title, description: description, explanation: explanation}
 
-            convertTemplate("#optionsInfo-tmpl", context, "#info");
+            renderTemplate("#optionsInfo-tmpl", context, "#info");
 
             //get wrapper dimentions
             var headerHeight = $("header").height();

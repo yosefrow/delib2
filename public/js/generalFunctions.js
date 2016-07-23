@@ -39,7 +39,7 @@ function goHome(){
   setAcitveEntity("","", "", "");
 }
 
-function setAcitveEntity (newEntity, newUid, newEventType, newCallback()){
+function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
   var previuosEntity = activeEntity.entity;
   var previuosUid = activeEntity.uid;
   var previuosEventType = activeEntity.eventType;

@@ -9,7 +9,7 @@ function showMultiOptions(questionUid){
 
     DB.child("questions/"+questionUid+"/options").off("value");
 
-    convertTemplate("#multiOptionsFooter-tmpl",{questionUid: questionUid}, "footer");
+    renderTemplate("#multiOptionsFooter-tmpl",{questionUid: questionUid}, "footer");
     $("wrapper").html("");
 
     var indexDiv = 0;
@@ -129,8 +129,8 @@ function orderAcccordingToVotes(questionUid){
 }
 
 function addMultiOption(questionUid){
-    convertTemplate("#createMultiOption-tmpl",{}, "wrapper");
-    convertTemplate("#createMultiOptionFooter-tmpl", {questionUid:questionUid}, "footer")
+    renderTemplate("#createMultiOption-tmpl",{}, "wrapper");
+    renderTemplate("#createMultiOptionFooter-tmpl", {questionUid:questionUid}, "footer")
 }
 
 function addMultiOptionToDB(questionUid){

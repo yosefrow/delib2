@@ -32,8 +32,8 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
 
     }
     var context = {options: preContext};
-    convertTemplate("#simpleVote-tmpl", context, "wrapper");
-    convertTemplate("#simpleVoteBtns-tmpl", context, "footer");
+    renderTemplate("#simpleVote-tmpl", context, "wrapper");
+    renderTemplate("#simpleVoteBtns-tmpl", context, "footer");
 
     var NumberOfOptionsActualy = optionsArray.length;
 

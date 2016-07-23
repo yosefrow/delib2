@@ -1,6 +1,6 @@
 function showAddTopicScreen(){
-  convertTemplate("#createTopic-tmpl",{}, "wrapper");
-  convertTemplate("#createTopicFooter-tmpl",{}, "footer")
+  renderTemplate("#createTopic-tmpl",{}, "wrapper");
+  renderTemplate("#createTopicFooter-tmpl",{}, "footer")
 }
 
 function addNewTopic(){

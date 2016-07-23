@@ -8,8 +8,8 @@ function openGroupMenu(groupUid){
 
 function editGroup(groupUid){
 
-  convertTemplate("#createGroup-tmpl",{},"wrapper");
-  convertTemplate("#editGroupFooter-tmpl", {groupUid:groupUid}, "footer");
+  renderTemplate("#createGroup-tmpl",{},"wrapper");
+  renderTemplate("#editGroupFooter-tmpl", {groupUid:groupUid}, "footer");
 
   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;

@@ -8,8 +8,8 @@ function openTopicMenu(topicUid){
 }
 
 function editTopic(topicUid){
-  convertTemplate("#createTopic-tmpl",{},"wrapper");
-  convertTemplate("#editTopicFooter-tmpl",{topicUid:topicUid}, "footer");
+  renderTemplate("#createTopic-tmpl",{},"wrapper");
+  renderTemplate("#editTopicFooter-tmpl",{topicUid:topicUid}, "footer");
 
   DB.child("topics/"+topicUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;

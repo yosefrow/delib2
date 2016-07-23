@@ -1,6 +1,6 @@
 function showAddGroup(){
-  convertTemplate("#createGroup-tmpl",{}, "wrapper");
-  convertTemplate("#createGroupFooter-tmpl",{}, "footer")
+  renderTemplate("#createGroup-tmpl",{}, "wrapper");
+  renderTemplate("#createGroupFooter-tmpl",{}, "footer")
 }
 
 function addNewGroup(){
