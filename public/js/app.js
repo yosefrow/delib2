@@ -42,7 +42,7 @@ $(function(){
   renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
   renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
   renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
-  goHome();
+//  goHome();
   //renderTemplate("#login-tmpl",{},"body");
 
   listenToAuth();
