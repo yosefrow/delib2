@@ -14,20 +14,21 @@ function showMultiOptions(questionUid){
 
    var indexDiv = 0;
 
-   DB.child("questions/"+questionUid+"/options").orderByChild("votes").on("child_added", function(options){
+   DB.child("questions/"+questionUid+"/options").orderByChild("votes").on("child_added", function(option){
 
-      var optionUid = options.key;
-      var description = options.val().description;
-      var title = options.val().title;
-      var optionColor = options.val().color;
+      var optionUid = option.key;
+      var description = option.val().description;
+      var title = option.val().title;
+      var optionColor = option.val().color;
+      console.log(optionUid, title);
 
 
       adjustCounting(questionUid,optionUid);
 
       //check if user has voted. if not, set user vote to zero.
-      var isSomebodyVoted = options.val().hasOwnProperty("thumbUp")
+      var isSomebodyVoted = option.val().hasOwnProperty("thumbUp")
       if (isSomebodyVoted){
-         var isUserVoted = options.val().thumbUp.hasOwnProperty(userUuid);
+         var isUserVoted = option.val().thumbUp.hasOwnProperty(userUuid);
 
       } else {
          isUserVoted = false;
@@ -38,11 +39,11 @@ function showMultiOptions(questionUid){
          var userVote = false;
 
       } else {
-         var userVote = options.val().thumbUp[userUuid];
+         var userVote = option.val().thumbUp[userUuid];
 
       }
 
-      var votes = options.val().votes;
+      var votes = option.val().votes;
       if (votes == undefined){ votes = 0};
 
       if (userVote) {
@@ -125,6 +126,9 @@ function orderAcccordingToVotes(questionUid){
 }
 
 function addMultiOption(questionUid){
+
+   DB.child("questions/"+questionUid+"/options").off("child_added");
+
    renderTemplate("#createMultiOption-tmpl",{}, "wrapper");
    renderTemplate("#createMultiOptionFooter-tmpl", {questionUid:questionUid}, "footer")
 }
