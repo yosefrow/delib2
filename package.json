@@ -1,5 +1,5 @@
 {
-  "name": "delib-fron2",
+  "name": "delib2",
   "version": "1.0.0",
   "main": "tempChat.js",
   "scripts": {
@@ -8,21 +8,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/delib-org/delib-fron2.git"
+    "url": "git+https://github.com/delib-org/delib2.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/delib-org/delib-fron2/issues"
+    "url": "https://github.com/delib-org/delib2/issues"
   },
-  "homepage": "https://github.com/delib-org/delib-fron2#readme",
+  "homepage": "https://github.com/delib-org/delib2#readme",
   "dependencies": {
     "body-parser": "^1.15.1",
     "colors": "^1.1.2",
     "express": "^4.13.4",
     "handlebars": "^4.0.5",
     "httpserver": "^0.2.0",
-    "jquery": "^3.0.0"
+    "jquery": "^3.0.0",
+    "jquery-ui": "^1.12.0"
   },
   "description": ""
 }
