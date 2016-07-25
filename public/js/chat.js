@@ -35,10 +35,10 @@ function showChat(chatUid, entityType){
 
   //get chat messages
   DB.child("chats/"+chatUid).off();
-  DB.child("chats/"+chatUid).orderByChild("time").limitToLast(20).on("child_added", function(chats){
+  DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", function(chats){
     if(chats.exists()){
       var text = chats.val().text;
-      var time =  parseDate(chats.val().time);
+      var time =  parseDate(chats.val().dateAdded);
       var author = chats.val().userName;
 
       var context = {text:text, time: time, author:author};
@@ -64,7 +64,7 @@ function addChatMessage(chatUid, userUid, text, entityType){
     DB.child("users/"+userUid).once("value", function(user) {
       var userName = user.val().name;
       DB.child("chats/"+chatUid+"/entityType").set(entityType);
-      DB.child("chats/"+chatUid+"/messages").push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
+      DB.child("chats/"+chatUid+"/messages").push({dateAdded: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
 
     })
   }
