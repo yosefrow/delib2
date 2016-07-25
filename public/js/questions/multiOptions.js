@@ -20,8 +20,6 @@ function showMultiOptions(questionUid){
       var description = option.val().description;
       var title = option.val().title;
       var optionColor = option.val().color;
-      console.log(optionUid, title);
-
 
       adjustCounting(questionUid,optionUid);
 

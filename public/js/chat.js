@@ -9,7 +9,6 @@ function showChat(){
 
   //notifications
 
-  console.log(activeEntity.uid, activeEntity.entity);
   var chatUid = activeEntity.uid;
   var entityType = activeEntity.entity;
   setAcitveEntity("chats", chatUid);
