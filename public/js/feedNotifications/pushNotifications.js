@@ -119,7 +119,7 @@ function pushNotification(EntityData, entityType, messagesSent) {
           case "groups": showGroup(EntityData.key); break;
           case "topics": showTopic(EntityData.key); break;
           case "questions": showQuestion(EntityData.key); break;
-          case "chats": showChat(EntityData.key); break;
+          case "chats": showChat(EntityData.key); break; //look for change in showChat function... lets talk about it (Tal);
           case "ownerCalls": showGroup(EntityData.key);
           // for a later use
           // case "options": showOptionInfo(EntityData.key); break;

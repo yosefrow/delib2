@@ -54,12 +54,15 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
   activeEntity.eventType = newEventType;
   activeEntity.callback = newCallback;
 
+<<<<<<< HEAD
 //|| newUid != undefined
   if (newEventType !== "" ) {
     DB.child(newEntity+"/"+newUid).once(newEventType, function (entitySnapshot) {
       newCallback(entitySnapshot);
     });
   }
+=======
+>>>>>>> master
 }
 
 function animateHeader(){

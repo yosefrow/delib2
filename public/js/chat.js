@@ -2,12 +2,23 @@
 function clearChat(){
   $("wrapper").html("");
 }
-function showChat(chatUid, entityType){
+
+function showChat(){
 
   clearChat();
   
+<<<<<<< HEAD
   // setAcitveEntity("chats", chatUid);
   activeEntity= {entity:"chats", uid:chatUid};
+=======
+  //notifications
+
+  console.log(activeEntity.uid, activeEntity.entity);
+  var chatUid = activeEntity.uid;
+  var entityType = activeEntity.entity;
+  setAcitveEntity("chats", chatUid);
+
+>>>>>>> master
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userUpdates.once('value', function(data) {
@@ -27,9 +38,7 @@ function showChat(chatUid, entityType){
     if (e.keyCode == 13) {
       e.preventDefault();
 
-      var inputValue=$("#chatInputTxt").val();
-      addChatMessage(chatUid, userUuid, inputValue, entityType);
-      $("#chatInputTxt").val("");
+      addChatMessagePre(chatUid,entityType);
     }
   });
 
@@ -58,16 +67,34 @@ function showChat(chatUid, entityType){
 
 function addChatMessage(chatUid, userUid, text, entityType){
   //  var x= firebase.database(app);
+  console.log("chat uid: "+ chatUid);
   if (text != "") {
 
     //get user name
     DB.child("users/"+userUid).once("value", function(user) {
       var userName = user.val().name;
+<<<<<<< HEAD
       DB.child("chats/"+chatUid+"/entityType").set(entityType);
       DB.child("chats/"+chatUid+"/messages").push({dateAdded: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
+=======
+//      DB.child("chats/"+chatUid+"/entityType").push(entityType);
+      DB.child("chats/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
+>>>>>>> master
 
     })
   }
 }
 
+
+function addChatMessagePre(chatUid, entityType){
+
+  if (chatUid == null || chatUid == undefined){
+    chatUid = activeEntity.uid;
+    entityType = activeEntity.entity;
+  }
+
+  var inputValue=$("#chatInputTxt").val();
+      addChatMessage(chatUid, userUuid, inputValue, entityType);
+      $("#chatInputTxt").val("");
+}
 

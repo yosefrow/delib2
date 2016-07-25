@@ -105,7 +105,7 @@
 
 <div class="material-ripple clickables headerMenuBtn" onclick="goHome()"><i class="fa fa-home fa-2x"></i></div>
 <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-info-circle fa-2x"></i></div>
-<div class="material-ripple clickables headerMenuBtn" onclick="showChat('{{chatUid}}','{{entityType}}')"><i class="fa fa-comments-o fa-2x"></i></div>
+<div class="material-ripple clickables headerMenuBtn" onclick="showChat()"><i class="fa fa-comments-o fa-2x"></i></div>
 <div class="material-ripple clickables headerMenuBtn" onclick="someFunction()"><i class="fa fa-share-alt fa-2x"></i></div>
 <div id="feedSubscribe" class="material-ripple clickables headerMenuBtn" onclick="setLocalNotifications()"><i class="fa fa-globe fa-2x"></i></div>
 <div id="globalNotificationsSub" class="material-ripple clickables headerMenuBtn" onclick="setGlobalNotifications()"><i class="fa fa-bell-o fa-2x"> </i></div>
@@ -530,7 +530,7 @@ Tow options
 
     <div class="chatInput">
       <textarea id="chatInputTxt" placeholder="כתבו משהו" style="width:98%"></textarea>
-      <button>אישור</button>
+      <button onclick="addChatMessagePre()">אישור</button>
     </div>
 
   </script>
