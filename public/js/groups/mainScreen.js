@@ -130,27 +130,34 @@ function listenToOwned_MemberGroups (role){
         groupsUnderRole.forEach(function(groupOwned){
 
           var isGroupOwned = groupOwned.val();
+
           var preContext = new Object();
 
           DB.child("groups/"+groupOwned.key).once("value", function(data){
+            console.dir (data.val());
+            if (data.val() != null){
 
-            var title = data.val().title;
-            var description = data.val().description;
+              var title = data.val().title;
+              var description = data.val().description;
 
-            preContext = {
-              uuid: groupOwned.key,
-              title: title,
-              description: description
-            }
+              preContext = {
+                uuid: groupOwned.key,
+                title: title,
+                description: description
+              }
 
-            groupsArray.push(preContext);
+              groupsArray.push(preContext);
 
-            if (i === numberOfGroups){
+              if (i === numberOfGroups){
 
-              var context = {groups: groupsArray};
+                var context = {groups: groupsArray};
 
-              renderTemplate("#groups_"+role+"-tmpl", context, "wrapper");
-              $(".cardsTopicsSubmenuDotsMenu").hide();
+                renderTemplate("#groups_"+role+"-tmpl", context, "wrapper");
+                $(".cardsTopicsSubmenuDotsMenu").hide();
+              }
+            } else {
+              console.log("Error: group "+groupOwned.key+" do not exists. Erasing from owner");
+              DB.child("users/"+userUuid+"/role/"+groupOwned.key).remove();
             }
             i++;
           })

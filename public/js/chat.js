@@ -2,10 +2,16 @@
 function clearChat(){
   $("wrapper").html("");
 }
-function showChat(chatUid, entityType){
+
+function showChat(){
 
   clearChat();
   
+  //notifications
+
+  console.log(activeEntity.uid, activeEntity.entity);
+  var chatUid = activeEntity.uid;
+  var entityType = activeEntity.entity;
   setAcitveEntity("chats", chatUid);
 
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
@@ -27,9 +33,7 @@ function showChat(chatUid, entityType){
     if (e.keyCode == 13) {
       e.preventDefault();
 
-      var inputValue=$("#chatInputTxt").val();
-      addChatMessage(chatUid, userUuid, inputValue, entityType);
-      $("#chatInputTxt").val("");
+      addChatMessagePre(chatUid,entityType);
     }
   });
 
@@ -44,7 +48,7 @@ function showChat(chatUid, entityType){
       var context = {text:text, time: time, author:author};
       appendTemplate("#chatMessage-tmpl", context, "wrapper");
 
-      $('wrapper').scrollTop($('wr apper')[0].scrollHeight);
+      $('wrapper').scrollTop($('wrapper')[0].scrollHeight);
     }
 
     if (userUpdatesSet) {
@@ -58,16 +62,29 @@ function showChat(chatUid, entityType){
 
 function addChatMessage(chatUid, userUid, text, entityType){
   //  var x= firebase.database(app);
+  console.log("chat uid: "+ chatUid);
   if (text != "") {
 
     //get user name
     DB.child("users/"+userUid).once("value", function(user) {
       var userName = user.val().name;
-      DB.child("chats/"+chatUid+"/entityType").push(entityType);
-      DB.child("chats/"+chatUid+"/messages").push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
+//      DB.child("chats/"+chatUid+"/entityType").push(entityType);
+      DB.child("chats/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
 
     })
   }
 }
 
+
+function addChatMessagePre(chatUid, entityType){
+
+  if (chatUid == null || chatUid == undefined){
+    chatUid = activeEntity.uid;
+    entityType = activeEntity.entity;
+  }
+
+  var inputValue=$("#chatInputTxt").val();
+      addChatMessage(chatUid, userUuid, inputValue, entityType);
+      $("#chatInputTxt").val("");
+}
 
