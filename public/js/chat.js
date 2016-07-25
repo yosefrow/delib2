@@ -6,11 +6,7 @@ function clearChat(){
 function showChat(){
 
   clearChat();
-  
-<<<<<<< HEAD
-  // setAcitveEntity("chats", chatUid);
-  activeEntity= {entity:"chats", uid:chatUid};
-=======
+
   //notifications
 
   console.log(activeEntity.uid, activeEntity.entity);
@@ -18,7 +14,6 @@ function showChat(){
   var entityType = activeEntity.entity;
   setAcitveEntity("chats", chatUid);
 
->>>>>>> master
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userUpdates.once('value', function(data) {
