@@ -73,13 +73,8 @@ function addChatMessage(chatUid, userUid, text, entityType){
     //get user name
     DB.child("users/"+userUid).once("value", function(user) {
       var userName = user.val().name;
-<<<<<<< HEAD
-      DB.child("chats/"+chatUid+"/entityType").set(entityType);
-      DB.child("chats/"+chatUid+"/messages").push({dateAdded: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
-=======
-//      DB.child("chats/"+chatUid+"/entityType").push(entityType);
-      DB.child("chats/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
->>>>>>> master
+
+        DB.child("chats/"+chatUid).push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
 
     })
   }
