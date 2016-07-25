@@ -31,7 +31,7 @@ function showQuestion(questionUid, back){
     renderTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     animateHeader();
 
-    renderTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
+    convertTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
 
 
 

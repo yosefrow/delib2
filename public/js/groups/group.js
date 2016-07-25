@@ -9,7 +9,7 @@ function showGroup(groupUid, back){
 
   });
 
-   setAcitveEntity("groups", groupUid);
+   // setAcitveEntity("groups", groupUid);
   //  //get state of notifications
 
 
@@ -80,16 +80,13 @@ function showGroupTopics(groupUid){
             renderTemplate("#groupPage-tmpl", context, "wrapper");
             $("wrapper").hide();
             $("wrapper").show(600);
-
-            //            $(".cardsTopicsSubmenuDotsMenu").hide();
           }
-
+  
           i++;
         })
-
       })
     } else {
       renderTemplate("#groupPage-tmpl",{}, "wrapper");
-           }
+    }
   });
 }

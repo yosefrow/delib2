@@ -6,16 +6,16 @@ function showChat(chatUid, entityType){
 
   clearChat();
   
-  setAcitveEntity("chats", chatUid);
-
+  // setAcitveEntity("chats", chatUid);
+  activeEntity= {entity:"chats", uid:chatUid};
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userUpdates.once('value', function(data) {
 
     userUpdatesSet = data.child("inboxMessages").exists();
 
-    if(userUpdatesSet)
-        userUpdates.child("inboxMessages").set(0);
+    // if(userUpdatesSet)
+    //     userUpdates.child("inboxMessages").set(0);
 
   });
 
@@ -44,7 +44,7 @@ function showChat(chatUid, entityType){
       var context = {text:text, time: time, author:author};
       appendTemplate("#chatMessage-tmpl", context, "wrapper");
 
-      $('wrapper').scrollTop($('wr apper')[0].scrollHeight);
+      $('wrapper').scrollTop($('wrapper')[0].scrollHeight);
     }
 
     if (userUpdatesSet) {
@@ -63,7 +63,7 @@ function addChatMessage(chatUid, userUid, text, entityType){
     //get user name
     DB.child("users/"+userUid).once("value", function(user) {
       var userName = user.val().name;
-      DB.child("chats/"+chatUid+"/entityType").push(entityType);
+      DB.child("chats/"+chatUid+"/entityType").set(entityType);
       DB.child("chats/"+chatUid+"/messages").push({time: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
 
     })

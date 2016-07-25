@@ -51,14 +51,15 @@ function setGlobalNotifications() {
 
     if(activeEntity !== 'undefined') {
 
-        userUpdates.once('value', function(data) {
-            userUpdatesSet = data.child("newSubEntity").exists();
-        });
+        console.log(activeEntity);
 
-        
         if (userUpdatesSet)
         {
-            userUpdates.child("globalNotifications").remove();
+            if (activeEntity.entity !== "chats")
+                userUpdates.child("globalNotifications").remove();
+            else
+                userUpdates.child("inboxMessages").remove();
+
             $("#globalNotificationsSub").css("color", inactiveColor);
         
         } else {
@@ -69,6 +70,15 @@ function setGlobalNotifications() {
             
             $("#globalNotificationsSub").css("color", activeColor);
         }
+
+        userUpdates.once('value', function(data) {
+
+            if (activeEntity.entity == "chats")
+                userUpdatesSet = data.child("inboxMessages").exists();
+            else
+                userUpdatesSet = data.child("newSubEntity").exists();
+        });
+
 
     }
   }
@@ -86,11 +96,11 @@ function pushNotification(EntityData, entityType, messagesSent) {
     Notification.requestPermission(EntityData);
   else {
       var notification;
-    // console.log(EntityData.val(), entityType );
+    console.log(EntityData.val(), entityType );
       if (entityType == "chats") {
-          notification = new Notification(toHebrew[entityType] + EntityData.val().title, {
+          notification = new Notification(EntityData.val().title, {
               icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-              body: messagesSent
+              body: messagesSent + " הודעות חדשות"
           });
       } else if(entityType == "ownerCalls") {
           notification = new Notification("קריאת מנהל מ"+EntityData.val().title, {

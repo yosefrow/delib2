@@ -63,7 +63,7 @@ const toHebrew = {
   topics: "נושא חדש: ",
   questions: "שאלה חדשה: ",
   owner: "קריאה: ",
-  chat: "room"
+  chats: "הודעה חדשה מ:"
 };
 
 var inactiveColor = "#5f1f1f";

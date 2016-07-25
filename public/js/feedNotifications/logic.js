@@ -14,19 +14,21 @@ function updatesListener() {
                 // var isFeedReg      = entityUpdate.child('feed').exists();
 
                 // if subscribed to ownerCalls
-                if (isOwnerCallReg) {
-                    DB.child(entityUpdates.key + "/" + entityUpdate.key + "/ownerCalls").orderByChild('dateAdded').limitToLast(1).on('child_added', function (ownerCall) {
-
-                        if(mostUpdatedContent == null)
-                            mostUpdatedContent = ownerCall;
-                        else if (mostUpdatedContent.val().dateAdded < ownerCall.val().dateAdded)
-                            mostUpdatedContent = ownerCall;
-                        else
-                            return;
-
-                        pushNotification(entityUpdate.val(), "ownerCalls", ownerCall.val());
-                    }); //.catch(function (error) { console.log(error, "no ownerCalls") })
-                }
+                // if (isOwnerCallReg) {
+                //     DB.child(entityUpdates.key + "/" + entityUpdate.key + "/ownerCalls").orderByChild('dateAdded').limitToLast(1).on('child_added', function (ownerCall) {
+                //         console.log("1");
+                //         if(mostUpdatedContent == null)
+                //             mostUpdatedContent = ownerCall;
+                //             //needs to be mostUpdatedContent.key as chats
+                //         else if (mostUpdatedContent.dateAdded < ownerCall.dateAdded)
+                //             mostUpdatedContent = ownerCall;
+                //         else
+                //             return;
+                //         DB.child(entityUpdates.key + "/" + entityUpdate.key).once('value', function (actualContent) {
+                //             pushNotification(actualContent, "ownerCalls", ownerCall.val().description)
+                //         });
+                //     }); //.catch(function (error) { console.log(error, "no ownerCalls") })
+                // }
 
                 // check if sub-entity added, only if registered to Global or Feed. if not registered fo both - move on
 
@@ -60,27 +62,41 @@ function updatesListener() {
                 //
                 //     // chat logic
                     if(entityUpdates.key == "chats") {
-                        DB.child("chats/" + entityUpdate.key).on('child_added', function (chatUid) {
-                            //dont send notifications if inside the chat, and only for groups
-                            if(chatUid.entityType == "groups" && activeEntity.entityType !== "chats" && activeEntity.entity !== chatUid.key) {
-                                DB.child("users/"+userUuid+"/entityNotifications/chats/"+entityUpdate.key+"/inboxMessages").once('value', function (inboxVolume) {
-                                        DB.child("/"+chatUid.entityType+"/"+chatUid.key).once('value', function (chatEntityContent) {
+                        console.log("1");
+                        DB.child("chats/" + entityUpdate.key+ "/messages").limitToLast(1).orderByChild('time').on('child_added', function (chatUid) {
+                            //dont send notifications if inside the chat, and only for groups && activeEntity.entityType !== "chats" && activeEntity.entity !== chatUid.key
+                            DB.child("chats/" + entityUpdate.key).once('value', function (chatUidContent) {
+                                if(chatUidContent.val().entityType == "groups" ) {
+                                    console.log("1");
+                                    DB.child("users/"+userUuid+"/entityNotifications/chats/"+entityUpdate.key+"/inboxMessages").once('value', function (inboxVolume) {
+                                        console.log("1");
+                                        DB.child("/"+chatUidContent.val().entityType+"/"+chatUidContent.key).once('value', function (chatEntityContent) {
+                                            // console.log(chatUidContent.entityType, chatUidContent.key);
+
+                                            if(mostUpdatedContent == null)
+                                                mostUpdatedContent = chatUid;
+                                            else if (mostUpdatedContent.val().time < chatUid.val().time)
+                                                mostUpdatedContent = chatUid;
+                                            else
+                                                return;
+
                                             var messagesSentInc;
+                                                // get inbox volume
+                                                messagesSentInc = inboxVolume.val();
+                                                // increment inbox volume
+                                                messagesSentInc++;
+                                                //set incremented inbox volume
 
-                                            // get inbox volume
-                                            messagesSentInc = inboxVolume.val();
-                                            // increment inbox volume
-                                            messagesSentInc++;
-                                            //set incremented inbox volume
-                                            DB.child("users/" + userUuid + "/entityNotifications/chats/" + chatUid.key + "/inboxMessages").set(messagesSentInc);
+                                                DB.child("users/" + userUuid + "/entityNotifications/chats/" + chatUidContent.key + "/inboxMessages").set(messagesSentInc);
 
-                                            console.log(chatUid.key, chatUid.val());
-                                            // send notifications in jumps of 5
-                                            if (messagesSentInc%5 == 0)
-                                                pushNotification(chatEntityContent, "chats", messagesSentInc);
+                                                console.log(chatUid.key, chatUid.val());
+                                                // send notifications in jumps of 5
+                                                // if (inboxVolume.val()%5 == 0)
+                                                    pushNotification(chatEntityContent, "chats", messagesSentInc);
+                                        });
                                     });
-                                });
-                            }
+                                }
+                            });
                         });
                     }
                 // }
