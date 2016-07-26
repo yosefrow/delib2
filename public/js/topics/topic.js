@@ -9,12 +9,11 @@ function showTopic(topicUid, back){
   //   userUpdatesSet = data.child("globalNotifications").exists();
   // });
 
+  if (!back){
+    setUrl("topic", topicUid);
+  }
+
   var showTopicCallback = function(dataSnapshot){
-    if(dataSnapshot.exists()){
-      if (!back){
-        setUrl("topic", topicUid);
-      }
-    }
     var title = dataSnapshot.val().title;
     renderTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
     animateHeader();

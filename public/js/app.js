@@ -28,7 +28,7 @@ $(function(){
 
   var currentUrl = getUrl();
 
-  routTo(currentUrl, false);
+//  routTo(currentUrl, false);
   //  showPublicGroups();
   $(window).on('popstate', function() {
     console.log('Back button was pressed.');
@@ -42,7 +42,7 @@ $(function(){
   renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
   renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
   renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
-  goHome();
+//  goHome();
   //renderTemplate("#login-tmpl",{},"body");
 
   listenToAuth();
