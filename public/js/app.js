@@ -51,6 +51,8 @@ $(function(){
 // Global General Variables and Constants
 var userUuid;
 var activeEntity = new Object();
+var firstRun = true;
+
 const subEntity = {
   groups: "topics",
   topics: "questions",

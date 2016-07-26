@@ -9,19 +9,19 @@ function showChat(){
 
   //notifications
 
-  console.log(activeEntity.uid, activeEntity.entity);
   var chatUid = activeEntity.uid;
   var entityType = activeEntity.entity;
   setAcitveEntity("chats", chatUid);
+  console.log(activeEntity.uid, activeEntity.entity);
 
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userUpdates.once('value', function(data) {
 
-    userUpdatesSet = data.child("inboxMessages").exists();
+    userUpdatesSet = data.child("/globalNotifications").exists();
 
     if(userUpdatesSet)
-        userUpdates.child("inboxMessages").set(0);
+      DB.child("users/"+userUuid+"/chatInboxes/"+chatUid).set(0);
 
   });
 

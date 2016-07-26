@@ -57,26 +57,29 @@ function setGlobalNotifications() {
         {
             if (activeEntity.entity !== "chats")
                 userUpdates.child("globalNotifications").remove();
-            else
-                userUpdates.child("inboxMessages").remove();
+            else {
+                userUpdates.child("globalNotifications").remove();
+                DB.child("users/"+userUuid+"/chatInboxes/"+activeEntity.uid).remove();
+                firstRun = false;
+            }
 
             $("#globalNotificationsSub").css("color", inactiveColor);
         
         } else {
-            if (activeEntity.entity !== "chats")
+            if (activeEntity.entity !== "chats"){
                 userUpdates.child("globalNotifications").set(true);
-            else
-                userUpdates.child("inboxMessages").set(0);
+                
+            } else {
+                userUpdates.child("globalNotifications").set(true);
+                DB.child("users/"+userUuid+"/chatInboxes/"+activeEntity.uid).set(0);
+                firstRun = true;
+            }
             
             $("#globalNotificationsSub").css("color", activeColor);
         }
 
         userUpdates.once('value', function(data) {
-
-            if (activeEntity.entity == "chats")
-                userUpdatesSet = data.child("inboxMessages").exists();
-            else
-                userUpdatesSet = data.child("newSubEntity").exists();
+                userUpdatesSet = data.child("globalNotifications").exists();
         });
 
 
