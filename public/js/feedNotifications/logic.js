@@ -24,6 +24,7 @@ function updatesListener() {
                             mostUpdatedContent = ownerCall;
                         else
                             return;
+
                         DB.child(entityUpdates.key + "/" + entityUpdate.key).once('value', function (actualContent) {
                             pushNotification(actualContent, "ownerCalls", ownerCall.val().description)
                         });
@@ -61,28 +62,16 @@ function updatesListener() {
                 //     });
                 //
                 //     // chat logic
-                    if(entityUpdates.key == "chats") {
 
+                    if(entityUpdates.key == "chats") {
                         // check if added message, get last message by date
                         DB.child("chats/" + entityUpdate.key).limitToLast(1).orderByChild('dateAdded').on('child_added', function (lastMessage) {
-                            // in order to prevent recursive feedback in line 6 we have to make sure inboxMessages is incremented per one
-                            // and only one message, we'll do this by getting the uid of the latest Update. in future we might want to consider a function
-                            // updating mostUpdatedContent global variable, and a .key comparison of mostUpdatedContent, different key
-                            // may confirm a new update.
-
-                            console.log(lastMessage.val());
-                            if (mostUpdatedContent == null)
-                                mostUpdatedContent = lastMessage;
-                            else if (mostUpdatedContent.val().dateAdded < lastMessage.val().dateAdded)
-                                mostUpdatedContent = lastMessage;
-                            else
-                                return;
-                            // REUSE when done: && activeEntity.entityType !== "chats" && activeEntity.entity !== chatUid.key
-                            // dont send notifications if inside the chat
-                            if(activeEntity.entityType !== "chats" && activeEntity.entity !== entityUpdate.key) {
-                                    // now we need the actual content of the entity related to current chatRoom
-                                    DB.child("/groups/" + entityUpdate.key).once('value', function (chatEntityContent) {
-
+                            // get inbox unseen messages counter
+                            DB.child("users/" + userUuid + "/chatInboxes/" + entityUpdate.key).once('value', function (inboxVolume) {
+                                // now we need the actual content of the entity related to current chatRoom
+                                DB.child("/groups/" + entityUpdate.key).once('value', function (chatEntityContent) {
+                                    // don't bring up notificaions and nor count them if already inside subscribed chat room
+                                    if(!(activeEntity.entity == "chats" && activeEntity.uid == entityUpdate.key)) {
                                         // if no such group, get out
                                         if (chatEntityContent == null)
                                             return;
@@ -91,23 +80,29 @@ function updatesListener() {
                                         var messagesSentInc;
 
                                         // now we need the inboxMessages to get the number of messages not seen
-                                        messagesSentInc = entityUpdate.child("/inboxMessages").val();
-
+                                        messagesSentInc = inboxVolume.val();
+                                        
                                         // increment inbox volume
+                                        if (firstRun) {
+                                            firstRun = false;
+                                            return;
+                                        }
+                                        
+                                        // obvious incrementation, is obvious..
                                         messagesSentInc++;
 
                                         //set incremented inbox volume
-                                        DB.child("users/" + userUuid + "/entityNotifications/chats/" + entityUpdate.key + "/inboxMessages").set(messagesSentInc);
+                                        DB.child("users/" + userUuid + "/chatInboxes/" + entityUpdate.key).set(messagesSentInc);
 
                                         // send notifications in jumps of 5, might want to consider further manipulations. currently unused.
-                                        if (messagesSentInc % 5 == 0)
-                                            pushNotification(chatEntityContent, "chats", messagesSentInc);
-                                    });
-
-
-                            }
+                                        // if (messagesSentInc % 5 ===  0)
+                                        pushNotification(chatEntityContent, "chats", messagesSentInc);
+                                    }
+                                });
+                            });
                         });
                     }
+
                 // }
             });
         });
