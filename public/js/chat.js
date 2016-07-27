@@ -69,7 +69,7 @@ function addChatMessage(chatUid, userUid, text, entityType){
     DB.child("users/"+userUid).once("value", function(user) {
       var userName = user.val().name;
 
-        DB.child("chats/"+chatUid).push({dateAdded: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text});
+        DB.child("chats/"+chatUid).push({dateAdded: firebase.database.ServerValue.TIMESTAMP, user: userUid, userName:userName, text: text, chatUid: chatUid,entityType: entityType });
 
     })
   }

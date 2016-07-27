@@ -3,9 +3,9 @@
 function showMultiOptions(questionUid){
 
    var optionsPosition = new Array();
-   var optionsArray = new Array();
+   var optionsObject = new Array();
 
-   var optionsArrayOrder = new Array();
+   var optionsObjectOrder = new Array();
 
    DB.child("questions/"+questionUid+"/options").off("value");
 

@@ -10,9 +10,12 @@ function listenToAuth(){
 
       DB.child("users/"+user.uid).update({name: user.displayName});
       updatesListener();
-      goHome();
+//      goHome();
       //get name
       //get picture
+
+       listenToNotifications(user.uid);
+       console.log("login: "+ user.uid)
 
     } else {
       // No user is signed in.
