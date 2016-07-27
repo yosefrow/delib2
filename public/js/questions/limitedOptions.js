@@ -1,10 +1,16 @@
 function showLimitedOptionsQuestion(questionUid, numberOfOptions){
-   console.log("showLimitedOptionsQuestion");
-   DB.child("questions/"+questionUid+"/options").off("value"); DB.child("questions/"+questionUid+"/options").orderByChild("order").limitToLast(numberOfOptions).on("value",function(options){
+
+   var questionDB = DB.child("questions/"+questionUid+"/options");
+
+   questionDB.off("value");
+   questionDB.orderByChild("votes").limitToLast(numberOfOptions).once("value",function(options){
 
       if(options.exists()){
          setUrl("question", questionUid);
+      } else {
+         console.log("ERROR: no options exists");
       }
+
       var maxVotes = 0;
 
       var optionsArray = new Array();
@@ -28,11 +34,11 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
       //    optionsArray.reverse();
       for (i in optionsArray){
 
-         preContext.push({questionUuid: questionUid ,uuid: optionsArray[i].uuid, title: optionsArray[i].title+"K", votes: optionsArray[i].votes , color: optionsArray[i].color});
+         preContext.push({questionUuid: questionUid ,uuid: optionsArray[i].uuid, title: optionsArray[i].title, votes: optionsArray[i].votes , color: optionsArray[i].color});
 
       }
       var context = {options: preContext};
-
+      console.log("rendering")
       renderTemplate("#simpleVote-tmpl", context, "wrapper");
       renderTemplate("#simpleVoteBtns-tmpl", context, "footer");
 
