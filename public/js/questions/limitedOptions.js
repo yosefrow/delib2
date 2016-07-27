@@ -11,9 +11,7 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
          console.log("ERROR: no options exists");
       }
 
-      var maxVotes = 0;
-
-      var optionsArray = new Array();
+      var optionsObject = new Object();
       options.forEach(function(option){
          var color = option.val().color;
          if (color == undefined){
@@ -21,18 +19,13 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
             DB.child("questions/"+questionUid+"/options/"+option.key).update({color:color});
          }
 
-         optionsArray.push({uuid: option.key, title: option.val().title, votes: option.val().votes,color: color});
-
-         //detects the maximum number of votes per option
-         if (maxVotes<option.val().votes){
-            maxVotes = option.val().votes;
-         }
+         optionsObject[option.key]= {uuid: option.key, title: option.val().title, votes: option.val().votes,color: color};
       })
 
       var preContext = new Array();
 
-      for (i in optionsArray){
-         preContext.push({questionUuid: questionUid ,uuid: optionsArray[i].uuid, title: optionsArray[i].title, votes: optionsArray[i].votes , color: optionsArray[i].color});
+      for (i in optionsObject){
+         preContext.push({questionUuid: questionUid ,uuid: optionsObject[i].uuid, title: optionsObject[i].title, votes: optionsObject[i].votes , color: optionsObject[i].color});
       }
 
       var context = {options: preContext};
@@ -40,36 +33,14 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
       renderTemplate("#simpleVote-tmpl", context, "wrapper");
       renderTemplate("#simpleVoteBtns-tmpl", context, "footer");
 
-      var NumberOfOptionsActualy = optionsArray.length;
-
-      var divBarWidth = $("wrapper").width()/NumberOfOptionsActualy;
-      var barWidth = 0.8*divBarWidth;
-
-      var wrapperDimensions = new Object();
-      var wrapperHeight = $("wrapper").height() - $("footer").height()-20;
-      wrapperDimensions.height = wrapperHeight;
-
-      var minimumVotesToAdjust = 20;
-      wrapperDimensions.minVotes = minimumVotesToAdjust;
-
-      var x=1;
-
-      if (maxVotes<=minimumVotesToAdjust){
-         x= maxVotes/minimumVotesToAdjust
-      }
-
-      for (i in optionsArray){
-         var relativeToMaxBar = (optionsArray[i].votes/maxVotes)*x;
-
-         $("#"+optionsArray[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth);
-         $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
-      }
-
       $(".voteBtn").ePulse({
          bgColor: "#ded9d9",
          size: 'medium'
       });
-      listenToLimitedOptions(optionsArray, questionDB);
+
+      drawLimitedOptions(optionsObject);
+
+      listenToLimitedOptions(optionsObject, questionDB);
    })
 
    lightCheckedBtn(questionUid);
@@ -125,23 +96,45 @@ function lightCheckedBtn(questionUid){
    })
 }
 
-function listenToLimitedOptions (optionsArray, questionDB, ){
+function listenToLimitedOptions (optionsObject, questionDB){
 
-   for (i in optionsArray){
-      questionDB.child(optionsArray[i].uuid).on("value",function(optionVote){
+   for (i in optionsObject){
+      questionDB.child(optionsObject[i].uuid).on("value",function(optionVote){
 
-         var option = {key: optionVote.key, votes: optionVote.val().votes};
-
-
-         drawLimitedOptions(optionsArray, option);
+         optionsObject[optionVote.key].votes = optionVote.val().votes;
+         drawLimitedOptions(optionsObject);
 
       })
    }
 }
 
-function drawLimitedOptions(optionsArray, option){
+function drawLimitedOptions(optionsObject){
    //look for max votes
-   console.log("draw");
+   var maxVotes = 0;
+   for (i in optionsObject){
+      if (optionsObject[i].votes > maxVotes){
+         maxVotes = optionsObject[i].votes;
+      }
+   }
+   //find the dimensions of the wrapper to adjust drawing
 
+   var NumberOfOptionsActualy = Object.keys(optionsObject).length;
+   var divBarWidth = $("wrapper").width()/NumberOfOptionsActualy;
+   var barWidth = 0.8*divBarWidth;
 
+   var wrapperDimensions = new Object();
+   var wrapperHeight = $("wrapper").height() - $("footer").height()-20;
+   var minimumVotesToAdjust = 20;
+   var x=1;
+
+   if (maxVotes<=minimumVotesToAdjust){
+      x= maxVotes/minimumVotesToAdjust
+   }
+
+   for (i in optionsObject){
+      var relativeToMaxBar = (optionsObject[i].votes/maxVotes)*x;
+
+      $("#"+optionsObject[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth);
+      $("#"+optionsObject[i].uuid+"_btn").css("background-color", optionsObject[i].color);
+   }
 }
