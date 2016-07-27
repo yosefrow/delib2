@@ -23,7 +23,7 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
 
          optionsArray.push({uuid: option.key, title: option.val().title, votes: option.val().votes,color: color});
 
-
+         //detects the maximum number of votes per option
          if (maxVotes<option.val().votes){
             maxVotes = option.val().votes;
          }
@@ -31,14 +31,12 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
 
       var preContext = new Array();
 
-      //    optionsArray.reverse();
       for (i in optionsArray){
-
          preContext.push({questionUuid: questionUid ,uuid: optionsArray[i].uuid, title: optionsArray[i].title, votes: optionsArray[i].votes , color: optionsArray[i].color});
-
       }
+
       var context = {options: preContext};
-      console.log("rendering")
+
       renderTemplate("#simpleVote-tmpl", context, "wrapper");
       renderTemplate("#simpleVoteBtns-tmpl", context, "footer");
 
@@ -47,9 +45,13 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
       var divBarWidth = $("wrapper").width()/NumberOfOptionsActualy;
       var barWidth = 0.8*divBarWidth;
 
+      var wrapperDimensions = new Object();
       var wrapperHeight = $("wrapper").height() - $("footer").height()-20;
+      wrapperDimensions.height = wrapperHeight;
 
       var minimumVotesToAdjust = 20;
+      wrapperDimensions.minVotes = minimumVotesToAdjust;
+
       var x=1;
 
       if (maxVotes<=minimumVotesToAdjust){
@@ -67,6 +69,7 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
          bgColor: "#ded9d9",
          size: 'medium'
       });
+      listenToLimitedOptions(optionsArray, questionDB);
    })
 
    lightCheckedBtn(questionUid);
@@ -120,4 +123,25 @@ function lightCheckedBtn(questionUid){
       $(".voteBtn").css("border" , "0px solid black");
       $("#"+checkedOption.val()+"_btn").css("border" , "3px solid black");
    })
+}
+
+function listenToLimitedOptions (optionsArray, questionDB, ){
+
+   for (i in optionsArray){
+      questionDB.child(optionsArray[i].uuid).on("value",function(optionVote){
+
+         var option = {key: optionVote.key, votes: optionVote.val().votes};
+
+
+         drawLimitedOptions(optionsArray, option);
+
+      })
+   }
+}
+
+function drawLimitedOptions(optionsArray, option){
+   //look for max votes
+   console.log("draw");
+
+
 }
