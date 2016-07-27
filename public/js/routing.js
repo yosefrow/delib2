@@ -1,4 +1,4 @@
-function getUrl(){
+function getUrl(){  
   var currentUrl = window.location.href;
   var locationToCut = currentUrl.indexOf("?");
   currentUrl = currentUrl.substring(locationToCut+1);
