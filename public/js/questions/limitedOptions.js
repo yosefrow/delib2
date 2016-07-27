@@ -11,6 +11,20 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
          console.log("ERROR: no options exists");
       }
 
+      //adjust the votes to a counting of votes
+      DB.child("questions/"+questionUid+"/simpleVoting").once("value", function(voters){
+         var counts = new Object();
+         voters.forEach(function(voter){
+            if (!counts[voter.val()]){counts[voter.val()] = 0};
+            counts[voter.val()]++;
+            console.log(voter.val(),counts[voter.val()])
+         });
+         console.dir(counts);
+         for (i in counts){
+            questionDB.child(i).update({votes:counts[i]});
+         }
+      })
+
       var optionsObject = new Object();
       options.forEach(function(option){
          var color = option.val().color;
@@ -134,7 +148,7 @@ function drawLimitedOptions(optionsObject){
    for (i in optionsObject){
       var relativeToMaxBar = (optionsObject[i].votes/maxVotes)*x;
 
-      $("#"+optionsObject[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth);
+      $("#"+optionsObject[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth).text(optionsObject[i].votes);
       $("#"+optionsObject[i].uuid+"_btn").css("background-color", optionsObject[i].color);
    }
 }

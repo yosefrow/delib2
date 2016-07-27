@@ -65,7 +65,7 @@ function showQuestion(questionUid, back){
 //    }
 //    var maxVotes = 0;
 //
-//    var optionsArray = new Array();
+//    var optionsObject = new Array();
 //    options.forEach(function(option){
 //      var color = option.val().color;
 //      if (color == undefined){
@@ -73,7 +73,7 @@ function showQuestion(questionUid, back){
 //        DB.child("questions/"+questionUid+"/options/"+option.key).update({color:color});
 //      }
 //
-//      optionsArray.push({uuid: option.key, title: option.val().title, votes: option.val().votes,color: color});
+//      optionsObject.push({uuid: option.key, title: option.val().title, votes: option.val().votes,color: color});
 //
 //
 //      if (maxVotes<option.val().votes){
@@ -83,10 +83,10 @@ function showQuestion(questionUid, back){
 //
 //    var preContext = new Array();
 //
-//    //    optionsArray.reverse();
-//    for (i in optionsArray){
+//    //    optionsObject.reverse();
+//    for (i in optionsObject){
 //
-//      preContext.push({questionUuid: questionUid ,uuid: optionsArray[i].uuid, title: optionsArray[i].title, votes: optionsArray[i].votes , color: optionsArray[i].color});
+//      preContext.push({questionUuid: questionUid ,uuid: optionsObject[i].uuid, title: optionsObject[i].title, votes: optionsObject[i].votes , color: optionsObject[i].color});
 //
 //    }
 //    var context = {options: preContext};
@@ -95,7 +95,7 @@ function showQuestion(questionUid, back){
 //    $("wrapper").hide();
 //    $("wrapper").show(700);
 //
-//    var NumberOfOptionsActualy = optionsArray.length;
+//    var NumberOfOptionsActualy = optionsObject.length;
 //
 //    var divBarWidth = $("wrapper").width()/NumberOfOptionsActualy;
 //    var barWidth = 0.8*divBarWidth;
@@ -109,11 +109,11 @@ function showQuestion(questionUid, back){
 //      x= maxVotes/minimumVotesToAdjust
 //    }
 //
-//    for (i in optionsArray){
-//      var relativeToMaxBar = (optionsArray[i].votes/maxVotes)*x;
+//    for (i in optionsObject){
+//      var relativeToMaxBar = (optionsObject[i].votes/maxVotes)*x;
 //
-//      $("#"+optionsArray[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth);
-//      $("#"+optionsArray[i].uuid+"_btn").css("background-color", optionsArray[i].color);
+//      $("#"+optionsObject[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth);
+//      $("#"+optionsObject[i].uuid+"_btn").css("background-color", optionsObject[i].color);
 //    }
 //
 //    $(".voteBtn").ePulse({
