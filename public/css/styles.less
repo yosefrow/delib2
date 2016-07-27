@@ -11,251 +11,254 @@
 @bg-accent: #212121;  //accent color
 
 *{
-//    display:  -webkit-flex;
-//    -webkit-flex-wrap: wrap;
-//    -ms-flex-wrap: wrap;
-//     flex-wrap: wrap;
-    //todo: handle and check buttons in iPhone with:
-    /*
-    -webkit-box-flex-grow: 1;
-    -moz-box-flex-grow: 1;
-    -webkit-flex-grow: 1;
-    -ms-flex-grow: 1;
-     flex-grow: 1;
-    */
+   //    display:  -webkit-flex;
+   //    -webkit-flex-wrap: wrap;
+   //    -ms-flex-wrap: wrap;
+   //     flex-wrap: wrap;
+   //todo: handle and check buttons in iPhone with:
+   /*
+   -webkit-box-flex-grow: 1;
+   -moz-box-flex-grow: 1;
+   -webkit-flex-grow: 1;
+   -ms-flex-grow: 1;
+   flex-grow: 1;
+   */
 }
 
 @media screen and (min-width: 320px) {
-    .btnAddEntity{
-  left: 3%;
-    }
+   .btnAddEntity{
+      left: 3%;
+   }
 }
 @media screen and (max-width: 479px) {
-  #container{
-    width:100%;
-    right:0%;
-  }
+   #container{
+      width:100%;
+      right:0%;
+   }
 
-  #logo{
-    width:100%;
-    right:0%;
-  }
-  header{
-    width:100%;
-    right:0%;
-  }
+   #logo{
+      width:100%;
+      right:0%;
+   }
+   header{
+      width:100%;
+      right:0%;
+      z-index: 50;
+   }
 
-  footer{
-    width:100%;
-    right:0%;
-    display: flex;
-    flex-direction: row;
-    justify-content:space-around;
-  }
+   footer{
+      width:100%;
+      right:0%;
+      display: flex;
+      flex-direction: row;
+      justify-content:space-around;
+   }
 }
 @media screen and (min-width: 480px) {
-  #container{
-    width:60%;
-    right:20%;
-  }
+   #container{
+      width:60%;
+      right:20%;
+   }
 
-  #logo{
-    width:60%;
-    right:20%;
-  }
-  header{
-    width:100%;
-    right:20%;
-  }
+   #logo{
+      width:60%;
+      right:20%;
+   }
+   header{
+      width:100%;
+      right:20%;
+      z-index: 50;
+   }
 
-  footer{
-    width:100%;
-    right:20%;
-  }
-.btnAddEntity{
-        left: 22%;
-    }
+   footer{
+      width:100%;
+      right:20%;
+   }
+   .btnAddEntity{
+      left: 22%;
+   }
 }
 @media screen and (min-width: 720px) {
-  #container {
-    width:60%;
-    right:20%;
-  }
-  #logo{
-    width:60%;
-    right:20%;
-  }
+   #container {
+      width:60%;
+      right:20%;
+   }
+   #logo{
+      width:60%;
+      right:20%;
+   }
 
-  header{
-    width:100%;
-    right:20%;
-  }
+   header{
+      width:100%;
+      right:20%;
+      z-index: 50;
+   }
 
-  footer{
-    width:100%;
-    right:20%;
-  }
-    .btnAddEntity{
-        left: 22%;
-    }
+   footer{
+      width:100%;
+      right:20%;
+   }
+   .btnAddEntity{
+      left: 22%;
+   }
 }
 
 body{
-  font-family: 'Alef', sans-serif;
+   font-family: 'Alef', sans-serif;
 
-  direction: rtl;
-  display: flex;
-  justify-content: center;
+   direction: rtl;
+   display: flex;
+   justify-content: center;
 }
 
 #logo {
-  background-color: @bg-main700;
-  color: white;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
+   background-color: @bg-main700;
+   color: white;
+   display: flex;
+   justify-content: center;
+   flex-direction: row;
 }
 
 #logo img {
-  height: 30px;
-  width: 60px;
-  margin: 3px;
+   height: 30px;
+   width: 60px;
+   margin: 3px;
 }
 
 #loginScreen {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 50;
+   position: fixed;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   height: 100%;
+   z-index: 50;
 }
 #container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  position: absolute;
-  top:0px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   height: 100%;
+   position: absolute;
+   top:0px;
 }
 wrapper{
 
-  position: relative;
-  display: flex;
-  flex-direction: column;
+   position: relative;
+   display: flex;
+   flex-direction: column;
 
-  flex: 1;
-  overflow-y:scroll;
-  background-color: #dbdbdb;
-  padding-top: 12px;
+   flex: 1;
+   overflow-y:scroll;
+   background-color: #dbdbdb;
+   padding-top: 12px;
 }
 .titles {
-  background-color: #4A148C;
-  font-weight: 700;
-  color: white;
-  text-align: center;
+   background-color: #4A148C;
+   font-weight: 700;
+   color: white;
+   text-align: center;
 }
 .clickables {
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;   /* Chrome/Safari/Opera */
-  -moz-user-select: none;      /* Firefox */
-  -ms-user-select: none;       /* IE/Edge */
-  -webkit-touch-callout: none; /* iOS Safari */
+   cursor: pointer;
+   user-select: none;
+   -webkit-user-select: none;   /* Chrome/Safari/Opera */
+   -moz-user-select: none;      /* Firefox */
+   -ms-user-select: none;       /* IE/Edge */
+   -webkit-touch-callout: none; /* iOS Safari */
 }
 .material-ripple > span {
-  position: relative;
-  display: block;
-  color: white;
+   position: relative;
+   display: block;
+   color: white;
 }
 
 .flex-item {
-  background-color: cornflowerblue;
-  width: 100px;
-  height: 100px;
-  margin: 10px;
+   background-color: cornflowerblue;
+   width: 100px;
+   height: 100px;
+   margin: 10px;
 }
 
 
 .groupDescription{
-  border-bottom: 1px solid gray;
+   border-bottom: 1px solid gray;
 }
 
 .btnAddEntity{
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 52px;
-  text-align: center;
+   border-radius: 50%;
+   width: 60px;
+   height: 60px;
+   font-size: 52px;
+   text-align: center;
 
-  position: fixed;
-  bottom: 70px;
-//  left: 22%;
-  z-index: 50;
+   position: fixed;
+   bottom: 70px;
+   //  left: 22%;
+   z-index: 50;
 
-  box-shadow: 5px 5px 7px gray;
+   box-shadow: 5px 5px 7px gray;
 }
 .btnAddEntity:hover{
-  cursor: pointer;
-  box-shadow: 1px 1px 2px gray;
+   cursor: pointer;
+   box-shadow: 1px 1px 2px gray;
 }
 
 button {
-  width: 100px;
-  height: 40px;
-  border-radius: 5px;
-  background-color: #5050f5;
-  color: white;
-  font-style: italic;
+   width: 100px;
+   height: 40px;
+   border-radius: 5px;
+   background-color: #5050f5;
+   color: white;
+   font-style: italic;
 }
 
 input {
-  height: 32px;
-  border-radius: 5px;
-  padding-left: 5px;
+   height: 32px;
+   border-radius: 5px;
+   padding-left: 5px;
 }
 
 
 #tmpMulCon{
-  width: 100%;
-  background-color: #cc4545;
-  color: white;
+   width: 100%;
+   background-color: #cc4545;
+   color: white;
 
-  display: flex;
-  flex-direction: column;
+   display: flex;
+   flex-direction: column;
 }
 
 
 #info{
-  background-color: white;
-  /*  width: 100%;*/
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%)
+   background-color: white;
+   /*  width: 100%;*/
+   position: fixed;
+   left: 50%;
+   transform: translateX(-50%)
 }
 
 
 
 /*  add group */
 .addEntityDiv{
-  background-color: white;
-  padding: 20px;
-  padding-top: 32px;
+   background-color: white;
+   padding: 20px;
+   padding-top: 32px;
 
-/*  height: 100%;*/
+   /*  height: 100%;*/
 }
 
 .inputErea{
-  border-radius: 4px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding: 5px;
-  width: 80%;
-  height: 150px;
+   border-radius: 4px;
+   margin-top: 5px;
+   margin-bottom: 5px;
+   padding: 5px;
+   width: 80%;
+   height: 150px;
 }
 .radioInput{
-  vertical-align: middle;
-  width: 18px;
+   vertical-align: middle;
+   width: 18px;
 }
 
 /* topics*/
@@ -264,30 +267,30 @@ input {
 /* set question */
 
 .multiOptionsContainer{
-  display: flex;
-  flex-direction: row;
-  justify-content:space-around;
+   display: flex;
+   flex-direction: row;
+   justify-content:space-around;
 
 }
 
 .multiOptionsDiv{
-  flex-grow: 1;
+   flex-grow: 1;
 
-  padding: 7px;
-  text-align: center;
+   padding: 7px;
+   text-align: center;
 
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc3535+52,6d0000+100 */
-  background: #cc0000; /* Old browsers */
-  background: -moz-linear-gradient(top,  #cc0000 0%, #cc3535 52%, #6d0000 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #cc0000 0%,#cc3535 52%,#6d0000 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #cc0000 0%,#cc3535 52%,#6d0000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#6d0000',GradientType=0 ); /* IE6-9 */
-  color: white;
-  font-weight:bold;
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc3535+52,6d0000+100 */
+   background: #cc0000; /* Old browsers */
+   background: -moz-linear-gradient(top,  #cc0000 0%, #cc3535 52%, #6d0000 100%); /* FF3.6-15 */
+   background: -webkit-linear-gradient(top,  #cc0000 0%,#cc3535 52%,#6d0000 100%); /* Chrome10-25,Safari5.1-6 */
+   background: linear-gradient(to bottom,  #cc0000 0%,#cc3535 52%,#6d0000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#6d0000',GradientType=0 ); /* IE6-9 */
+   color: white;
+   font-weight:bold;
 
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none;          /* Likely future */
+   -webkit-user-select: none;  /* Chrome all / Safari all */
+   -moz-user-select: none;     /* Firefox all */
+   -ms-user-select: none;      /* IE 10+ */
+   user-select: none;          /* Likely future */
 
 }
