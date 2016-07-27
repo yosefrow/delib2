@@ -10,7 +10,7 @@ function listenToChats(uuid){
    chatsDB = DB.child("users/"+uuid+"/entityNotifications/chats");
 
    chatsDB.on("child_added", function(notification){
-      var testGroup = notification.key;
+
       DB.child("chats/"+notification.key).limitToLast(2).on("child_added",listenToChats)
    });
 
