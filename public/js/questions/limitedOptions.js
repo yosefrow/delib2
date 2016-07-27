@@ -52,7 +52,7 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
          size: 'medium'
       });
 
-      drawLimitedOptions(optionsObject);
+      renderLimitedOptions(optionsObject);
 
       listenToLimitedOptions(optionsObject, questionDB);
    })
@@ -116,13 +116,13 @@ function listenToLimitedOptions (optionsObject, questionDB){
       questionDB.child(optionsObject[i].uuid).on("value",function(optionVote){
 
          optionsObject[optionVote.key].votes = optionVote.val().votes;
-         drawLimitedOptions(optionsObject);
+         renderLimitedOptions(optionsObject);
 
       })
    }
 }
 
-function drawLimitedOptions(optionsObject){
+function renderLimitedOptions(optionsObject){
    //look for max votes
    var maxVotes = 0;
    for (i in optionsObject){
