@@ -34,11 +34,6 @@ function parseDate(dateInMillisec){
 }
 
 
-function goHome(){
-   showPublicGroups();
-   setAcitveEntity("","", "", "");
-}
-
 function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
    var previuosEntity = activeEntity.entity;
    var previuosUid = activeEntity.uid;

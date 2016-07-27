@@ -16,7 +16,7 @@ function showTopic(topicUid, back){
   var showTopicCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
     renderTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
-    animateHeader();
+
     renderTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
     // getLocalNotifications();
 
@@ -32,6 +32,7 @@ function showTopic(topicUid, back){
 
   setAcitveEntity("topics", topicUid, "value", showTopicCallback);
   //show questions in topic
+   DB.child("topics/"+topicUid).once("value", showTopicCallback);
   showTopicQuestions (topicUid);
 
 
@@ -78,7 +79,7 @@ function showTopicQuestions(topicUid){
             var context = {questions: questionsArray};
             renderTemplate("#topicPage-tmpl", context, "wrapper");
             $("wrapper").hide();
-            $("wrapper").show(700);
+            $("wrapper").fadeIn();
 
           }
 

@@ -8,7 +8,6 @@
 //type of question
 
 function showQuestion(questionUid, back){
-  console.log("question: "+questionUid)
 
   if (back == undefined){back = false};
 
@@ -16,21 +15,10 @@ function showQuestion(questionUid, back){
     setUrl("question", questionUid);
   }
 
-
-  // userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-  //
-  // userUpdates.once('value', function(data) {
-  //   userUpdatesSet = data.child("globalNotifications").exists();
-  // });
-
-
-
   //get question info
   var showQuestionCallback = function(dataSnapshot){
     var title = dataSnapshot.val().title;
     renderTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
-    animateHeader();
-
     renderTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
 
 
