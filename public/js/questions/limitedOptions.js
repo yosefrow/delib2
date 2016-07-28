@@ -5,11 +5,11 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
    questionDB.off("value");
    questionDB.orderByChild("votes").limitToLast(numberOfOptions).once("value",function(options){
 
-      if(options.exists()){
-         setUrl("question", questionUid);
-      } else {
-         console.log("ERROR: no options exists");
-      }
+//      if(options.exists()){
+//         setUrl("question", questionUid);
+//      } else {
+//         console.log("ERROR: no options exists");
+//      }
 
       //adjust the votes to a counting of votes
       DB.child("questions/"+questionUid+"/simpleVoting").once("value", function(voters){
