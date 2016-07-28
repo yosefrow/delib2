@@ -51,8 +51,6 @@ function setGlobalNotifications() {
 
     if(activeEntity !== 'undefined') {
 
-        console.log(activeEntity);
-
         if (userUpdatesSet)
         {
             if (activeEntity.entity !== "chats")

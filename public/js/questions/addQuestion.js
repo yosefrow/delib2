@@ -143,7 +143,6 @@ function listenToOptionsInput(numberOfOptions){
       var id = e.currentTarget.id;
       var optionNumber = id.substr(-1);
       optionsTempInput["option"+optionNumber].title = dinput;
-      console.log("input: "+ dinput);
     })
   }
 

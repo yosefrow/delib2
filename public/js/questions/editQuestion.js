@@ -14,7 +14,6 @@ function editQuestion(questionUid){
 
     var questionTitle = dataSnapshot.val().title;
     var questionDescription = dataSnapshot.val().description;
-    console.log("Number of Options: "+ numberOfOptionsTemp, questionTitle, questionDescription);
 
     renderTemplate("#createQuestion-tmpl",{questionTitle: questionTitle, questionDescription:questionDescription}, "wrapper");
     renderTemplate("#editQuestionFooter-tmpl",{uuid:questionUid}, "footer")

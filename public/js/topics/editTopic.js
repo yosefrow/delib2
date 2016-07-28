@@ -1,5 +1,5 @@
 function openTopicMenu(topicUid){
-  console.log($("#topicMenu"+topicUid).is(':visible'))
+
   if ($("#questionMenu"+topicUid).is(':visible')){
     $("#questionMenu"+topicUid).hide(400);
   } else {

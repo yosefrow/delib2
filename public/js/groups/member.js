@@ -3,7 +3,7 @@ function membership(){
 
   DB.child("users/"+userUuid+"/membership/"+groupUid).once("value", function(isMembership){
     if(isMembership.val() != null){
-      console.log("Membership exists");
+
       if (isMembership.val()){
         DB.child("users/"+userUuid+"/membership/"+groupUid).remove();
         DB.child("users/"+userUuid+"/entityNotifications/groups/"+groupUid+"/ownerCalls").remove();
