@@ -40,7 +40,7 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
    var previuosEventType = activeEntity.eventType;
    var previuosCallback = activeEntity.callback;
 
-   if (isNotEmpty(previuosUid)){
+   if (isNotEmpty(previuosUid) && previuosEntity !== "chats") {
       DB.child(previuosEntity+"/"+previuosUid).off();
    }
 
