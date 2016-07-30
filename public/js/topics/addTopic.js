@@ -6,7 +6,7 @@ function showAddTopicScreen(){
 function addNewTopic(){
   topicName = $("#createTopicName").val();
   topicDescription = $("#createTopicDescription").val();
-  console.log("add ne topic");
+
   if (topicName == "") {
     alert("חסר שם נושא");
     return;

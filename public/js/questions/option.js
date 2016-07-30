@@ -42,7 +42,6 @@ function editOption(questionUid, optionUid){
 }
 
 function editMultiOptionToDB (questionUid, optionUid){
-    console.log("editMultiOptionToDB");
 
     var title =  $("#createMultiOptionName").val();
     var description = $("#createMultiOptionDescription").val();

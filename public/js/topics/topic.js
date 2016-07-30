@@ -1,38 +1,40 @@
 //create new topic
 function showTopic(topicUid, back){
 
-  if (back == undefined){back = false}
+   if (back == undefined){back = false}
 
-  // userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-  //
-  // userUpdates.once('value', function(data) {
-  //   userUpdatesSet = data.child("globalNotifications").exists();
-  // });
+   // userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+   //
+   // userUpdates.once('value', function(data) {
+   //   userUpdatesSet = data.child("globalNotifications").exists();
+   // });
 
-  if (!back){
-    setUrl("topic", topicUid);
-  }
+   if (!back){
+      setUrl("topic", topicUid);
+   }
 
-  var showTopicCallback = function(dataSnapshot){
-    var title = dataSnapshot.val().title;
-    renderTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
-    animateHeader();
-    renderTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
-    // getLocalNotifications();
+   var showTopicCallback = function(dataSnapshot){
+      var title = dataSnapshot.val().title;
+      renderTemplate("#topicHeaderTitle-tmpl", {topic: title}, "#headerTitle");
 
-    //    console.dir(userEntityNotificationsExists);
-    //
-    // if (userUpdatesSet) {
-    //   $("#globalNotificationsSub").css("color", activeColor);
-    // } else {
-    //   $("#globalNotificationsSub").css("color", inactiveColor);
-    // }
+      renderTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
+      $("footer").html();
+      // getLocalNotifications();
 
-  };
+      //    console.dir(userEntityNotificationsExists);
+      //
+      // if (userUpdatesSet) {
+      //   $("#globalNotificationsSub").css("color", activeColor);
+      // } else {
+      //   $("#globalNotificationsSub").css("color", inactiveColor);
+      // }
 
-  setAcitveEntity("topics", topicUid, "value", showTopicCallback);
-  //show questions in topic
-  showTopicQuestions (topicUid);
+   };
+
+   setAcitveEntity("topics", topicUid, "value", showTopicCallback);
+   //show questions in topic
+   DB.child("topics/"+topicUid).once("value", showTopicCallback);
+   showTopicQuestions (topicUid);
 
 
 
@@ -41,52 +43,52 @@ function showTopic(topicUid, back){
 //show topic questions
 function showTopicQuestions(topicUid){
 
-  //get topic questions
-  DB.child("topics/"+ topicUid.toString()+"/questions").once("value",function(questions){
+   //get topic questions
+   DB.child("topics/"+ topicUid.toString()+"/questions").once("value",function(questions){
 
-    if(questions.exists()){
+      if(questions.exists()){
 
-      var questionsUnderTopic = questions.val();
-      var numberOfQuestions = Object.keys(questionsUnderTopic).length;
+         var questionsUnderTopic = questions.val();
+         var numberOfQuestions = Object.keys(questionsUnderTopic).length;
 
-      var questionsArray = new Array();
+         var questionsArray = new Array();
 
-      var i = 1;
+         var i = 1;
 
-      questions.forEach(function(question){
+         questions.forEach(function(question){
 
-        DB.child("questions/"+question.key).once("value", function(data){
+            DB.child("questions/"+question.key).once("value", function(data){
 
-          var preContext = new Object();
+               var preContext = new Object();
 
-          if (data.exists()){
+               if (data.exists()){
 
-            var title = data.val().title;
-            var description = data.val().description;
-            //          console.log("t: "+ title + ", d: "+ description);
+                  var title = data.val().title;
+                  var description = data.val().description;
+                  //          console.log("t: "+ title + ", d: "+ description);
 
-            preContext = {
-              uuid: question.key,
-              title: title,
-              description: description
-            }
+                  preContext = {
+                     uuid: question.key,
+                     title: title,
+                     description: description
+                  }
 
-            questionsArray.push(preContext);
-          }
+                  questionsArray.push(preContext);
+               }
 
-          if (i === numberOfQuestions){
-            var context = {questions: questionsArray};
-            renderTemplate("#topicPage-tmpl", context, "wrapper");
-            $("wrapper").hide();
-            $("wrapper").show(700);
+               if (i === numberOfQuestions){
+                  var context = {questions: questionsArray};
+                  renderTemplate("#topicPage-tmpl", context, "wrapper");
+                  $("wrapper").hide();
+                  $("wrapper").fadeIn();
 
-          }
+               }
 
-          i++;
-        })
+               i++;
+            })
 
-      })
-    } else {renderTemplate("#topicPage-tmpl",{}, "wrapper");}
-  });
+         })
+      } else {renderTemplate("#topicPage-tmpl",{}, "wrapper");}
+   });
 }
 

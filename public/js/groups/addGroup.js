@@ -10,8 +10,6 @@ function addNewGroup(){
   groupName = $("#createGroupName").val();
   groupDescription = $("#createGroupDescription").val();
   groupType = $("input[name=type]:checked").val();
-  dateAdded=
-  console.log("name: " + groupName + ", group description: "+ groupDescription + ", type: " + groupType);
 
   if (groupName == "") {
     alert("חסר שם קבוצה");

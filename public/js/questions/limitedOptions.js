@@ -5,24 +5,16 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
    questionDB.off("value");
    questionDB.orderByChild("votes").limitToLast(numberOfOptions).once("value",function(options){
 
-      if(options.exists()){
-         setUrl("question", questionUid);
-      } else {
-         console.log("ERROR: no options exists");
-      }
-
       //adjust the votes to a counting of votes
       DB.child("questions/"+questionUid+"/simpleVoting").once("value", function(voters){
          var counts = new Object();
          voters.forEach(function(voter){
             if (!counts[voter.val()]){counts[voter.val()] = 0};
             counts[voter.val()]++;
-            console.log(voter.val(),counts[voter.val()])
          });
-         console.dir(counts);
+
          for (i in counts){
-            questionDB.child(i).update({votes:counts[i]});
-         }
+            questionDB.child(i).update({votes:counts[i]});         }
       })
 
       var optionsObject = new Object();

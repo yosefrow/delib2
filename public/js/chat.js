@@ -38,7 +38,7 @@ function showChat(){
   });
 
   //get chat messages
-  DB.child("chats/"+chatUid).off();
+  // DB.child("chats/"+chatUid).off();
   DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", function(chats){
     if(chats.exists()){
       var text = chats.val().text;

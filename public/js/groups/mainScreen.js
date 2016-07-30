@@ -100,6 +100,7 @@ function listenToGeneralGroups (typeOfGroup){
     var context = {"groups": groupsArray}
 
     renderTemplate("#groupsGeneral-tmpl", context, "wrapper")
+    $("wrapper").hide().fadeIn();
 
   })
 }
@@ -229,4 +230,10 @@ var memberContext = new Object();
 //  console.log("2: "+userGroupsArray)
 //
 //}
+
+function goHome(){
+  $("#globalNotificationsSub").css("color", inactiveColor)
+  showPublicGroups();
+  renderTemplate("#LogoHeaderTitle-tmpl",{}, "#headerTitle");
+}
 
