@@ -1,3 +1,23 @@
+	//store url string for one session (data is lost when the browser tab is closed)
+		//check browser's locaStorgae support
+	if (typeof (Storage) !== "undefined") {
+		var sUrl = getUrl();
+		sessionStorage.setItem("_urlAfterLogin", sUrl);
+		var tempEntityType = sUrl.split("/");
+		var entityType = tempEntityType[0].slice(0,tempEntityType[0].length);
+		var currentEntity = tempEntityType[1].slice(0,tempEntityType[1].length);
+
+		sessionStorage.setItem("_entityType", entityType);
+		sessionStorage.setItem("_currentEntity", currentEntity);
+
+		console.log("\nurl in storage for LOGIN: ", sessionStorage.getItem("_urlAfterLogin"));
+		console.log("\nurl entity type in storage for LOGIN: ", sessionStorage.getItem("_entityType"));
+		}
+		else {
+			alert("Sorry, your browser does not support local storage.\n You will be delivered to the main page.")
+		}
+
+
 function listenToAuth(){
 
    firebase.auth().onAuthStateChanged(function(user) {
@@ -47,13 +67,13 @@ function signout(){
   });
 }
 
+//Autentication promise
 firebase.auth().getRedirectResult().then(function(result) {
   if (result.credential) {
     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
     var token = result.credential.accessToken;
     var userName = result.credential.user;
     console.log("token: "+ token);
-    // ...
   }
 
 }).catch(function(error) {
