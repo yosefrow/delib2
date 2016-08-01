@@ -49,6 +49,7 @@ $(function(){
 
 var userUuid;
 var activeEntity = new Object();
+var entitiesCallbacks = new Object();
 var firstRun = true;
 const subEntity = {
 	groups: "topics"
