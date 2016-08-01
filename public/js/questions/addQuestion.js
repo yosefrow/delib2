@@ -80,13 +80,19 @@ function addNewQuestion(){
   var questionType = $("input[name=type]:checked").val();
 
   if (questionName == "") {
-    alert("חסר שם קבוצה");
+    alert("חסר שם שאלה");
     return;
   }
 
   if (userUuid == "" || userUuid == undefined) {
     alert("אנא התחבר/י למערכת");
     return;
+  }
+  for (i=1;i<=numberOfOptionsTemp;i++){
+    if (optionsTempInput["option"+i].title == "") {
+      alert(" אופציה מספר "+i+" ריקה");
+      return;
+    }
   }
   var newQuestion = setNewQuestionToDB(questionName,questionDescription,questionType);
   //  var newQuestion = DB.child("questions").push({title: questionName, description: questionDescription, type: questionType, owner: userUuid });
@@ -117,7 +123,6 @@ function setNewQuestionToDB (title, description, type){
   //  if (imgQuestion == undefined){
   //    imgQuestion = "";
   //  };
-
   for (i=1;i<9;i++){
     if (optionsTempInput["option"+i].title == ""){
       delete optionsTempInput["option"+i];

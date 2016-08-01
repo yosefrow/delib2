@@ -77,11 +77,19 @@ function updateQuestion(questionUid){
   }
 
   console.dir(optionsTempInput);
-  for (i=1;i<9;i++){
-    if (optionsTempInput["option"+i].title == ""){
+  console.log("numberOfOptions "+numberOfOptionsTemp );
+  for (i=1;i<=numberOfOptionsTemp;i++){
+    if (optionsTempInput["option"+i].title == "") {
+      alert(" אופציה מספר "+i+" ריקה");
+      return;
+    }
+  }
+  for (i=numberOfOptionsTemp+1;i<9;i++){
+    if (optionsTempInput["option"+i].title == "") {
       delete optionsTempInput["option"+i];
     }
   }
+
   console.dir(optionsTempInput);
 
   DB.child("questions/"+questionUid).update({title: title, description: description, type: type, numberOfOptions: numberOfOptionsTemp});
