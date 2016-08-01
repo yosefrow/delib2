@@ -14,33 +14,30 @@ function routTo(currentUrl, back){
   //var currentType = currentUrl.slice(0,slashPostion) || sessionStorage.getItem("_entityType");
   var currentType = sessionStorage.getItem("_entityType");
 
-  //var currentEntety = currentUrl.slice(slashPostion+1);
-  //var currentEntety = sessionStorage.getItem("_urlAfterLogin");
-  var currentEntety = sessionStorage.getItem("_currentEntity");
+  //var currentEntity = currentUrl.slice(slashPostion+1);
+  //var currentEntity = sessionStorage.getItem("_urlAfterLogin");
+  var currentEntity = sessionStorage.getItem("_currentEntity");
 
   switch (currentType){
     case "group":
-      DB.child("groups/"+currentEntety).once("value", function (group){
+      DB.child("groups/"+currentEntity).once("value", function (group){
         if(group.exists()){
-          showGroup(currentEntety, back);
-//          if (!back){setUrl("groups", currentEntety)};
-        } else { console.log("group "+currentEntety+" do not exist"); }
+          showGroup(currentEntity, back);
+        } else { console.log("group "+currentEntity+" do not exist"); }
       })
       break;
     case "topic":
-      DB.child("topics/"+currentEntety).once("value", function (topic){
+      DB.child("topics/"+currentEntity).once("value", function (topic){
         if (topic.exists()){
-          showTopic(currentEntety, back);
-//          if (!back){setUrl("topics", currentEntety)};
-        } else { console.log("topic "+currentEntety+" do not exist");}
+          showTopic(currentEntity, back);
+        } else { console.log("topic "+currentEntity+" do not exist");}
       })
       break;
     case "question":
-      DB.child("questions/"+currentEntety).once("value", function (question){
+      DB.child("questions/"+currentEntity).once("value", function (question){
         if (question.exists()){
-          showQuestion(currentEntety, back);
-//          if (!back){setUrl("questions", currentEntety)};
-        } else { console.log("question "+currentEntety+" do not exist");}
+          showQuestion(currentEntity, back);
+        } else { console.log("question "+currentEntity+" do not exist");}
       })
       break;
     default:
@@ -59,10 +56,10 @@ function setUrl(type, uid){
     history.pushState({}, uid, domainUrl );
   } else{
 
-    var typeEntety = {type: type, entety: uid};
+    var typeEntity = {type: type, entity: uid};
 
     var url = domainUrl+"?"+type+"/"+uid;
-    history.pushState(typeEntety, uid, url );
+    history.pushState(typeEntity, uid, url );
   }
 
 
