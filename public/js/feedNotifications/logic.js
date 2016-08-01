@@ -64,15 +64,20 @@ function updatesListener() {
                 //     // chat logic
 
                     if(entityUpdates.key == "chats") {
+
                         // check if added message, get last message by date
                         DB.child("chats/" + entityUpdate.key).limitToLast(1).orderByChild('dateAdded').on('child_added', function (lastMessage) {
+
                             // get inbox unseen messages counter
                             DB.child("users/" + userUuid + "/chatInboxes/" + entityUpdate.key).once('value', function (inboxVolume) {
+
                                 // now we need the actual content of the entity related to current chatRoom
                                 DB.child("/groups/" + entityUpdate.key).once('value', function (chatEntityContent) {
+
                                     // don't bring up notificaions and nor count them if already inside subscribed chat room
                                     console.log("chat checked", activeEntity.entity, activeEntity.uid);
                                     if(!(activeEntity.entity == "chats" && activeEntity.uid == entityUpdate.key)) {
+
                                         // if no such group, get out
                                         if (chatEntityContent == null)
                                             return;

@@ -11,18 +11,18 @@ function showChat(){
 
   var chatUid = activeEntity.uid;
   var entityType = activeEntity.entity;
+  
   setAcitveEntity("chats", chatUid);
+  
   console.log(activeEntity.uid, activeEntity.entity);
 
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
   userUpdates.once('value', function(data) {
-
     userUpdatesSet = data.child("/globalNotifications").exists();
 
     if(userUpdatesSet)
       DB.child("users/"+userUuid+"/chatInboxes/"+chatUid).set(0);
-
   });
 
   //create footer input box
