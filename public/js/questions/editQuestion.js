@@ -67,7 +67,7 @@ function updateQuestion(questionUid){
   console.log("name: " + title + ", Question description: "+ description + ", type: " + type);
 
   if (title == "") {
-    alert("חסר שם קבוצה");
+    alert("חסר שם שאלה");
     return;
   }
 
