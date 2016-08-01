@@ -12,7 +12,6 @@ function showChat(){
   var chatUid = activeEntity.uid;
   var entityType = activeEntity.entity;
   setAcitveEntity("chats", chatUid);
-  console.log(activeEntity.uid, activeEntity.entity);
 
   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 

@@ -31,7 +31,6 @@ $(function(){
    routTo(currentUrl, false);
    //  showPublicGroups();
    $(window).on('popstate', function() {
-      console.log('Back button was pressed.');
       var currentUrl = getUrl();
       var back = true;
       routTo(currentUrl,back);
