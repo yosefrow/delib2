@@ -13,14 +13,10 @@ function showChat(){
    var entityType = activeEntity.entity;
    setAcitveEntity("chats", chatUid);
 
-   console.log(entityType, chatUid);
-
+   //set title of chat
    DB.child(entityType+"/"+chatUid).once("value", function(dataSnapshot){
-      console.log("clbk:"+dataSnapshot.val().title);
       var entityTypeLocal = entityTypeToHebrew(entityType);
-      console.log(entityTypeLocal);
       renderTemplate("#chatsHeader-tmpl",{entityType:entityTypeLocal, title:dataSnapshot.val().title },"#headerTitle");
-
    })
 
    userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
