@@ -1,4 +1,3 @@
-
 $(function(){
 
    if ('serviceWorker' in navigator) {
@@ -31,7 +30,6 @@ $(function(){
    routTo(currentUrl, false);
    //  showPublicGroups();
    $(window).on('popstate', function() {
-      console.log('Back button was pressed.');
       var currentUrl = getUrl();
       var back = true;
       routTo(currentUrl,back);
@@ -48,50 +46,39 @@ $(function(){
 })
 
 // Global General Variables and Constants
+
 var userUuid;
 var activeEntity = new Object();
 var firstRun = true;
-
 const subEntity = {
-   groups: "topics",
-   topics: "questions",
-   questions: "options",
-   chat: "room"
+	groups: "topics"
+	, topics: "questions"
+	, questions: "options"
+	, chat: "room"
 };
-
 const toHebrew = {
-   groups: "קבוצה חדשה: ",
-   topics: "נושא חדש: ",
-   questions: "שאלה חדשה: ",
-   owner: "קריאה: ",
-   chats: "הודעה חדשה מ:"
+	groups: "קבוצה חדשה: "
+	, topics: "נושא חדש: "
+	, questions: "שאלה חדשה: "
+	, owner: "קריאה: "
+	, chats: "הודעה חדשה מ:"
 };
-
 var inactiveColor = "#5f1f1f";
 var activeColor = "white";
-
 // Updates Variables and Constants
 var userUpdates;
 var userUpdatesSet;
 var mostUpdatedContent = null;
-
 // Feed
 var feedQueue = [];
 const feedVolume = 20;
-
-
-
 // Initialize Firebase
 var config = {
-   apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo",
-   authDomain: "synthesistalyaron.firebaseapp.com",
-   databaseURL: "https://synthesistalyaron.firebaseio.com",
-   storageBucket: "gs://synthesistalyaron.appspot.com"
+	apiKey: "AIzaSyBEumZUTCL3Jc9pt7_CjiSVTxmz9aMqSvo"
+	, authDomain: "synthesistalyaron.firebaseapp.com"
+	, databaseURL: "https://synthesistalyaron.firebaseio.com"
+	, storageBucket: "gs://synthesistalyaron.appspot.com"
 };
-
 firebase.initializeApp(config);
-
 var DB = firebase.database().ref();
 var storage = firebase.storage();
-
-

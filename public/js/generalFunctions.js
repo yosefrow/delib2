@@ -81,4 +81,21 @@ function back(){
    }
 }
 
+function entityTypeToHebrew (entityType){
+   switch (entityType){
+      case "groups":
+         return "קבוצה";
+         break;
+      case "topics":
+         return "נושא";
+         break;
+      case "questions":
+         return "שאלה";
+         break;
+      default:
+         console.log("unknowen entity");
+         return undefined;
+   }
+}
+
 

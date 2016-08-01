@@ -40,7 +40,7 @@ self.addEventListener('fetch', function(e) {
                 .then(function(response) {
                     return caches.open(dataCacheName).then(function(cache) {
                         cache.put(e.request.url, response.clone());
-                        console.log('[DelibServiceWorker] Fetched & Cached Data');
+                        //console.log('[DelibServiceWorker] Fetched & Cached Data');
                         return response;
                     });
                 })

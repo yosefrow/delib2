@@ -2,8 +2,8 @@ function getUrl(){
   var currentUrl = window.location.href;
   var locationToCut = currentUrl.indexOf("?");
   currentUrl = currentUrl.substring(locationToCut+1);
+	return currentUrl;
 
-  return currentUrl;
 }
 
 function routTo(currentUrl, back){
@@ -11,9 +11,12 @@ function routTo(currentUrl, back){
   if (back == undefined){back = false};
 
   var slashPostion = currentUrl.indexOf("/");
-  var currentType = currentUrl.slice(0,slashPostion);
+  //var currentType = currentUrl.slice(0,slashPostion) || sessionStorage.getItem("_entityType");
+  var currentType = sessionStorage.getItem("_entityType");
 
-  var currentEntety = currentUrl.slice(slashPostion+1);
+  //var currentEntety = currentUrl.slice(slashPostion+1);
+  //var currentEntety = sessionStorage.getItem("_urlAfterLogin");
+  var currentEntety = sessionStorage.getItem("_currentEntity");
 
   switch (currentType){
     case "group":

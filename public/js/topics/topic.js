@@ -65,7 +65,10 @@ function showTopicQuestions(topicUid){
 
                   var title = data.val().title;
                   var description = data.val().description;
+<<<<<<< HEAD
                   //          console.log("t: "+ title + ", d: "+ description);
+=======
+>>>>>>> master
 
                   preContext = {
                      uuid: question.key,
