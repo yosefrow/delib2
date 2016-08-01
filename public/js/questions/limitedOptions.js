@@ -116,7 +116,7 @@ function listenToLimitedOptions (optionsObject, questionDB){
 
 function renderLimitedOptions(optionsObject){
    //look for max votes
-   var maxVotes = 0;
+   var maxVotes = 20;
    for (i in optionsObject){
       if (optionsObject[i].votes > maxVotes){
          maxVotes = optionsObject[i].votes;
@@ -130,15 +130,14 @@ function renderLimitedOptions(optionsObject){
 
    var wrapperDimensions = new Object();
    var wrapperHeight = $("wrapper").height() - $("footer").height()-20;
-   var minimumVotesToAdjust = 20;
-   var x=1;
-
-   if (maxVotes<=minimumVotesToAdjust){
-      x= maxVotes/minimumVotesToAdjust
-   }
 
    for (i in optionsObject){
-      var relativeToMaxBar = (optionsObject[i].votes/maxVotes)*x;
+      var relativeToMaxBar;
+      if (optionsObject[i].votes==undefined||optionsObject[i].votes<=0){
+          relativeToMaxBar=0.1/maxVotes;
+      } else{
+           relativeToMaxBar = (optionsObject[i].votes/maxVotes);
+      }
 
       $("#"+optionsObject[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth).text(optionsObject[i].votes);
       $("#"+optionsObject[i].uuid+"_btn").css("background-color", optionsObject[i].color);
