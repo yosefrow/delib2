@@ -102,7 +102,7 @@ function setActiveEntity(entity, uid){
 
    //close previous entity
    DB(activeEntity.entity+"/"+activeEntity.uid).off(activeEntity.eventType, activeEntity.callback);
-
+   console
    //store new entity
    activeEntity.uid = uid;
    activeEntity.entity = entity;
