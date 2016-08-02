@@ -1,22 +1,7 @@
+function showQuestion(questionUid){
 
-
-//show header and question
-
-
-//show question
-
-//type of question
-
-function showQuestion(questionUid, back){
-
-  if (back == undefined){back = false};
-
-  if (!back){
-    setUrl("question", questionUid);
-  }
-
-  //get question info
-  var showQuestionCallback = function(dataSnapshot){
+  //show header & get question info
+  DB.child("questions/"+questionUid).once("value", function(dataSnapshot){
     var title = dataSnapshot.val().title;
     renderTemplate("#questionHeaderTitle-tmpl", {question: title}, "#headerTitle");
     renderTemplate("#headerMenu-tmpl", {chatUid: questionUid, entityType: "questions"}, "#headerMenu");
@@ -37,11 +22,18 @@ function showQuestion(questionUid, back){
       default:
         showLimitedOptionsQuestion(questionUid, numberOfOptions);
     }
-  };
+  });
 
-  setAcitveEntity("questions", questionUid, "value", showQuestionCallback);
 
-  DB.child("questions/"+questionUid).once("value", showQuestionCallback);
+
+
+
+
+   //  if (back == undefined){back = false};
+//
+//  if (!back){
+//    setUrl("question", questionUid);
+//  }
 
 }
 
