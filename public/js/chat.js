@@ -7,30 +7,16 @@ function showChat(){
 
    clearChat();
 
-   //notifications
-
    var chatUid = activeEntity.uid;
    var entityType = activeEntity.entity;
-   setAcitveEntity("chats", chatUid);
 
-   //set title of chat
+   //show Header
    DB.child(entityType+"/"+chatUid).once("value", function(dataSnapshot){
       var entityTypeLocal = entityTypeToHebrew(entityType);
       renderTemplate("#chatsHeader-tmpl",{entityType:entityTypeLocal, title:dataSnapshot.val().title },"#headerTitle");
-   })
-
-   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-   userUpdates.once('value', function(data) {
-
-      userUpdatesSet = data.child("/globalNotifications").exists();
-
-      if(userUpdatesSet)
-         DB.child("users/"+userUuid+"/chatInboxes/"+chatUid).set(0);
-
    });
 
-   //create footer input box
+   //show footer
    renderTemplate("#chatInput-tmpl",{},"footer");
 
    //listen to enter from input
@@ -43,8 +29,8 @@ function showChat(){
    });
 
    //get chat messages
-   DB.child("chats/"+chatUid).off();
-   DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", function(chats){
+
+   var chatCallback = function(chats){
       if(chats.exists()){
          var text = chats.val().text;
          var time =  parseDate(chats.val().dateAdded);
@@ -61,13 +47,29 @@ function showChat(){
       } else {
          $("#globalNotificationsSub").css("color", inactiveColor);
       }
-   })
+   };
+
+   DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", chatCallback);
+
+   setAcitveEntity("chats", chatUid, "child_added", chatCallback);
+
+   //Notifications
+
+   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+
+   userUpdates.once('value', function(data) {
+
+      userUpdatesSet = data.child("/globalNotifications").exists();
+
+      if(userUpdatesSet)
+         DB.child("users/"+userUuid+"/chatInboxes/"+chatUid).set(0);
+
+   });
 }
 
 
 function addChatMessage(chatUid, userUid, text, entityType){
-   //  var x= firebase.database(app);
-   console.log("chat uid: "+ chatUid);
+
    if (text != "") {
 
       //get user name
