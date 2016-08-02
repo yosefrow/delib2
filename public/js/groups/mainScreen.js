@@ -87,14 +87,14 @@ function showMemberGroups(){
 
    setActiveEntity("main", "member", "value", memberGroupsCallback);
 
-   setUrl();
+
 
 }
 
 function showPublicGroups(){
 
    listenToGeneralGroups("public");
-   setUrl();
+
 
 }
 
@@ -102,7 +102,6 @@ function showOwnedGroups(){
 
    listenToOwned_MemberGroups("owner");
 
-   setUrl();
 }
 
 function stopListeningToPageDB (page){
