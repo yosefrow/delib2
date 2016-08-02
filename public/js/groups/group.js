@@ -1,39 +1,46 @@
-function showGroup(groupUid, back){
+function showGroup(groupUid){
 
-   if (back == undefined){back = false}
+   //show header
 
-   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-   userUpdates.once('value', function(data) {
-      userUpdatesSet = data.child("ownerCalls").exists();
-   });
-
-   setAcitveEntity("groups", groupUid);
-
-   if(!back){
-      setUrl("group", groupUid);
-   }
-
-   var showGroupCallback = function(dataSnapshot){
+   DB.child("groups/"+groupUid).once("value",function(dataSnapshot){
       var title = dataSnapshot.val().title;
       renderTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
       renderTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
       //    getLocalNotifications();
-      if (userUpdatesSet) {
-         $("#globalNotificationsSub").css("color", activeColor);
-      } else {
-         $("#globalNotificationsSub").css("color", inactiveColor);
-      }
-   };
+//      if (userUpdatesSet) {
+//         $("#globalNotificationsSub").css("color", activeColor);
+//      } else {
+//         $("#globalNotificationsSub").css("color", inactiveColor);
+//      }
 
-   setAcitveEntity("groups", groupUid, "value", showGroupCallback);
+      isMembership();
+   });
 
-   isMembership();
+   //show footer
+   $("footer").html("");
 
-   DB.child("groups/"+groupUid).once("value", showGroupCallback);
+//   setAcitveEntity("groups", groupUid, "value", showGroupCallback);
+
+
+
+
    showGroupTopics (groupUid);
 
-   $("footer").html("");
+
+
+   //   if (back == undefined){back = false}
+
+//   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+//
+//   userUpdates.once('value', function(data) {
+//      userUpdatesSet = data.child("ownerCalls").exists();
+//   });
+
+
+
+//   if(!back){
+//      setUrl("group", groupUid);
+//   }
 }
 
 
