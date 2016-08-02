@@ -1,74 +1,109 @@
 //comment
 const groupsDB = DB.child("groups");
 
+function showMain(groupsCluster){
+   //show header
+   console.log("showMain: "+ groupsCluster);
 
+   renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
+   renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
+   renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
+   $("#globalNotificationsSub").css("color", inactiveColor);
 
-function showMemberGroupsPage(){
+   //show footer
 
-  DB.child("users/"+userUuid+"/membership").once("value", function(groups){
+   renderTemplate("#mainFooter-tmpl", {}, "footer");
 
-    var groupsUnderMebership = groups.val();
+   var borderColor = "4px solid rgba(44, 44, 44, 0.78)"
+   switch (groupsCluster){
+      case "public":
+         showPublicGroups();
+         $("#publicBtn").css("border",borderColor );
+         break;
+      case "owned":
+         showOwnedGroups();
+         $("#ownedBtn").css("border", borderColor);
+         break;
+      case "member":
+         showMemberGroups();
+         $("#memberBtn").css("border", borderColor);
+         break;
+      default:
+         showPublicGroups();
+         $("#publicBtn").css("border", "4px solid rgba(44, 44, 44, 0.65)");
+   };
+}
 
-    if (groupsUnderMebership != null){
-      var numberOfGroups = Object.keys(groupsUnderMebership).length;
+function showMemberGroups(){
 
-      var preContext = new Object();
-      var groupsArray = new Array();
-      //    var numberOfGroups;
+   var memberGroupsCallback = function(groups){
 
-      var i = 1;
+      var groupsUnderMebership = groups.val();
 
-      groups.forEach(function(group){
+      if (groupsUnderMebership != null){
+         var numberOfGroups = Object.keys(groupsUnderMebership).length;
 
-        //get group details
-        DB.child("groups/"+group.key).once("value",function(groupDB){
-          if (groupDB.val() != null){
+         var preContext = new Object();
+         var groupsArray = new Array();
+         //    var numberOfGroups;
 
-            var title = groupDB.val().title;
-            var description = groupDB.val().description;
+         var i = 1;
 
-            preContext = {
-              uuid: group.key,
-              title: title,
-              description: description
-            };
-            groupsArray.push(preContext);
-          } else {
-            DB.child("users/"+userUuid+"/membership/"+group.key).remove();
+         groups.forEach(function(group){
 
-          }
+            //get group details
+            DB.child("groups/"+group.key).once("value",function(groupDB){
+               if (groupDB.val() != null){
 
-          if (numberOfGroups == i){
-            var context = {groups: groupsArray};
+                  var title = groupDB.val().title;
+                  var description = groupDB.val().description;
 
-            renderTemplate("#groupsGeneral-tmpl", context, "wrapper");
-          }
-          i++;
-        })
+                  preContext = {
+                     uuid: group.key,
+                     title: title,
+                     description: description
+                  };
+                  groupsArray.push(preContext);
+               } else {
+                  DB.child("users/"+userUuid+"/membership/"+group.key).remove();
 
-      });
-    } else {
-      console.log("user is ont member in groups");
-      renderTemplate("#groupsGeneral-tmpl", {}, "wrapper");
-    }
-  })
+               }
 
-  setUrl();
+               if (numberOfGroups == i){
+                  var context = {groups: groupsArray};
+
+                  renderTemplate("#groupsGeneral-tmpl", context, "wrapper");
+               }
+               i++;
+            })
+
+         });
+      } else {
+         console.log("user is ont member in groups");
+         renderTemplate("#groupsGeneral-tmpl", {}, "wrapper");
+      }
+   };
+
+   DB.child("users/"+userUuid+"/membership").once("value", memberGroupsCallback);
+
+   setAcitveEntity("main", "member", "value", memberGroupsCallback);
+
+   setUrl();
 
 }
 
 function showPublicGroups(){
 
-  listenToGeneralGroups("public");
-  setUrl();
+   listenToGeneralGroups("public");
+   setUrl();
 
 }
 
 function showOwnedGroups(){
 
-  listenToOwned_MemberGroups("owner");
+   listenToOwned_MemberGroups("owner");
 
-  setUrl();
+   setUrl();
 }
 
 function stopListeningToPageDB (page){
@@ -76,114 +111,120 @@ function stopListeningToPageDB (page){
 }
 
 function listenToGeneralGroups (typeOfGroup){
-  //typeOfGroup: secret, public, close
+   //typeOfGroup: secret, public, close
 
-  groupsDB.orderByChild("type").equalTo(typeOfGroup).once("value", function(groups){
-    var groupsArray = new Array();
-    var groupsDetails = new Object();
+   var publicGroups = function(groups){
+      var groupsArray = new Array();
+      var groupsDetails = new Object();
 
-    groups.forEach(function(group){
-      var newGroup = group.val();
-      var preContext = {
-        "uuid": group.key,
-        "title": newGroup.title,
-        "description": newGroup.description
-      };
+      groups.forEach(function(group){
+         var newGroup = group.val();
+         var preContext = {
+            "uuid": group.key,
+            "title": newGroup.title,
+            "description": newGroup.description
+         };
 
-      groupsArray.push(preContext);
-    });
+         groupsArray.push(preContext);
+      });
 
-    var context = {"groups": groupsArray}
+      var context = {"groups": groupsArray}
 
-    renderTemplate("#groupsGeneral-tmpl", context, "wrapper")
-    $("wrapper").hide().fadeIn();
+      renderTemplate("#groupsGeneral-tmpl", context, "wrapper")
+      $("wrapper").hide().fadeIn();
 
-  })
+   }
+
+   groupsDB.orderByChild("type").equalTo(typeOfGroup).on("value", publicGroups);
+
+   setAcitveEntity("main", "public", "value", publicGroups);
 }
 
 function listenToOwned_MemberGroups (role){
-  //role: owned, member
+   //role: owned, member
 
-  if (role == "owner" || role == "member"){
-
-
-    var userDB = DB.child("users/"+userUuid);
+   if (role == "owner" || role == "member"){
 
 
+      var userDB = DB.child("users/"+userUuid);
 
-    //update groups details every time the user changes his groups
-    userDB.child("role").orderByValue().equalTo(role).on("value", function(groupsUnderRole){
+      var groupsOwnedMemberCallback = function(groupsUnderRole){
 
-      if(groupsUnderRole.exists()){
+         if(groupsUnderRole.exists()){
 
-        var groupsArray = new Array();
+            var groupsArray = new Array();
 
-        //start counting the number of groups.
-        var groupsUnderRoleLng = groupsUnderRole.val();
-        console.dir(groupsUnderRoleLng);
-        var numberOfGroups = Object.keys(groupsUnderRoleLng).length;
+            //start counting the number of groups.
+            var groupsUnderRoleLng = groupsUnderRole.val();
 
-        var i = 1;
-        groupsUnderRole.forEach(function(groupOwned){
+            var numberOfGroups = Object.keys(groupsUnderRoleLng).length;
 
-          var isGroupOwned = groupOwned.val();
+            var i = 1;
+            groupsUnderRole.forEach(function(groupOwned){
 
-          var preContext = new Object();
+               var isGroupOwned = groupOwned.val();
 
-          DB.child("groups/"+groupOwned.key).once("value", function(data){
-            console.dir (data.val());
-            if (data.val() != null){
+               var preContext = new Object();
 
-              var title = data.val().title;
-              var description = data.val().description;
+               DB.child("groups/"+groupOwned.key).once("value", function(data){
 
-              preContext = {
-                uuid: groupOwned.key,
-                title: title,
-                description: description
-              }
+                  if (data.val() != null){
 
-              groupsArray.push(preContext);
+                     var title = data.val().title;
+                     var description = data.val().description;
 
-              if (i === numberOfGroups){
+                     preContext = {
+                        uuid: groupOwned.key,
+                        title: title,
+                        description: description
+                     }
 
-                var context = {groups: groupsArray};
+                     groupsArray.push(preContext);
 
-                renderTemplate("#groups_"+role+"-tmpl", context, "wrapper");
-                $(".cardsTopicsSubmenuDotsMenu").hide();
-              }
-            } else {
-              console.log("Error: group "+groupOwned.key+" do not exists. Erasing from owner");
-              DB.child("users/"+userUuid+"/role/"+groupOwned.key).remove();
-            }
-            i++;
-          })
-        })
-      } else {
-        console.log("groups don't exists");
-        renderTemplate("#groups_"+role+"-tmpl", {}, "wrapper");
-        //        $("wrapper").html("");
-      }
-    })
-  } else {console.log("type of role is not recognized")}
+                     if (i === numberOfGroups){
+
+                        var context = {groups: groupsArray};
+
+                        renderTemplate("#groups_"+role+"-tmpl", context, "wrapper");
+                        $(".cardsTopicsSubmenuDotsMenu").hide();
+                     }
+                  } else {
+                     console.log("Error: group "+groupOwned.key+" do not exists. Erasing from owner");
+                     DB.child("users/"+userUuid+"/role/"+groupOwned.key).remove();
+                  }
+                  i++;
+               })
+            })
+         } else {
+            console.log("groups don't exists");
+            renderTemplate("#groups_"+role+"-tmpl", {}, "wrapper");
+         }
+      };
+
+      //update groups details every time the user changes his groups
+      userDB.child("role").orderByValue().equalTo(role).on("value", groupsOwnedMemberCallback);
+      console.log("role: "+ role);
+      setAcitveEntity("main", "owned", "value", groupsOwnedMemberCallback);
+
+   } else {console.log("type of role is not recognized")}
 }
 
 function showUserGroups(){
 
-  var context = {"groups": groupsArray};
+   var context = {"groups": groupsArray};
 
-  renderTemplate("#groupsMember-tmpl", context,"wrapper" )
+   renderTemplate("#groupsMember-tmpl", context,"wrapper" )
 
 }
 
 $("#btnAddGroup").click(function(){
-  //showCreateGroupPopup();
-  renderTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
-  alert("creating");
+   //showCreateGroupPopup();
+   renderTemplate("#groupsOwned-tmpl",{},"#createGroupPopup");
+   alert("creating");
 });
 
 function showCreateGroupPopup(){
-  renderTemplate("#createGroupPopup-tmpl",{},"#createGroupPopup");
+   renderTemplate("#createGroupPopup-tmpl",{},"#createGroupPopup");
 }
 
 
@@ -220,44 +261,12 @@ var memberContext = new Object();
 //      })
 //    }
 //    memberContext = {"groups": groupsArray}
-//    showMemberGroupsPage();
+//    showMemberGroups();
 //    console.log("mc: " + JSON.stringify(memberContext));
 //  })
 //  console.log("2: "+userGroupsArray)
 //
 //}
 
-function showMain(groupsCluster){
-  //show header
 
-   renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-   renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
-   renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
-   $("#globalNotificationsSub").css("color", inactiveColor);
-
-   //show footer
-
-   renderTemplate("#mainFooter-tmpl", {}, "footer");
-
-   var borderColor = "4px solid rgba(44, 44, 44, 0.78)"
-   switch (groupsCluster){
-      case "public":
-         showPublicGroups();
-         $("#publicBtn").css("border",borderColor );
-         break;
-      case "owned":
-         showOwnedGroups();
-         $("#ownedBtn").css("border", borderColor);
-         break;
-      case "member":
-         showMemberGroupsPage();
-         $("#memberBtn").css("border", borderColor);
-         break;
-      default:
-         showPublicGroups();
-         $("#publicBtn").css("border", "4px solid rgba(44, 44, 44, 0.65)");
-   }
-
-
-}
 

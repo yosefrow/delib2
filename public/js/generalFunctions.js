@@ -43,17 +43,34 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback, turnOffF
    var previuosEventType = activeEntity.eventType;
    var previuosCallback = activeEntity.callback;
    var previuosTurnOffFunction = activeEntity.turnOffFunction;
+   console.log (previuosEntity, previuosUid, previuosEventType);
 
-   if (previuosEventType != ""){
-      if (isNotEmpty(previuosUid)){
-         console.log("turining off previous callback");
-         DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
+   if (previuosEntity != "main"){
+      if (previuosEventType != ""){
+         if (isNotEmpty(previuosUid)){
+            console.log("turining off previous callback");
+            DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
+         } else {
+            console.log("no previuos entity to close off previous callback");
+         }
       } else {
-         console.log("no previuos entity to close off previous callback");
+         previuosTurnOffFunction();
+         console.log("closing with function");
       }
    } else {
-      previuosTurnOffFunction();
-      console.log("closing with function");
+      switch (previuosUid){
+         case "member":
+         case "owned":
+            DB.child("users/"+userUuid+"/role").off(previuosEventType, previuosCallback);
+            console.log("turn off "+ previuosUid + " groups")
+            break;
+         case "public":
+            DB.child("groups").off(previuosEventType, previuosCallback);
+            console.log("turn off "+ previuosUid + " groups")
+            break;
+         default:
+            console.log("Error: no such groups cluster in main ("+previuosUid+")");
+      }
    }
 
 
