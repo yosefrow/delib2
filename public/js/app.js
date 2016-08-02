@@ -26,9 +26,10 @@ $(function(){
    });
 
    var currentUrl = getUrl();
+   startingUrl = currentUrl;
 
    routTo(currentUrl, false);
-   //  showPublicGroups();
+
    $(window).on('popstate', function() {
       var currentUrl = getUrl();
       var back = true;
@@ -36,15 +37,13 @@ $(function(){
 
    });
 
-   //
-   showMain("public");
-
    listenToAuth();
 })
 
 // Global General Variables and Constants
 
 var userUuid;
+var startingUrl;
 var activeEntity = new Object();
 var firstRun = true;
 const subEntity = {

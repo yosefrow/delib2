@@ -11,9 +11,11 @@ function routTo(currentUrl, back){
    if (back == undefined){back = false};
 
    var slashPostion = currentUrl.indexOf("/");
-   var currentType = sessionStorage.getItem("_entityType");
+//   var currentType = sessionStorage.getItem("_entityType");
+//   var currentEntity = sessionStorage.getItem("_currentEntity");
 
-   var currentEntity = sessionStorage.getItem("_currentEntity");
+   var currentType = currentUrl.slice(0,slashPostion);
+   var currentEntity = currentUrl.slice(slashPostion+1);
 
    showEntities(currentType, currentEntity);
 
@@ -39,33 +41,36 @@ function setUrl(type, uid){
 function showEntities(entity, uid){
 
    switch (entity){
-      case "group":
+      case "groups":
          DB.child("groups/"+uid).once("value", function (group){
             if(group.exists()){
                showGroup(uid);
             } else { console.log("group "+uid+" do not exist"); }
          })
          break;
-      case "topic":
+      case "topics":
          DB.child("topics/"+uid).once("value", function (topic){
             if (topic.exists()){
                showTopic(uid);
             } else { console.log("topic "+uid+" do not exist");}
          })
          break;
-      case "question":
+      case "questions":
          DB.child("questions/"+uid).once("value", function (question){
             if (question.exists()){
                showQuestion(uid);
             } else { console.log("question "+uid+" do not exist");}
          })
          break;
-      case "chat":
+      case "chats":
          DB.child("chats/"+uid).once("value", function (question){
             if (question.exists()){
                showChat(uid);
             } else { console.log("question "+uid+" do not exist");}
          })
+         break;
+      case "main":
+         showMain(uid);
          break;
       default:
          showPublicGroups();

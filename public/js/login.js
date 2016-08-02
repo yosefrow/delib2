@@ -1,21 +1,22 @@
 	//store url string for one session (data is lost when the browser tab is closed)
 		//check browser's locaStorgae support
-	if (typeof (Storage) !== "undefined") {
-		var sUrl = getUrl();
-		sessionStorage.setItem("_urlAfterLogin", sUrl);
-		var tempEntityType = sUrl.split("/");
-		var entityType = tempEntityType[0].slice(0,tempEntityType[0].length);
-		var currentEntity = tempEntityType[1].slice(0,tempEntityType[1].length);
-
-		sessionStorage.setItem("_entityType", entityType);
-		sessionStorage.setItem("_currentEntity", currentEntity);
-
-		console.log("\nurl in storage for LOGIN: ", sessionStorage.getItem("_urlAfterLogin"));
-		console.log("\nurl entity type in storage for LOGIN: ", sessionStorage.getItem("_entityType"));
-		}
-		else {
-			alert("Sorry, your browser does not support local storage.\n You will be delivered to the main page.")
-		}
+//var sUrl;
+//	if (typeof (Storage) !== "undefined") {
+//		sUrl = getUrl();
+//		sessionStorage.setItem("_urlAfterLogin", sUrl);
+//		var tempEntityType = sUrl.split("/");
+//		var entityType = tempEntityType[0].slice(0,tempEntityType[0].length);
+//		var currentEntity = tempEntityType[1].slice(0,tempEntityType[1].length);
+//
+//		sessionStorage.setItem("_entityType", entityType);
+//		sessionStorage.setItem("_currentEntity", currentEntity);
+//
+//		console.log("\nurl in storage for LOGIN: ", sessionStorage.getItem("_urlAfterLogin"));
+//		console.log("\nurl entity type in storage for LOGIN: ", sessionStorage.getItem("_entityType"));
+//		}
+//		else {
+//			alert("Sorry, your browser does not support local storage.\n You will be delivered to the main page.")
+//		};
 
 
 function listenToAuth(){
@@ -30,12 +31,13 @@ function listenToAuth(){
 
       DB.child("users/"+user.uid).update({name: user.displayName});
       updatesListener();
-//      showMain();
-      //get name
-      //get picture
+
 
        listenToNotifications(user.uid);
-       console.log("login: "+ user.uid)
+       console.log("login: "+ user.uid);
+
+       console.log("user is login an redirected");
+       routTo(startingUrl);
 
     } else {
       // No user is signed in.

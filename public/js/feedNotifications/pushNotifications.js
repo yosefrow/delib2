@@ -97,7 +97,7 @@ function pushNotification(EntityData, entityType, messagesSent) {
     Notification.requestPermission(EntityData);
   else {
       var notification;
-    console.log(EntityData.val(), entityType );
+
       if (entityType == "chats") {
           notification = new Notification(EntityData.val().title, {
               icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
