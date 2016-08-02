@@ -36,24 +36,32 @@ function parseDate(dateInMillisec){
 
 function setAcitveEntity (newEntity, newUid, newEventType, newCallback, turnOffFunction){
    console.log("in setAcitveEntity");
-   if( newEventType != ""){
-      console.log("turining off previous callback");
-      var previuosEntity = activeEntity.entity;
-      var previuosUid = activeEntity.uid;
-      var previuosEventType = activeEntity.eventType;
-      var previuosCallback = activeEntity.callback;
 
+
+   var previuosEntity = activeEntity.entity;
+   var previuosUid = activeEntity.uid;
+   var previuosEventType = activeEntity.eventType;
+   var previuosCallback = activeEntity.callback;
+   var previuosTurnOffFunction = activeEntity.turnOffFunction;
+
+   if (previuosEventType != ""){
       if (isNotEmpty(previuosUid)){
-         DB.child(previuosEntity+"/"+previuosUid).off();
+         console.log("turining off previous callback");
+         DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
+      } else {
+         console.log("no previuos entity to close off previous callback");
       }
    } else {
-      console.log("Lets try to close...");
+      previuosTurnOffFunction();
+      console.log("closing with function");
    }
+
 
    activeEntity.entity = newEntity;
    activeEntity.uid = newUid;
    activeEntity.eventType = newEventType;
    activeEntity.callback = newCallback;
+   activeEntity.turnOffFunction = turnOffFunction;
 
 }
 

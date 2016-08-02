@@ -51,6 +51,7 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
       console.log("turning off");
       questionDB.once("value", function(activeListeners){
          activeListeners.forEach(function(activeListenr){
+            console.log("turning off: "+ activeListenr.key);
             questionDB.child(activeListenr.key).off();
          })
       })
