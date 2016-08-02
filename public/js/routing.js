@@ -15,7 +15,7 @@ function routTo(currentUrl, back){
 
    var currentEntity = sessionStorage.getItem("_currentEntity");
 
-
+   showEntities(currentType, currentEntity);
 
 };
 
