@@ -99,3 +99,6 @@ function entityTypeToHebrew (entityType){
 }
 
 
+function setActiveEntity (entityType, uid){
+
+}
