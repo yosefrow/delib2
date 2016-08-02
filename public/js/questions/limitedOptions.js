@@ -1,6 +1,6 @@
 function showLimitedOptionsQuestion(questionUid, numberOfOptions){
 
-    DB.child("questions/"+questionUid+"/options").orderByChild("votes").limitToLast(numberOfOptions).once("value",function(options){
+   var questionDB = DB.child("questions/"+questionUid+"/options"); DB.child("questions/"+questionUid+"/options").orderByChild("votes").limitToLast(numberOfOptions).once("value",function(options){
 
       //adjust the votes to a counting of votes
       DB.child("questions/"+questionUid+"/simpleVoting").once("value", function(voters){
@@ -30,8 +30,9 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
          preContext.push({questionUuid: questionUid ,uuid: optionsObject[i].uuid, title: optionsObject[i].title, votes: optionsObject[i].votes , color: optionsObject[i].color});
       };
       var context = {options: preContext};
+       console.dir(context);
 
-//      renderTemplate("#simpleVote-tmpl", context, "wrapper");
+      renderTemplate("#simpleVote-tmpl", context, "wrapper");
       renderTemplate("#simpleVoteBtns-tmpl", context, "footer");
 
       $(".voteBtn").ePulse({
@@ -45,6 +46,16 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
    })
 
    lightCheckedBtn(questionUid);
+
+   var turnOff = function(){
+      console.log("turning off");
+      questionDB.once("value", function(activeListeners){
+         activeListeners.forEach(function(activeListenr){
+            questionDB.child(activeListenr.key).off();
+         })
+      })
+   };
+   setAcitveEntity("questions",questionUid,"","",turnOff)
 }
 
 function voteSimple(questionUid, optionUid){

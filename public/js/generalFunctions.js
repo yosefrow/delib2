@@ -34,14 +34,20 @@ function parseDate(dateInMillisec){
 }
 
 
-function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
-   var previuosEntity = activeEntity.entity;
-   var previuosUid = activeEntity.uid;
-   var previuosEventType = activeEntity.eventType;
-   var previuosCallback = activeEntity.callback;
+function setAcitveEntity (newEntity, newUid, newEventType, newCallback, turnOffFunction){
+   console.log("in setAcitveEntity");
+   if( newEventType != ""){
+      console.log("turining off previous callback");
+      var previuosEntity = activeEntity.entity;
+      var previuosUid = activeEntity.uid;
+      var previuosEventType = activeEntity.eventType;
+      var previuosCallback = activeEntity.callback;
 
-   if (isNotEmpty(previuosUid)){
-      DB.child(previuosEntity+"/"+previuosUid).off();
+      if (isNotEmpty(previuosUid)){
+         DB.child(previuosEntity+"/"+previuosUid).off();
+      }
+   } else {
+      console.log("Lets try to close...");
    }
 
    activeEntity.entity = newEntity;
@@ -99,15 +105,19 @@ function entityTypeToHebrew (entityType){
 }
 
 
-function setActiveEntity (entityType, uid, eventType, callback){
-
-   var previousUid = activeEntity.uid;
-   var previousEntityType = activeEntity.entity;
-   var previousCallback = activeEntity.callback;
-   var previousEventType = activeEntity.eventType;
-
-   //turn off old entity
-   DB.child(previousEntityType+"/"+previousUid).off(previousEventType,previousCallback);
+function setActiveEntity (entityType, uid, eventType, callback, turnOffFunction){
+   console.log("entering active entity function");
+   if (entityType != ""){
+      var previousUid = activeEntity.uid;
+      var previousEntityType = activeEntity.entity;
+      var previousCallback = activeEntity.callback;
+      var previousEventType = activeEntity.eventType;
+      console.log("turn off previous entity: "+previousUid);
+      //turn off old entity
+      DB.child(previousEntityType+"/"+previousUid).off(previousEventType,previousCallback);
+   } else {
+      console.log("will try to turn off");
+   }
 
    //set new active entity
 
@@ -115,5 +125,6 @@ function setActiveEntity (entityType, uid, eventType, callback){
    activeEntity.entity = entityType;
    activeEntity.callback = callback;
    activeEntity.eventType = eventType;
+   console.log("setting to global new entity: "+activeEntity.uid);
 
 }
