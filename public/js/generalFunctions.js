@@ -73,6 +73,8 @@ function setActiveEntity (newEntity, newUid, newEventType, newCallback, turnOffF
    activeEntity.callback = newCallback;
    activeEntity.turnOffFunction = turnOffFunction;
 
+   setUrl(newEntity, newUid);
+
 }
 
 function animateHeader(){
