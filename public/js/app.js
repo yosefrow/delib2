@@ -37,10 +37,7 @@ $(function(){
    });
 
    //
-   renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-   renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
-   renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
-   //  showMain();
+   showMain("public");
 
    listenToAuth();
 })

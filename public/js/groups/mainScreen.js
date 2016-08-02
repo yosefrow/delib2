@@ -231,12 +231,28 @@ var memberContext = new Object();
 //
 //}
 
-function showMain(){
+function showMain(groupsCluster){
   //show header
-   renderTemplate("#LogoHeaderTitle-tmpl",{}, "#headerTitle");
 
-   $("#globalNotificationsSub").css("color", inactiveColor)
-  showPublicGroups();
+   renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
+   renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
+   renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
+   $("#globalNotificationsSub").css("color", inactiveColor);
+
+   switch (groupsCluster){
+      case "public":
+         showPublicGroups();
+         break;
+      case "owned":
+         showOwnedGroups();
+         break;
+      case "member":
+         showMemberGroupsPage();
+         break;
+      default:
+         showPublicGroups();
+   }
+
 
 }
 
