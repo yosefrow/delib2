@@ -19,6 +19,7 @@ function showGroup(groupUid){
    //show footer
    $("footer").html("");
 
+   //show wrapper
    var groupCallback = function(topics){
 
       if(topics.exists()){
