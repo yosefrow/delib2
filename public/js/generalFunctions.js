@@ -99,6 +99,21 @@ function entityTypeToHebrew (entityType){
 }
 
 
-function setActiveEntity (entityType, uid){
+function setActiveEntity (entityType, uid, eventType, callback){
+
+   var previousUid = activeEntity.uid;
+   var previousEntityType = activeEntity.entity;
+   var previousCallback = activeEntity.callback;
+   var previousEventType = activeEntity.eventType;
+
+   //turn off old entity
+   DB.child(previousEntityType+"/"+previousUid).off(previousEventType,previousCallback);
+
+   //set new active entity
+
+   activeEntity.uid = uid;
+   activeEntity.entity = entityType;
+   activeEntity.callback = callback;
+   activeEntity.eventType = eventType;
 
 }
