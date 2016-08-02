@@ -30,7 +30,7 @@ function listenToAuth(){
 
       DB.child("users/"+user.uid).update({name: user.displayName});
       updatesListener();
-//      goHome();
+//      showMain();
       //get name
       //get picture
 

@@ -2,7 +2,7 @@
 const groupsDB = DB.child("groups");
 
 function showFooterGroupsBtn(){
-  renderTemplate("#footerBtn-tmpl", {}, "footer");
+  renderTemplate("#mainFooter-tmpl", {}, "footer");
 }
 
 function showMemberGroupsPage(){
@@ -231,9 +231,12 @@ var memberContext = new Object();
 //
 //}
 
-function goHome(){
-  $("#globalNotificationsSub").css("color", inactiveColor)
+function showMain(){
+  //show header
+   renderTemplate("#LogoHeaderTitle-tmpl",{}, "#headerTitle");
+
+   $("#globalNotificationsSub").css("color", inactiveColor)
   showPublicGroups();
-  renderTemplate("#LogoHeaderTitle-tmpl",{}, "#headerTitle");
+
 }
 
