@@ -58,7 +58,7 @@ function showTopic(topicUid){
       } else {renderTemplate("#topicPage-tmpl",{}, "wrapper");}
    };
 
-   DB.child("topics/"+ topicUid.toString()+"/questions").once("value",topicCallback);
+   DB.child("topics/"+ topicUid.toString()+"/questions").on("value",topicCallback);
 
    setAcitveEntity("topics", topicUid, "value", topicCallback);
 
