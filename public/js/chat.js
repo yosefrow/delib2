@@ -51,7 +51,7 @@ function showChat(){
 
    DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", chatCallback);
 
-   setAcitveEntity("chats", chatUid, "child_added", chatCallback);
+   setActiveEntity("chats", chatUid, "child_added", chatCallback);
 
    //Notifications
 

@@ -3,7 +3,6 @@ const groupsDB = DB.child("groups");
 
 function showMain(groupsCluster){
    //show header
-   console.log("showMain: "+ groupsCluster);
 
    renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
    renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
@@ -86,7 +85,7 @@ function showMemberGroups(){
 
    DB.child("users/"+userUuid+"/membership").once("value", memberGroupsCallback);
 
-   setAcitveEntity("main", "member", "value", memberGroupsCallback);
+   setActiveEntity("main", "member", "value", memberGroupsCallback);
 
    setUrl();
 
@@ -137,7 +136,7 @@ function listenToGeneralGroups (typeOfGroup){
 
    groupsDB.orderByChild("type").equalTo(typeOfGroup).on("value", publicGroups);
 
-   setAcitveEntity("main", "public", "value", publicGroups);
+   setActiveEntity("main", "public", "value", publicGroups);
 }
 
 function listenToOwned_MemberGroups (role){
@@ -203,8 +202,8 @@ function listenToOwned_MemberGroups (role){
 
       //update groups details every time the user changes his groups
       userDB.child("role").orderByValue().equalTo(role).on("value", groupsOwnedMemberCallback);
-      console.log("role: "+ role);
-      setAcitveEntity("main", "owned", "value", groupsOwnedMemberCallback);
+
+      setActiveEntity("main", "owned", "value", groupsOwnedMemberCallback);
 
    } else {console.log("type of role is not recognized")}
 }

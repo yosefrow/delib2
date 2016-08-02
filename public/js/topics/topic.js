@@ -60,7 +60,7 @@ function showTopic(topicUid){
 
    DB.child("topics/"+ topicUid.toString()+"/questions").on("value",topicCallback);
 
-   setAcitveEntity("topics", topicUid, "value", topicCallback);
+   setActiveEntity("topics", topicUid, "value", topicCallback);
 
 
 

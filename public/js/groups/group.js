@@ -1,5 +1,5 @@
 function showGroup(groupUid){
-   console.log("showgroup");
+
    //show header
 
    DB.child("groups/"+groupUid).once("value",function(dataSnapshot){
@@ -67,8 +67,8 @@ function showGroup(groupUid){
    };
 
    DB.child("groups/"+groupUid+"/topics").on("value",groupCallback);
-   console.log("setAcitveEntity");
-   setAcitveEntity("groups", groupUid, "value", groupCallback);
+
+   setActiveEntity("groups", groupUid, "value", groupCallback);
 
    //   if (back == undefined){back = false}
 
