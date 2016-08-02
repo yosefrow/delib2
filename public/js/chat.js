@@ -14,6 +14,9 @@ function showChat(){
    DB.child(entityType+"/"+chatUid).once("value", function(dataSnapshot){
       var entityTypeLocal = entityTypeToHebrew(entityType);
       renderTemplate("#chatsHeader-tmpl",{entityType:entityTypeLocal, title:dataSnapshot.val().title },"#headerTitle");
+
+      DB.child("chats/"+chatUid).update({title: "("+entityTypeLocal+") "+ dataSnapshot.val().title})
+
    });
 
    //show footer
