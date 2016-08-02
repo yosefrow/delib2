@@ -36,6 +36,57 @@ function setUrl(type, uid){
       var url = domainUrl+"?"+type+"/"+uid;
       history.pushState(typeEntity, uid, url );
    }
+};
+
+function setActiveEntity (newEntity, newUid, newEventType, newCallback, turnOffFunction){
+
+   var previuosEntity = activeEntity.entity;
+   var previuosUid = activeEntity.uid;
+   var previuosEventType = activeEntity.eventType;
+   var previuosCallback = activeEntity.callback;
+   var previuosTurnOffFunction = activeEntity.turnOffFunction;
+
+   if (previuosEntity != "main"){
+      if (previuosEventType != ""){
+         if (isNotEmpty(previuosUid)){
+            DB.child(previuosEntity+"/"+previuosUid).off(previuosEventType, previuosCallback);
+         } else {
+            console.log("Error: no previuos entity to close off previous callback");
+         }
+      } else {
+         previuosTurnOffFunction();
+      }
+   } else {
+      switch (previuosUid){
+         case "member":
+         case "owned":
+            DB.child("users/"+userUuid+"/role").off(previuosEventType, previuosCallback);
+            break;
+         case "public":
+            DB.child("groups").off(previuosEventType, previuosCallback);
+            break;
+         default:
+            console.log("Error: no such groups cluster in main ("+previuosUid+")");
+      }
+   }
+
+
+   activeEntity.entity = newEntity;
+   activeEntity.uid = newUid;
+   activeEntity.eventType = newEventType;
+   activeEntity.callback = newCallback;
+   activeEntity.turnOffFunction = turnOffFunction;
+
+   setUrl(newEntity, newUid);
+   if (newEntity == "groups" || newEntity == "topics" || newEntity == "questions" || newEntity == "chats"){
+      DB.child(newEntity+"/"+newUid).once("value", function (dataSnapshot){
+         var entetisTranslate = {groups: "קהילה" , topics: "נושא" , questions: "שאלה", chats: "שיחה" }
+
+         document.title = "דליב: "+entetisTranslate[newEntity] + " - " +dataSnapshot.val().title
+      })
+   } else {
+      document.title = "דליב (ראשי) : מחליטים ביחד";
+   }
 }
 
 function showEntities(entity, uid){
@@ -75,4 +126,5 @@ function showEntities(entity, uid){
       default:
          showPublicGroups();
    }
-}
+};
+
