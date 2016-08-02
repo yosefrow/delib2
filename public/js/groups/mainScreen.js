@@ -1,9 +1,7 @@
 //comment
 const groupsDB = DB.child("groups");
 
-function showFooterGroupsBtn(){
-  renderTemplate("#mainFooter-tmpl", {}, "footer");
-}
+
 
 function showMemberGroupsPage(){
 
@@ -55,7 +53,6 @@ function showMemberGroupsPage(){
     }
   })
 
-  showFooterGroupsBtn();
   setUrl();
 
 }
@@ -63,7 +60,6 @@ function showMemberGroupsPage(){
 function showPublicGroups(){
 
   listenToGeneralGroups("public");
-  showFooterGroupsBtn();
   setUrl();
 
 }
@@ -71,7 +67,7 @@ function showPublicGroups(){
 function showOwnedGroups(){
 
   listenToOwned_MemberGroups("owner");
-  showFooterGroupsBtn();
+
   setUrl();
 }
 
@@ -239,18 +235,27 @@ function showMain(groupsCluster){
    renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
    $("#globalNotificationsSub").css("color", inactiveColor);
 
+   //show footer
+
+   renderTemplate("#mainFooter-tmpl", {}, "footer");
+
+   var borderColor = "4px solid rgba(44, 44, 44, 0.78)"
    switch (groupsCluster){
       case "public":
          showPublicGroups();
+         $("#publicBtn").css("border",borderColor );
          break;
       case "owned":
          showOwnedGroups();
+         $("#ownedBtn").css("border", borderColor);
          break;
       case "member":
          showMemberGroupsPage();
+         $("#memberBtn").css("border", borderColor);
          break;
       default:
          showPublicGroups();
+         $("#publicBtn").css("border", "4px solid rgba(44, 44, 44, 0.65)");
    }
 
 
