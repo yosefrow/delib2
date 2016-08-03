@@ -32,7 +32,6 @@ function editQuestion(questionUid){
 }
 
 function updateQuestion(questionUid){
-   //check if form exists...
 
    //get form info
    var title = $("#createQuestionName").val();
@@ -71,13 +70,13 @@ function updateQuestion(questionUid){
 
    DB.child("questions/"+questionUid).update({title: title, description: description, type: type, numberOfOptions: numberOfOptionsTemp});
 
-   for (i in optionsTempInput){
+   for (i in editiedOptions){
       //get new name and description
-      var titleOption = $("#"+i+"_limitedOptions").val();
-      var descriptionOption = $("#"+i+"_limitedOptionsDesc").val();
-      console.log("title of "+i+" is: "+titleOption, descriptionOption);
+      var titleOption = $("#"+editiedOptions[i]+"_limitedOptions").val();
+      var descriptionOption = $("#"+editiedOptions[i]+"_limitedOptionsDesc").val();
+      console.log("title of "+editiedOptions[i]+" is: "+titleOption, descriptionOption);
       if (titleOption != undefined){
-         DB.child("questions/"+questionUid+"/options/"+i).update({title:titleOption, description:descriptionOption});
+         DB.child("questions/"+questionUid+"/options/"+editiedOptions[i]).update({title:titleOption, description:descriptionOption});
       }
    }
    DB.child("questions/"+questionUid+"/options").update(optionsTempInput);
@@ -91,16 +90,13 @@ function switchBetweenTypesOfQuestions (questionUid, typeOfQuestion, numberOfOpt
       case "limitedOptions":
          $("#questionOptions").show(300);
          showOptionsInUpdate(questionUid);
-
-//         if(numberOfOptions>0){
-//
-//            setNumberOfOptions(numberOfOptions);
-//         }
          break;
       default:
          $("#questionOptions").hide(300);
    }
 }
+
+var editiedOptions = new Array();
 
 function showOptionsInUpdate(questionUid){
    //get Options form DB
@@ -112,6 +108,7 @@ function showOptionsInUpdate(questionUid){
          var title = optionObj.val().title;
          var description = optionObj.val().description;
          var optionUid = optionObj.key;
+         editiedOptions[iOptions] = optionUid;
 
          preContext.unshift({optionOrder: iOptions, title:title, description: description, optionUid: optionUid});
          iOptions++;
