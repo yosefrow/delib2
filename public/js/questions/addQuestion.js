@@ -22,14 +22,21 @@ function newQuestion(){
 
       switch (selection) {
 
-            case "limitedOptions":
+         case "limitedOptions":
+            var preContext = new Array();
             renderTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
-            if(numberOfOptionsTemp>0){
-               setNumberOfOptions(numberOfOptionsTemp);
+            for (i=0;i<8;i++){
+               preContext.push({optionOrder:i, optionUid: "option"+i, description:""})
             }
+            var context = {options: preContext}
+            renderTemplate("#questionOption-tmpl", context, "#optionsForLimitedOptions");
+            $("#questionOptions").show();
+//            if(numberOfOptionsTemp>0){
+//               setNumberOfOptions(numberOfOptionsTemp);
+//            }
             break;
          default:
-            $("#questionOptions").html("");
+            $("#questionOptions").hide();
       }
    })
 
@@ -72,12 +79,12 @@ function addNewQuestion(){
       alert("אנא התחבר/י למערכת");
       return;
    }
-   for (i=1;i<=numberOfOptionsTemp;i++){
-      if (optionsTempInput["option"+i].title == "") {
-         alert(" אופציה מספר "+i+" ריקה");
-         return;
-      }
-   }
+//   for (i=1;i<=numberOfOptionsTemp;i++){
+//      if (optionsTempInput["option"+i].title == "") {
+//         alert(" אופציה מספר "+i+" ריקה");
+//         return;
+//      }
+//   }
    var newQuestion = setNewQuestionToDB(questionName,questionDescription,questionType);
    //  var newQuestion = DB.child("questions").push({title: questionName, description: questionDescription, type: questionType, owner: userUuid });
    if (activeEntity.entity == "topics") {
