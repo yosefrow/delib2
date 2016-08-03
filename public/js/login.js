@@ -54,6 +54,7 @@ function listenToAuth(){
 function googleLogin() {
   var provider2 = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithRedirect(provider2);
+
 }
 //Facebook login
 function facebookLogin(){

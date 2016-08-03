@@ -27,8 +27,11 @@ $(function(){
 
    var currentUrl = getUrl();
    startingUrl = currentUrl;
+   routTo(currentUrl);
 
-   routTo(currentUrl, false);
+   listenToAuth();
+
+   //routTo(currentUrl, false);
 
    $(window).on('popstate', function() {
       var currentUrl = getUrl();
@@ -37,7 +40,7 @@ $(function(){
 
    });
 
-   listenToAuth();
+
 })
 
 // Global General Variables and Constants
