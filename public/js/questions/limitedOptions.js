@@ -4,23 +4,35 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
 
       //adjust the votes to a counting of votes
       DB.child("questions/"+questionUid+"/simpleVoting").once("value", function(voters){
-         var counts = new Object();
-         voters.forEach(function(voter){
-            if (!counts[voter.val()]){counts[voter.val()] = 0};
-            counts[voter.val()]++;
-         });
 
-         for (i in counts){
-            questionDB.child(i).update({votes:counts[i]});
-         }
+         console.log("adjust the votes to a counting of votes")
+         var counts = new Object();
+         //get all options
+         DB.child("questions/"+questionUid+"/options").once("value", function(options){
+            options.forEach(function(option){
+               counts[option.key] = 0;
+            })
+
+            voters.forEach(function(voter){
+               if (!counts[voter.val()]){counts[voter.val()] = 0};
+               counts[voter.val()]++;
+            });
+
+            for (i in counts){
+               questionDB.child(i).update({votes:counts[i]});
+            }
+
+         })
+
+
       })
 
       var optionsObject = new Object();
       options.forEach(function(option){
-//         if (color == undefined){
-//            var color = getRandomColor();
-//            DB.child("questions/"+questionUid+"/options/"+option.key).update({color:color});
-//         }
+         //         if (color == undefined){
+         //            var color = getRandomColor();
+         //            DB.child("questions/"+questionUid+"/options/"+option.key).update({color:color});
+         //         }
          optionsObject[option.key]= {uuid: option.key, title: option.val().title, votes: option.val().votes,color: option.val().color};
       })
 
@@ -30,7 +42,7 @@ function showLimitedOptionsQuestion(questionUid, numberOfOptions){
          preContext.push({questionUuid: questionUid ,uuid: optionsObject[i].uuid, title: optionsObject[i].title, votes: optionsObject[i].votes , color: optionsObject[i].color});
       };
       var context = {options: preContext};
-       console.dir(context);
+      console.dir(context);
 
       renderTemplate("#simpleVote-tmpl", context, "wrapper");
       renderTemplate("#simpleVoteBtns-tmpl", context, "footer");
@@ -141,9 +153,9 @@ function adjustHighetLimitedOptions(optionsObject){
    for (i in optionsObject){
       var relativeToMaxBar;
       if (optionsObject[i].votes==undefined||optionsObject[i].votes<=0){
-          relativeToMaxBar=0.1/maxVotes;
+         relativeToMaxBar=0.1/maxVotes;
       } else{
-           relativeToMaxBar = (optionsObject[i].votes/maxVotes);
+         relativeToMaxBar = (optionsObject[i].votes/maxVotes);
       }
 
       $("#"+optionsObject[i].uuid+"_div").css('height', wrapperHeight*relativeToMaxBar).css("width", barWidth).text(optionsObject[i].votes);
