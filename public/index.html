@@ -395,12 +395,13 @@ Tow options
     </script>
     <!--   options for Limited options -->
     <script type="text/x-handlebars-template" id="questionOption-tmpl">
-{{#each option}}
-<label>אופציה {{optionNumber}}</label>
+{{#each options}}
+<div id={{optionOrder}}_optionOrder>
+<label>אפשרות</label>
 <br>
-<input type="text" id={{uid}}_limitedOptions placeholder="שם האופציה" value='{{nameTextVal}}'>
-<textarea id={{uid}}_limitedOptionsDesc class="inputErea" name="description" placeholder="הסבר">{{descriptionText}}</textarea>
-<br> {{/each}}
+<input type="text" id={{optionUid}}_limitedOptions placeholder="שם האופציה" value='{{title}}'>
+<textarea id={{optionUid}}_limitedOptionsDesc class="inputErea" name="description" placeholder="הסבר">{{description}}</textarea>
+</div> {{/each}}
     </script>
 
     <!--  question footer  -->

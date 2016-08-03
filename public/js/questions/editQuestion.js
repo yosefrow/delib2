@@ -1,52 +1,33 @@
 function editQuestion(questionUid){
 
-   //intiate temp options object
-   for (i=1;i<9;i++){
-      optionsTempInput["option"+i]={title:"", description:""};
-   }
-
 
    //bring data from DB
    DB.child("questions/"+questionUid).once("value", function(dataSnapshot){
 
-      numberOfOptionsTemp = dataSnapshot.val().numberOfOptions;
-
+      var numberOfOptions = dataSnapshot.val().numberOfOptions;
       var questionTitle = dataSnapshot.val().title;
       var questionDescription = dataSnapshot.val().description;
       var typeOfQuestion = dataSnapshot.val().type;
 
       renderTemplate("#createQuestion-tmpl",{questionTitle: questionTitle, questionDescription:questionDescription}, "wrapper");
-      renderTemplate("#editQuestionFooter-tmpl",{uuid:questionUid}, "footer")
+      renderTemplate("#editQuestionFooter-tmpl",{uuid:questionUid}, "footer");
 
-      renderTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
 
-      console.log(typeOfQuestion);
       $('input[type=radio][name=type]').val([typeOfQuestion]);
 
-      switchBetweenTypesOfQuestions(typeOfQuestion, numberOfOptionsTemp);
+      switchBetweenTypesOfQuestions(questionUid, typeOfQuestion, numberOfOptions);
 
       $('input[type=radio][name=type]').change(function(){
 
-         var selcation = this.value;
+         var selection = this.value;
 
-         switchBetweenTypesOfQuestions(selcation, numberOfOptionsTemp);
+         switchBetweenTypesOfQuestions(questionUid, selection, numberOfOptions);
 
       });
 
-      //bring options from database
+      showOptionsInUpdate(questionUid, numberOfOptions);
 
-      DB.child("questions/"+questionUid+"/options").orderByChild("votes").limitToLast(8).once("value", function(optionsSnapshot){
-         console.log("bring options from database "+ questionUid);
-         console.dir(optionsSnapshot.val());
-         var i=8;
-         optionsSnapshot.forEach(function(optionData){
-            optionsTempInput[optionData.key]={title:optionData.val().title, description:optionData.val().description};
-            console.log(JSON.stringify(optionsTempInput["option"+i]));
-            i--;
-         })
 
-         setNumberOfOptions(numberOfOptionsTemp);
-      });
    });
 }
 
@@ -72,19 +53,19 @@ function updateQuestion(questionUid){
    console.dir(optionsTempInput);
    console.log("numberOfOptions "+numberOfOptionsTemp );
 
-//   for (i=1;i<=numberOfOptionsTemp;i++){
-//      if (optionsTempInput["option"+i].title == "") {
-//         alert(" אופציה מספר "+i+" ריקה");
-//         return;
-//      }
-//   }
-//   for (i=numberOfOptionsTemp+1;i<9;i++){
-//      if (optionsTempInput["option"+i].title == "") {
-//         delete optionsTempInput["option"+i];
-//      }
-//
-//
-//   }
+   //   for (i=1;i<=numberOfOptionsTemp;i++){
+   //      if (optionsTempInput["option"+i].title == "") {
+   //         alert(" אופציה מספר "+i+" ריקה");
+   //         return;
+   //      }
+   //   }
+   //   for (i=numberOfOptionsTemp+1;i<9;i++){
+   //      if (optionsTempInput["option"+i].title == "") {
+   //         delete optionsTempInput["option"+i];
+   //      }
+   //
+   //
+   //   }
 
    console.dir(optionsTempInput);
 
@@ -95,25 +76,55 @@ function updateQuestion(questionUid){
       var titleOption = $("#"+i+"_limitedOptions").val();
       var descriptionOption = $("#"+i+"_limitedOptionsDesc").val();
       console.log("title of "+i+" is: "+titleOption, descriptionOption);
-      DB.child("questions/"+questionUid+"/options/"+i).update({title:titleOption, description:descriptionOption});
+      if (titleOption != undefined){
+         DB.child("questions/"+questionUid+"/options/"+i).update({title:titleOption, description:descriptionOption});
+      }
    }
    DB.child("questions/"+questionUid+"/options").update(optionsTempInput);
+   DB.child("questions/"+questionUid).update({numberOfOptions:numberOfOptionsTemp});
 
    showTopic(activeEntity.uid);
 }
 
-function switchBetweenTypesOfQuestions (typeOfQuestion, numberOfOptionsTemp){
+function switchBetweenTypesOfQuestions (questionUid, typeOfQuestion, numberOfOptions){
    switch (typeOfQuestion) {
-      case "forAgainst":
-         renderTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
-         break;
       case "limitedOptions":
-         renderTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
-         if(numberOfOptionsTemp>0){
-            setNumberOfOptions(numberOfOptionsTemp);
-         }
+         $("#questionOptions").show(300);
+         showOptionsInUpdate(questionUid);
+
+//         if(numberOfOptions>0){
+//
+//            setNumberOfOptions(numberOfOptions);
+//         }
          break;
       default:
-         $("#questionOptions").html("");
+         $("#questionOptions").hide(300);
    }
+}
+
+function showOptionsInUpdate(questionUid){
+   //get Options form DB
+   DB.child("questions/"+questionUid+"/options").orderByChild("votes").limitToLast(8).once("value", function(optionsObj){
+
+      var preContext = new Array();
+      var iOptions = 1;
+      optionsObj.forEach(function(optionObj){
+         var title = optionObj.val().title;
+         var description = optionObj.val().description;
+         var optionUid = optionObj.key;
+
+         preContext.unshift({optionOrder: iOptions, title:title, description: description, optionUid: optionUid});
+         iOptions++;
+      })
+      var context = {options: preContext};
+      renderTemplate("#questionOptionsLimitedOptions-tmpl",{},"#questionOptions");
+      renderTemplate("#questionOption-tmpl", context, "#optionsForLimitedOptions");
+
+      //get number of options
+      DB.child("questions/"+questionUid+"/numberOfOptions").once("value", function(dataSnapshot){
+         setNumberOfOptions(dataSnapshot.val());
+      })
+
+
+   })
 }

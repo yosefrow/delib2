@@ -18,19 +18,11 @@ function newQuestion(){
 
    $('input[type=radio][name=type]').change(function(){
 
-      var selcation = this.value;
+      var selection = this.value;
 
-      switch (selcation) {
-         case "forAgainst":
-            renderTemplate("#questionOptionsForAgainst-tmpl", {}, "#questionOptions");
-            listenToOptionsInput();
-            setForAgainst();
-            break;
-            //      case "twoOptions":
-            //        listenToOptionsInput();
-            //        setTwoOptions();
-            //        break;
-         case "limitedOptions":
+      switch (selection) {
+
+            case "limitedOptions":
             renderTemplate("#questionOptionsLimitedOptions-tmpl", {}, "#questionOptions");
             if(numberOfOptionsTemp>0){
                setNumberOfOptions(numberOfOptionsTemp);
@@ -53,116 +45,103 @@ function setNumberOfOptions(numberOfOptions){
       $("#numberOfOptions"+i).css("background", "linear-gradient(to bottom,  #cc0000 0%,#cc3535 52%,#6d0000 100%)");
    }
    $("#numberOfOptions"+numberOfOptions).css("background", "linear-gradient(to top,  #cc0000 0%,#cc3535 52%,#6d0000 100%)");
-   console.dir(optionsTempInput)
-   var preContext = new Array();
-   var ii = 1;
-   for (i in optionsTempInput){
-      console.log(i);
-      var nameText = optionsTempInput[i].title;
-      var descriptionText = optionsTempInput[i].description;
-      var uidID = i;
-      console.log(i, nameText, descriptionText);
 
-      preContext.unshift({optionNumber: ii, nameTextVal:nameText, descriptionText: descriptionText, uid:i });
-                          ii++;
-                         }
-                         console.dir(preContext);
-      var context = {option: preContext};
+   for (i=1; i<9;i++){
+      if (i> 8-numberOfOptions){
+         $("#"+i+"_optionOrder").show();
+      } else {
+         $("#"+i+"_optionOrder").hide();
+      }
+   }
+}
 
-      renderTemplate("#questionOption-tmpl", context, "#optionsForLimitedOptions");
+function addNewQuestion(){
+   //check if form exists...
 
+   //get form info
+   var questionName = $("#createQuestionName").val();
+   var questionDescription = $("#createQuestionDescription").val();
+   var questionType = $("input[name=type]:checked").val();
 
-
-      listenToOptionsInput(numberOfOptions);
+   if (questionName == "") {
+      alert("חסר שם שאלה");
+      return;
    }
 
-   function addNewQuestion(){
-      //check if form exists...
-
-      //get form info
-      var questionName = $("#createQuestionName").val();
-      var questionDescription = $("#createQuestionDescription").val();
-      var questionType = $("input[name=type]:checked").val();
-
-      if (questionName == "") {
-         alert("חסר שם שאלה");
+   if (userUuid == "" || userUuid == undefined) {
+      alert("אנא התחבר/י למערכת");
+      return;
+   }
+   for (i=1;i<=numberOfOptionsTemp;i++){
+      if (optionsTempInput["option"+i].title == "") {
+         alert(" אופציה מספר "+i+" ריקה");
          return;
       }
+   }
+   var newQuestion = setNewQuestionToDB(questionName,questionDescription,questionType);
+   //  var newQuestion = DB.child("questions").push({title: questionName, description: questionDescription, type: questionType, owner: userUuid });
+   if (activeEntity.entity == "topics") {
+      var topic = activeEntity.uid;
+      DB.child("topics/"+topic+"/questions/"+newQuestion.key+"/dateAdded").set(firebase.database.ServerValue.TIMESTAMP);
+   }
+   DB.child("users/"+userUuid+"/questions/"+newQuestion.key).set("owner");
 
-      if (userUuid == "" || userUuid == undefined) {
-         alert("אנא התחבר/י למערכת");
-         return;
-      }
-      for (i=1;i<=numberOfOptionsTemp;i++){
-         if (optionsTempInput["option"+i].title == "") {
-            alert(" אופציה מספר "+i+" ריקה");
-            return;
+   showTopic(activeEntity.uid);
+}
+
+
+//create new question
+function setNewQuestionToDB (title, description, type){
+
+   if (title == undefined){
+      title = "";
+      console.log("Error: new topic do not have title");
+   };
+
+   if (description == undefined){
+      description = "";
+   };
+   if (type == undefined){
+      explanation = "";
+   };
+   //  if (imgQuestion == undefined){
+   //    imgQuestion = "";
+   //  };
+   for (i=1;i<9;i++){
+      if (optionsTempInput["option"+i].title == ""){
+         delete optionsTempInput["option"+i];
+      } else {
+         if (optionsTempInput["option"+i].color == null){
+            optionsTempInput["option"+i].color = getRandomColor();
          }
       }
-      var newQuestion = setNewQuestionToDB(questionName,questionDescription,questionType);
-      //  var newQuestion = DB.child("questions").push({title: questionName, description: questionDescription, type: questionType, owner: userUuid });
-      if (activeEntity.entity == "topics") {
-         var topic = activeEntity.uid;
-         DB.child("topics/"+topic+"/questions/"+newQuestion.key+"/dateAdded").set(firebase.database.ServerValue.TIMESTAMP);
-      }
-      DB.child("users/"+userUuid+"/questions/"+newQuestion.key).set("owner");
-
-      showTopic(activeEntity.uid);
    }
 
 
-   //create new question
-   function setNewQuestionToDB (title, description, type){
 
-      if (title == undefined){
-         title = "";
-         console.log("Error: new topic do not have title");
-      };
+   var questionId = DB.child("questions").push({dateAdded: firebase.database.ServerValue.TIMESTAMP, title: title, description: description, type: type, numberOfOptions: numberOfOptionsTemp, options:optionsTempInput, owner: userUuid});
 
-      if (description == undefined){
-         description = "";
-      };
-      if (type == undefined){
-         explanation = "";
-      };
-      //  if (imgQuestion == undefined){
-      //    imgQuestion = "";
-      //  };
-      for (i=1;i<9;i++){
-         if (optionsTempInput["option"+i].title == ""){
-            delete optionsTempInput["option"+i];
-         } else {
-            if (optionsTempInput["option"+i].color == null){
-               optionsTempInput["option"+i].color = getRandomColor();
-            }
-         }
-      }
+   return questionId;
+}
 
-
-
-      var questionId = DB.child("questions").push({dateAdded: firebase.database.ServerValue.TIMESTAMP, title: title, description: description, type: type, numberOfOptions: numberOfOptionsTemp, options:optionsTempInput, owner: userUuid});
-
-      return questionId;
-   }
-
-   function listenToOptionsInput(numberOfOptions){
-
-      for( i=1; i< numberOfOptions+1; i++){
-         $("#optionName"+i).keyup(function(e){
-            var dinput = this.value;
-            var id = e.currentTarget.id;
-            var optionNumber = id.substr(-1);
-            optionsTempInput["option"+optionNumber].title = dinput;
-         })
-      }
-
-      for( i=1; i< numberOfOptions+1; i++){
-         $("#optionDescription"+i).keyup(function(e){
-            var dinput = this.value;
-            var id = e.currentTarget.id;
-            var optionNumber = id.substr(-1);
-            optionsTempInput["option"+optionNumber].description = dinput;
-            console.log("input: "+ dinput);
-         })
-      }
-   }
+//function listenToOptionsInput(numberOfOptions){
+//
+//   for( i=1; i< numberOfOptions+1; i++){
+//      $("#optionName"+i).keyup(function(e){
+//         var dinput = this.value;
+//         var id = e.currentTarget.id;
+//         var optionNumber = id.substr(-1);
+//         optionsTempInput["option"+optionNumber].title = dinput;
+//      })
+//   }
+//
+//   for( i=1; i< numberOfOptions+1; i++){
+//      $("#optionDescription"+i).keyup(function(e){
+//         var dinput = this.value;
+//         var id = e.currentTarget.id;
+//         var optionNumber = id.substr(-1);
+//         optionsTempInput["option"+optionNumber].description = dinput;
+//         console.log("input: "+ dinput);
+//      })
+//   }
+//}
