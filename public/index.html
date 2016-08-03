@@ -345,13 +345,11 @@
     <br>
     <textarea id="createQuestionDescription" class="inputErea" name="description" placeholder="תיאור השאלה">{{questionDescription}}</textarea>
     <br>
-    <input type="radio" class="radioInput" name="type" value="forAgainst" checked><span> בעד-נגד</span>
-    <br>
     <input type="radio" class="radioInput" name="type" value="limitedOptions" checked><span> מעט אופציות</span>
     <br>
     <input type="radio" class="radioInput" name="type" value="multiOptions"> ריבוי אופציות
     <br>
-    <input type="radio" class="radioInput" name="type" value="document"> מסמך
+
       </form>
   <hr>
   <div id="questionOptions">
@@ -400,7 +398,7 @@ Tow options
 {{#each option}}
 <label>אופציה {{optionNumber}}</label>
 <br>
-<input type="text" id=optionName{{optionNumber}} placeholder="שם האופציה" value={{nameText}}>
+<input type="text" id=optionName{{optionNumber}} placeholder="שם האופציה" value='{{nameTextVal}}'>
 <textarea id=optionDescription{{optionNumber}} class="inputErea" name="description" placeholder="הסבר">{{descriptionText}}</textarea>
 <br> {{/each}}
     </script>

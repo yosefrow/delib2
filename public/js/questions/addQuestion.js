@@ -55,13 +55,15 @@ function setNumberOfOptions(numberOfOptions){
   $("#numberOfOptions"+numberOfOptions).css("background", "linear-gradient(to top,  #cc0000 0%,#cc3535 52%,#6d0000 100%)");
   console.dir(optionsTempInput)
   var preContext = new Array();
-  for (i=1; i < numberOfOptions+1 ;i++){
+  for (i=1; i <= numberOfOptions ;i++){
+     console.log(i);
     var nameText = optionsTempInput["option"+i].title;
     var descriptionText = optionsTempInput["option"+i].description;
+     console.log(nameText, descriptionText);
 
-    preContext.push({optionNumber: i, nameText:nameText, descriptionText: descriptionText});
+    preContext.push({optionNumber: i, nameTextVal:nameText, descriptionText: descriptionText});
   }
-
+   console.dir(preContext);
   var context = {option: preContext};
 
   renderTemplate("#questionOption-tmpl", context, "#optionsForLimitedOptions");
