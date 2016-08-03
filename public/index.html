@@ -433,14 +433,8 @@ Tow options
      </script>
 <!-- simple voting buttons -->
 <script type="text/x-handlebars-template" id="simpleVoteBtns-tmpl">
-            <div id="tmpMulCon">
-                <div class="voteInfoContainer">
-                    {{#each options}}
-                    <div>
-                        <i class="fa fa-info-circle fa-1x clickables" onclick="showOptionInfo('{{questionUuid}}','{{uuid}}')"></i>
-      </div>
-                    {{/each}}
-      </div>
+            <div id="limitedOptionsVoteBtns">
+
                 <div class="voteBtnContainer">
                     {{#each options}}
                     <div class="voteBtn clickables material-ripple" onclick="voteSimple('{{questionUuid}}','{{uuid}}')" id={{uuid}}_btn><span>{{title}}</span></div>
