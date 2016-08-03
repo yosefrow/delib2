@@ -40,7 +40,7 @@ function editQuestion(questionUid){
          console.dir(optionsSnapshot.val());
          var i=8;
          optionsSnapshot.forEach(function(optionData){
-            optionsTempInput["option"+i]={title:optionData.val().title, description:optionData.val().description};
+            optionsTempInput[optionData.key]={title:optionData.val().title, description:optionData.val().description};
             console.log(JSON.stringify(optionsTempInput["option"+i]));
             i--;
          })
@@ -71,22 +71,33 @@ function updateQuestion(questionUid){
 
    console.dir(optionsTempInput);
    console.log("numberOfOptions "+numberOfOptionsTemp );
-   for (i=1;i<=numberOfOptionsTemp;i++){
-      if (optionsTempInput["option"+i].title == "") {
-         alert(" אופציה מספר "+i+" ריקה");
-         return;
-      }
-   }
-   for (i=numberOfOptionsTemp+1;i<9;i++){
-      if (optionsTempInput["option"+i].title == "") {
-         delete optionsTempInput["option"+i];
-      }
-   }
+
+//   for (i=1;i<=numberOfOptionsTemp;i++){
+//      if (optionsTempInput["option"+i].title == "") {
+//         alert(" אופציה מספר "+i+" ריקה");
+//         return;
+//      }
+//   }
+//   for (i=numberOfOptionsTemp+1;i<9;i++){
+//      if (optionsTempInput["option"+i].title == "") {
+//         delete optionsTempInput["option"+i];
+//      }
+//
+//
+//   }
 
    console.dir(optionsTempInput);
 
    DB.child("questions/"+questionUid).update({title: title, description: description, type: type, numberOfOptions: numberOfOptionsTemp});
-   DB.child("questions/"+questionUid+"/options").set(optionsTempInput);
+
+   for (i in optionsTempInput){
+      //get new name and description
+      var titleOption = $("#"+i+"_limitedOptions").val();
+      var descriptionOption = $("#"+i+"_limitedOptionsDesc").val();
+      console.log("title of "+i+" is: "+titleOption, descriptionOption);
+      DB.child("questions/"+questionUid+"/options/"+i).update({title:titleOption, description:descriptionOption});
+   }
+   DB.child("questions/"+questionUid+"/options").update(optionsTempInput);
 
    showTopic(activeEntity.uid);
 }

@@ -398,8 +398,8 @@ Tow options
 {{#each option}}
 <label>אופציה {{optionNumber}}</label>
 <br>
-<input type="text" id=optionName{{optionNumber}} placeholder="שם האופציה" value='{{nameTextVal}}'>
-<textarea id=optionDescription{{optionNumber}} class="inputErea" name="description" placeholder="הסבר">{{descriptionText}}</textarea>
+<input type="text" id={{uid}}_limitedOptions placeholder="שם האופציה" value='{{nameTextVal}}'>
+<textarea id={{uid}}_limitedOptionsDesc class="inputErea" name="description" placeholder="הסבר">{{descriptionText}}</textarea>
 <br> {{/each}}
     </script>
 
