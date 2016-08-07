@@ -3,7 +3,7 @@ function showTopic(topicUid, back){
 
    if (back == undefined){back = false}
 
-   // userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+   // userUpdates = DB.child("users/"+userUuid+"/updates/"+activeEntity.entity+"/"+activeEntity.uid);
    //
    // userUpdates.once('value', function(data) {
    //   userUpdatesSet = data.child("globalNotifications").exists();
@@ -19,15 +19,6 @@ function showTopic(topicUid, back){
 
       renderTemplate("#headerMenu-tmpl", {chatUid: topicUid, entityType: "topics"}, "#headerMenu");
       $("footer").html();
-      // getLocalNotifications();
-
-      //    console.dir(userEntityNotificationsExists);
-      //
-      // if (userUpdatesSet) {
-      //   $("#globalNotificationsSub").css("color", activeColor);
-      // } else {
-      //   $("#globalNotificationsSub").css("color", inactiveColor);
-      // }
 
    };
 

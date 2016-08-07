@@ -47,7 +47,7 @@ function routTo(currentUrl, back){
       showPublicGroups();
   }
 
-};
+}
 
 function setUrl(type, uid){
   //get domain

@@ -9,25 +9,14 @@ function showChat(){
 
    //notifications
 
+   setAcitveEntity("chats", chatUid);
    var chatUid = activeEntity.uid;
    var entityType = activeEntity.entity;
-   setAcitveEntity("chats", chatUid);
 
    //set title of chat
    DB.child(entityType+"/"+chatUid).once("value", function(dataSnapshot){
       var entityTypeLocal = entityTypeToHebrew(entityType);
       renderTemplate("#chatsHeader-tmpl",{entityType:entityTypeLocal, title:dataSnapshot.val().title },"#headerTitle");
-   })
-
-   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-   userUpdates.once('value', function(data) {
-
-      userUpdatesSet = data.child("/globalNotifications").exists();
-
-      if(userUpdatesSet)
-         DB.child("users/"+userUuid+"/chatInboxes/"+chatUid).set(0);
-
    });
 
    //create footer input box
@@ -53,8 +42,9 @@ function showChat(){
 >>>>>>> master
 
    //get chat messages
-   DB.child("chats/"+chatUid).off();
-   DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", function(chats){
+   DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", chatsCallback);
+
+   var chatsCallback = function(chats){
       if(chats.exists()){
          var text = chats.val().text;
          var time =  parseDate(chats.val().dateAdded);
@@ -65,13 +55,12 @@ function showChat(){
 
          $('wrapper').scrollTop($('wrapper')[0].scrollHeight);
       }
+      
+   }
 
-      if (userUpdatesSet) {
-         $("#globalNotificationsSub").css("color", activeColor);
-      } else {
-         $("#globalNotificationsSub").css("color", inactiveColor);
-      }
-   })
+   entitiesCallbacks.chats.callback = chatsCallback;
+   entitiesCallbacks.chats.eventType = "child_added";
+
 }
 
 
@@ -102,4 +91,8 @@ function addChatMessagePre(chatUid, entityType){
    addChatMessage(chatUid, userUuid, inputValue, entityType);
    $("#chatInputTxt").val("");
 }
+
+
+
+
 

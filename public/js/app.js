@@ -49,6 +49,7 @@ $(function(){
 
 var userUuid;
 var activeEntity = new Object();
+var entitiesCallbacks = new Object();
 var firstRun = true;
 const subEntity = {
 	groups: "topics"
@@ -66,8 +67,22 @@ const toHebrew = {
 var inactiveColor = "#5f1f1f";
 var activeColor = "white";
 // Updates Variables and Constants
-var userUpdates;
-var userUpdatesSet;
+
+var subsManager = {
+    isUpdatesSet: function(){
+        this.isFeedSet();
+        this.isNotificationsSet();
+    },
+    setFeed: function(){},
+    isFeedSet: function(){},
+    setNotifications: function(){},
+    isNotificationsSet: function(){},
+    userFeed: null,
+    feedIsSet: false,
+    userNotifications: null,
+    notificationsIsSet: false
+};
+
 var mostUpdatedContent = null;
 // Feed
 var feedQueue = [];

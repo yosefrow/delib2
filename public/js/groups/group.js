@@ -2,46 +2,26 @@ function showGroup(groupUid, back){
 
    if (back == undefined){back = false}
 
-   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
 
-   userUpdates.once('value', function(data) {
-      userUpdatesSet = data.child("ownerCalls").exists();
-   });
+   //show footer&header
 
-   setAcitveEntity("groups", groupUid);
-
-   if(!back){
-      setUrl("group", groupUid);
-   }
-
-   var showGroupCallback = function(dataSnapshot){
+   DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
+      //show header
       var title = dataSnapshot.val().title;
       renderTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
       renderTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
+
       //    getLocalNotifications();
-      if (userUpdatesSet) {
-         $("#globalNotificationsSub").css("color", activeColor);
-      } else {
-         $("#globalNotificationsSub").css("color", inactiveColor);
-      }
-   };
+      
 
-   setAcitveEntity("groups", groupUid, "value", showGroupCallback);
+      //show footer
+      $("footer").html("");
 
-   isMembership();
-
-   DB.child("groups/"+groupUid).once("value", showGroupCallback);
-   showGroupTopics (groupUid);
-
-   $("footer").html("");
-}
+      isMembership();
+   });
 
 
-//show group topics
-function showGroupTopics(groupUid){
-   //get group topics
-
-   DB.child("groups/"+ groupUid.toString()+"/topics").on("value",function(topics){
+   var showGroupCallback = function(topics){
 
       if(topics.exists()){
 
@@ -51,7 +31,7 @@ function showGroupTopics(groupUid){
 
          var i = 1;
 
-         topics.forEach(function(topic){
+         topics.forEach(function(topic){  
 
             DB.child("topics/"+topic.key).once("value", function(data){
 
@@ -85,5 +65,23 @@ function showGroupTopics(groupUid){
       } else {
          renderTemplate("#groupPage-tmpl",{}, "wrapper");
       }
-   });
+   };
+
+   //show wrapper
+   DB.child("groups/"+groupUid+"/topics").on("value", showGroupCallback);
+   setAcitveEntity("groups", groupUid, "value", showGroupCallback);
+   
+
+
+   if(!back){
+      setUrl("group", groupUid);
+   }
 }
+
+
+//show group topics
+//function showGroupTopics(groupUid){
+//   //get group topics
+//
+//   DB.child("groups/"+ groupUid.toString()+"/topics").on("value",
+//}
