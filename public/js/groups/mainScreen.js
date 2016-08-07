@@ -232,7 +232,7 @@ var memberContext = new Object();
 //}
 
 function goHome(){
-  $("#globalNotificationsSub").css("color", inactiveColor)
+  $("#notificationsSub").css("color", inactiveColor)
   showPublicGroups();
   renderTemplate("#LogoHeaderTitle-tmpl",{}, "#headerTitle");
 }

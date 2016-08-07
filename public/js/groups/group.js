@@ -12,10 +12,7 @@ function showGroup(groupUid, back){
       renderTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
 
       //    getLocalNotifications();
-      if (userUpdatesSet) {
-         $("#globalNotificationsSub").css("color", activeColor);
-      } else {
-         $("#globalNotificationsSub").css("color", inactiveColor);      }
+      
 
       //show footer
       $("footer").html("");
@@ -23,8 +20,6 @@ function showGroup(groupUid, back){
       isMembership();
    });
 
-   //show wrapper
-   DB.child("groups/"+groupUid+"/topics").on("value", showGroupCallback);
 
    var showGroupCallback = function(topics){
 
@@ -36,7 +31,7 @@ function showGroup(groupUid, back){
 
          var i = 1;
 
-         topics.forEach(function(topic){
+         topics.forEach(function(topic){  
 
             DB.child("topics/"+topic.key).once("value", function(data){
 
@@ -72,16 +67,10 @@ function showGroup(groupUid, back){
       }
    };
 
+   //show wrapper
+   DB.child("groups/"+groupUid+"/topics").on("value", showGroupCallback);
    setAcitveEntity("groups", groupUid, "value", showGroupCallback);
-
-
-
-   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-
-   userUpdates.once('value', function(data) {
-      userUpdatesSet = data.child("ownerCalls").exists();
-   });
-
+   
 
 
    if(!back){

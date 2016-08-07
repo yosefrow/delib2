@@ -49,6 +49,7 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
    activeEntity.eventType = newEventType;
    activeEntity.callback = newCallback;
 
+   subsManager.isUpdatesSet();
 }
 
 function animateHeader(){
@@ -97,17 +98,16 @@ function entityTypeToHebrew (entityType){
          return undefined;
    }
 }
-
-function setActiveEntity(entity, uid){
-
-   //close previous entity
-   DB(activeEntity.entity+"/"+activeEntity.uid).off(activeEntity.eventType, activeEntity.callback);
-   console
-   //store new entity
-   activeEntity.uid = uid;
-   activeEntity.entity = entity;
-   activeEntity.callback = entitiesCallbacks.chats.callback;
-   activeEntity.eventType = entitiesCallbacks.chats.eventType;
-
-}
+//
+// function setActiveEntity(entity, uid){
+//
+//    //close previous entity
+//    DB.(activeEntity.entity+"/"+activeEntity.uid).off(activeEntity.eventType, activeEntity.callback);
+//    //store new entity
+//    activeEntity.uid = uid;
+//    activeEntity.entity = entity;
+//    activeEntity.callback = entitiesCallbacks.chats.callback;
+//    activeEntity.eventType = entitiesCallbacks.chats.eventType;
+//
+// }
 
