@@ -72,7 +72,7 @@ var subsManager = {
     isUpdatesSet: function(){
         this.isFeedSet();
         this.isNotificationsSet();
-        debugger;
+        
     },
     setFeed: function(){},
     isFeedSet: function(){},

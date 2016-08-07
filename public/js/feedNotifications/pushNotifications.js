@@ -98,7 +98,7 @@ subsManager.setNotifications = function(isOwnerCall) {
 
     var userNotifications = DB.child("users/"+userUuid+"/updates/"+activeEntity.entity+"/"+activeEntity.uid+"/notifications");
 
-debugger;
+
     switch (activeEntity.entity) {
         case "chats":
             userNotifications.once("value", function(dataSnapshot) {
@@ -211,5 +211,5 @@ subsManager.isNotificationsSet = function (isOwnerCall) {
         // if(isOwnerCall)
         // // NEEDED: ownerCall box, and an on/off button
     }
-    debugger;
+    
 };
