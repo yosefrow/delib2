@@ -26,9 +26,13 @@ $(function(){
    });
 
    var currentUrl = getUrl();
+   startingUrl = currentUrl;
+   routTo(currentUrl);
 
-   routTo(currentUrl, false);
-   //  showPublicGroups();
+   listenToAuth();
+
+   //routTo(currentUrl, false);
+
    $(window).on('popstate', function() {
       var currentUrl = getUrl();
       var back = true;
@@ -36,18 +40,13 @@ $(function(){
 
    });
 
-   //
-   renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
-   renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
-   renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
-   //  goHome();
 
-   listenToAuth();
 })
 
 // Global General Variables and Constants
 
 var userUuid;
+var startingUrl;
 var activeEntity = new Object();
 var entitiesCallbacks = new Object();
 var firstRun = true;

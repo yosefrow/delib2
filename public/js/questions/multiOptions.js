@@ -4,17 +4,18 @@ function showMultiOptions(questionUid){
 
    var optionsPosition = new Array();
    var optionsObject = new Array();
-
    var optionsObjectOrder = new Array();
 
-   DB.child("questions/"+questionUid+"/options").off("value");
+   //show header
+   //coming from question.js/showQuestion()
 
+   //show footer
    renderTemplate("#multiOptionsFooter-tmpl",{questionUid: questionUid}, "footer");
    $("wrapper").html("");
 
    var indexDiv = 0;
 
-   DB.child("questions/"+questionUid+"/options").orderByChild("votes").on("child_added", function(option){
+   var multiOptionsCallback = function(option){
 
       var optionUid = option.key;
       var description = option.val().description;
@@ -97,7 +98,11 @@ function showMultiOptions(questionUid){
             optionsPosition = newOrder;
          })
       })
-   })
+   };
+
+   DB.child("questions/"+questionUid+"/options").orderByChild("votes").on("child_added", multiOptionsCallback);
+
+   setActiveEntity("questions",questionUid, "child_added", multiOptionsCallback);
 }
 
 function voteUpOption(questionUid, optionUid){

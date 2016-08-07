@@ -372,7 +372,7 @@ input {
 }
 
 .voteBtn{
-  background-color: #cc4545;
+  background-color: blue;
   width: 100%;
   text-align: center;
   display: flex;
@@ -380,7 +380,7 @@ input {
   justify-content: center;
 }
 
-#tmpMulCon{
+#limitedOptionsVoteBtns{
   width: 100%;
   background-color: #cc4545;
   color: white;

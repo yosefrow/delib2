@@ -7,19 +7,28 @@ function showChat(){
 
    clearChat();
 
+<<<<<<< HEAD
    //notifications
 
    setAcitveEntity("chats", chatUid);
+=======
+>>>>>>> master
    var chatUid = activeEntity.uid;
    var entityType = activeEntity.entity;
 
-   //set title of chat
+   //show Header
    DB.child(entityType+"/"+chatUid).once("value", function(dataSnapshot){
       var entityTypeLocal = entityTypeToHebrew(entityType);
       renderTemplate("#chatsHeader-tmpl",{entityType:entityTypeLocal, title:dataSnapshot.val().title },"#headerTitle");
+<<<<<<< HEAD
+=======
+
+      DB.child("chats/"+chatUid).update({title: "("+entityTypeLocal+") "+ dataSnapshot.val().title})
+
+>>>>>>> master
    });
 
-   //create footer input box
+   //show footer
    renderTemplate("#chatInput-tmpl",{},"footer");
 
    //listen to enter from input
@@ -42,9 +51,14 @@ function showChat(){
 >>>>>>> master
 
    //get chat messages
+<<<<<<< HEAD
    DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", chatsCallback);
 
    var chatsCallback = function(chats){
+=======
+
+   var chatCallback = function(chats){
+>>>>>>> master
       if(chats.exists()){
          var text = chats.val().text;
          var time =  parseDate(chats.val().dateAdded);
@@ -61,12 +75,37 @@ function showChat(){
    entitiesCallbacks.chats.callback = chatsCallback;
    entitiesCallbacks.chats.eventType = "child_added";
 
+<<<<<<< HEAD
+=======
+      if (userUpdatesSet) {
+         $("#globalNotificationsSub").css("color", activeColor);
+      } else {
+         $("#globalNotificationsSub").css("color", inactiveColor);
+      }
+   };
+
+   DB.child("chats/"+chatUid).orderByChild("dateAdded").limitToLast(20).on("child_added", chatCallback);
+
+   setActiveEntity("chats", chatUid, "child_added", chatCallback);
+
+   //Notifications
+
+   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
+
+   userUpdates.once('value', function(data) {
+
+      userUpdatesSet = data.child("/globalNotifications").exists();
+
+      if(userUpdatesSet)
+         DB.child("users/"+userUuid+"/chatInboxes/"+chatUid).set(0);
+
+   });
+>>>>>>> master
 }
 
 
 function addChatMessage(chatUid, userUid, text, entityType){
-   //  var x= firebase.database(app);
-   console.log("chat uid: "+ chatUid);
+
    if (text != "") {
 
       //get user name
