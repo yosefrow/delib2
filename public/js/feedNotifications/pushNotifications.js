@@ -89,18 +89,21 @@ function pushNotification(EntityData, entityType, messagesSent) {
 //------subsManager: Notifications-------//
 
 
-subsManager.setNotifications = function() {
-    
-    if(activeEntity.entity == 'undefined' || activeEntity.uid == 'undefined')
+subsManager.setNotifications = function(isOwnerCall) {
+    if(isOwnerCall == undefined)
+        isOwnerCall= false;
+
+    if(activeEntity.entity == undefined || activeEntity.uid == undefined)
         return;
 
     var userNotifications = DB.child("users/"+userUuid+"/updates/"+activeEntity.entity+"/"+activeEntity.uid+"/notifications");
 
+debugger;
     switch (activeEntity.entity) {
         case "chats":
             userNotifications.once("value", function(dataSnapshot) {
 
-                if (dataSnapshot.child("chats").val() == true) {
+                if (dataSnapshot.child("chats").exists()) {
                     userNotifications.child("chats").remove();
                     $("#notificationsSub").css("color", inactiveColor);
                     // firstRun = false;
@@ -126,7 +129,7 @@ subsManager.setNotifications = function() {
             // get in only if on a group entity and function is called from the ownerCall box
             if (isOwnerCall) {
                 userNotifications.once("value", function(dataSnapshot) {
-                    if (dataSnapshot.child("OwnerCalls").val() == true) {
+                    if (dataSnapshot.child("OwnerCalls").exists()) {
                         userNotifications.child("OwnerCalls").remove();
                         // $("#notificationsSub").css("color", inactiveColor);
                         // NEEDED: ownerCall box, and an on/off button
@@ -146,19 +149,23 @@ subsManager.setNotifications = function() {
         // please DO NOT put a break; statement here..
 
         default:
-            if (dataSnapshot.child("newSubEntity").val() == true) {
-                userNotifications.child("newSubEntity").remove();
-                $("#notificationsSub").css("color", inactiveColor);
+            userNotifications.once("value", function(dataSnapshot) {
+                if (dataSnapshot.child("newSubEntity").exists()) {
+                    userNotifications.child("newSubEntity").remove();
+                    $("#notificationsSub").css("color", inactiveColor);
 
-            } else {
-                userNotifications.child("newSubEntity").set(true);
-                $("#notificationsSub").css("color", activeColor);
-            }
+                } else {
+                    userNotifications.child("newSubEntity").set(true);
+                    $("#notificationsSub").css("color", activeColor);
+                }
+            });
     }
 };
 
-subsManager.isNotificationsSet = function () {
-    
+subsManager.isNotificationsSet = function (isOwnerCall) {
+    if(isOwnerCall == undefined)
+        isOwnerCall= false;
+
     if(activeEntity.entity == 'undefined' || activeEntity.uid == 'undefined')
         return;
 
@@ -174,7 +181,7 @@ subsManager.isNotificationsSet = function () {
 
         case "groups":
             // get in only if on a group entity and function is called from the ownerCall box
-            if (isOwnerCall ) {
+            if (isOwnerCall) {
                 userNotifications.once('value', function(dataSnapshot) {
 
                     subsManager.notificationsIsSet = dataSnapshot.child("OwnerCalls").exists();

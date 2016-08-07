@@ -2,6 +2,9 @@
 
 subsManager.setFeed = function(isOwnerCall) {
 
+    if(isOwnerCall == undefined)
+        isOwnerCall= false;
+    
     if(activeEntity.entity == 'undefined' || activeEntity.uid == 'undefined')
         return;
 
@@ -11,7 +14,7 @@ subsManager.setFeed = function(isOwnerCall) {
         case "chats":
             userFeed.once("value", function(dataSnapshot) {
 
-                if (dataSnapshot.child("chats").val() == true) {
+                if (dataSnapshot.child("chats").exists()) {
                     userFeed.child("chats").remove();
                     $("#feedSub").css("color", inactiveColor);
 
@@ -35,7 +38,7 @@ subsManager.setFeed = function(isOwnerCall) {
             // get in only if on a group entity and function is called from the ownerCall box
             if (isOwnerCall ) {
                 userFeed.once("value", function(dataSnapshot) {
-                    if (dataSnapshot.child("OwnerCalls").val() == true) {
+                    if (dataSnapshot.child("OwnerCalls").exists()) {
                         userFeed.child("OwnerCalls").remove();
                         // $("#feedSub").css("color", inactiveColor);
                         // NEEDED: ownerCall box, and an on/off button
@@ -55,19 +58,25 @@ subsManager.setFeed = function(isOwnerCall) {
         // please DO NOT put a break; statement here..
             
         default:
-            if (dataSnapshot.child("newSubEntity").val() == true) {
-                userFeed.child("newSubEntity").remove();
-                $("#feedSub").css("color", inactiveColor);
 
-            } else {
-                userFeed.child("newSubEntity").set(true);
-                $("#feedSub").css("color", activeColor);
-            }
+            userFeed.once("value", function(dataSnapshot) {
+                if (dataSnapshot.child("newSubEntity").exists()) {
+                    userFeed.child("newSubEntity").remove();
+                    $("#feedSub").css("color", inactiveColor);
+    
+                } else {
+                    userFeed.child("newSubEntity").set(true);
+                    $("#feedSub").css("color", activeColor);
+                }
+            });
+            
     }
 };
 
 subsManager.isFeedSet = function (isOwnerCall) {
-
+    if(isOwnerCall == undefined)
+        isOwnerCall= false;
+    
     if(activeEntity.entity == 'undefined' || activeEntity.uid == 'undefined')
         return;
 
