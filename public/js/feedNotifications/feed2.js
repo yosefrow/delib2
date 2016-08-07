@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 // function listenToNotifications (uuid){
 //
 //    listenToChats(uuid);
@@ -25,4 +23,3 @@
 //       console.log(newMessage.key, newMessage.val().userName, newMessage.val().text, massegeTime, newMessage.val().chatUid, newMessage.val().entityType);
 //    }
 // }
->>>>>>> activeEntity

@@ -2,8 +2,6 @@ function showGroup(groupUid){
 
    //show header
 
-<<<<<<< HEAD
-
    //show footer&header
 
    DB.child("groups/"+groupUid).once("value", function(dataSnapshot){
@@ -23,27 +21,7 @@ function showGroup(groupUid){
 
 
    var showGroupCallback = function(topics){
-=======
-   DB.child("groups/"+groupUid).once("value",function(dataSnapshot){
-      var title = dataSnapshot.val().title;
-      renderTemplate("#groupHeaderTitle-tmpl", {group: title}, "#headerTitle");
-      renderTemplate("#headerMenu-tmpl", {chatUid: groupUid, entityType: "groups"}, "#headerMenu");
-      //    getLocalNotifications();
-      //      if (userUpdatesSet) {
-      //         $("#globalNotificationsSub").css("color", activeColor);
-      //      } else {
-      //         $("#globalNotificationsSub").css("color", inactiveColor);
-      //      }
 
-      isMembership();
-   });
-
-   //show footer
-   $("footer").html("");
-
-   //show wrapper
-   var groupCallback = function(topics){
->>>>>>> master
 
       if(topics.exists()){
 
@@ -89,7 +67,6 @@ function showGroup(groupUid){
       }
    };
 
-<<<<<<< HEAD
    //show wrapper
    DB.child("groups/"+groupUid+"/topics").on("value", showGroupCallback);
    setAcitveEntity("groups", groupUid, "value", showGroupCallback);
@@ -98,35 +75,13 @@ function showGroup(groupUid){
    if(!back){
       setUrl("group", groupUid);
    }
-=======
-   DB.child("groups/"+groupUid+"/topics").on("value",groupCallback);
 
-   setActiveEntity("groups", groupUid, "value", groupCallback);
-
-   //   if (back == undefined){back = false}
-
-   //   userUpdates = DB.child("users/"+userUuid+"/entityNotifications/"+activeEntity.entity+"/"+activeEntity.uid);
-   //
-   //   userUpdates.once('value', function(data) {
-   //      userUpdatesSet = data.child("ownerCalls").exists();
-   //   });
-
-
-
-   //   if(!back){
-   //      setUrl("group", groupUid);
-   //   }
->>>>>>> master
 }
 
 
 //show group topics
-<<<<<<< HEAD
 //function showGroupTopics(groupUid){
 //   //get group topics
 //
 //   DB.child("groups/"+ groupUid.toString()+"/topics").on("value",
 //}
-=======
-
->>>>>>> master

@@ -1,17 +1,8 @@
-<<<<<<< HEAD
 function getUrl(){  
   var currentUrl = window.location.href;
   var locationToCut = currentUrl.indexOf("?");
   currentUrl = currentUrl.substring(locationToCut+1);
 	return currentUrl;
-=======
-function getUrl(){
-   var currentUrl = window.location.href;
-   var locationToCut = currentUrl.indexOf("?");
-   currentUrl = currentUrl.substring(locationToCut+1);
-   return currentUrl;
->>>>>>> master
-
 }
 
 function routTo(currentUrl, back){

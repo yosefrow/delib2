@@ -22,28 +22,7 @@ $(function(){
     $(".headerMenuBtn").ePulse({
       bgColor: "#ded9d9",
       size: 'medium'
-<<<<<<< HEAD
 
-   });
-
-   var currentUrl = getUrl();
-   startingUrl = currentUrl;
-   routTo(currentUrl);
-
-   listenToAuth();
-
-   //routTo(currentUrl, false);
-
-   $(window).on('popstate', function() {
-      var currentUrl = getUrl();
-      var back = true;
-      routTo(currentUrl,back);
-
-   });
-
-
-=======
-    
     });
     
     var currentUrl = getUrl();
@@ -63,8 +42,7 @@ $(function(){
     renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
     
     listenToAuth();
->>>>>>> activeEntity
-})
+});
 
 // Global General Variables and Constants
 

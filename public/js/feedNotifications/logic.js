@@ -58,74 +58,7 @@ function updatesListener() {
                 }
 
                 // check if sub-entity added, only if registered to Global or Feed. if not registered fo both - move on
-
-<<<<<<< HEAD
-                // if (isGlobalReg || isFeedReg) {
-                //     DB.child(entityUpdates.key + "/" + entityUpdate.key + "/" + subEntity[entityUpdates.key]).orderByChild('dateAdded').limitToLast(1).on('child_added', function (entityAddedUid) {
-                //         DB.child(subEntity[entityUpdates.key] + "/" + entityAddedUid.key).once('value', function (actualContent) {
-                //
-                //
-                //             console.log(mostUpdatedContent.val());
-                //             console.log(actualContent.val());
-                //             console.log(Number(mostUpdatedContent.val().dateAdded) < Number(entityAddedUid.val().dateAdded));
-                //
-                //
-                //             if (mostUpdatedContent == null)
-                //                 mostUpdatedContent = actualContent;
-                //             else if (mostUpdatedContent.val().dateAdded < entityAddedUid.val().dateAdded)
-                //                 mostUpdatedContent = actualContent;
-                //             else
-                //                 return;
-                //
-                //             if (isGlobalReg)
-                //                 pushNotification(actualContent, subEntity[entityUpdates.key]);
-                //
-                //             if (isFeedReg) {
-                //                 feedBuilder(actualContent, subEntity[entityUpdates.key]);
-                //                 console.log(feedQueue);
-                //             }
-                //
-                //         }); //.catch(function (error) { console.log(error, "no entity path") })
-                //     });
-                //
-                //     // chat logic
-
-                    if(entityUpdates.key == "chats") {
-                        // check if added message, get last message by date
-                        DB.child("chats/" + entityUpdate.key).limitToLast(1).orderByChild('dateAdded').on('child_added', function (lastMessage) {
-                            // get inbox unseen messages counter
-                            DB.child("users/" + userUuid + "/chatInboxes/" + entityUpdate.key).once('value', function (inboxVolume) {
-                                // now we need the actual content of the entity related to current chatRoom
-                                DB.child("/groups/" + entityUpdate.key).once('value', function (chatEntityContent) {
-                                    // don't bring up notificaions and nor count them if already inside subscribed chat room
-                                    console.log("chat checked", activeEntity.entity, activeEntity.uid);
-                                    if(!(activeEntity.entity == "chats" && activeEntity.uid == entityUpdate.key)) {
-                                        // if no such group, get out
-                                        if (chatEntityContent == null)
-                                            return;
-
-                                        // create a temporary messagesSentInc to hold inboxMessages.val()
-                                        var messagesSentInc;
-
-                                        // now we need the inboxMessages to get the number of messages not seen
-                                        messagesSentInc = inboxVolume.val();
-
-                                        // increment inbox volume
-                                        if (firstRun) {
-                                            firstRun = false;
-                                            return;
-                                        }
-
-                                        // obvious incrementation, is obvious..
-                                        messagesSentInc++;
-
-                                        //set incremented inbox volume
-                                        DB.child("users/" + userUuid + "/chatInboxes/" + entityUpdate.key).set(messagesSentInc);
-
-                                        // send notifications in jumps of 5, might want to consider further manipulations. currently unused.
-                                        // if (messagesSentInc % 5 ===  0)
-                                        pushNotification(chatEntityContent, "chats", messagesSentInc);
-=======
+                
                 if (isNewSubEntityReg) {
                     DB.child(entityUpdates.key + "/" + entityUpdate.key + "/" + subEntity[entityUpdates.key]).orderByChild('dateAdded').limitToLast(1).on('child_added', function (entityAddedUid) {
                         DB.child(subEntity[entityUpdates.key] + "/" + entityAddedUid.key).once('value', function (actualContent) {
@@ -193,18 +126,13 @@ function updatesListener() {
                                             pushNotification(chatEntityContent, "chats", messagesSentInc);
                                         if (isChatReg.feed)
                                             feedBuilder(chatEntityContent,"chats", messagesSentInc);
->>>>>>> activeEntity
                                     }
                                 }
                             });
                         });
-<<<<<<< HEAD
-                    }
-                // }
-=======
+
                     });
                 }
->>>>>>> activeEntity
             });
         });
     });

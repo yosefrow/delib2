@@ -34,7 +34,6 @@ function parseDate(dateInMillisec){
 }
 
 
-<<<<<<< HEAD
 function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
    var previuosEntity = activeEntity.entity;
    var previuosUid = activeEntity.uid;
@@ -52,9 +51,6 @@ function setAcitveEntity (newEntity, newUid, newEventType, newCallback){
 
    subsManager.isUpdatesSet();
 }
-=======
-
->>>>>>> master
 
 function animateHeader(){
    $("header").hide();

@@ -266,13 +266,8 @@ var memberContext = new Object();
 //
 //}
 
-<<<<<<< HEAD
 function goHome(){
   $("#notificationsSub").css("color", inactiveColor)
   showPublicGroups();
   renderTemplate("#LogoHeaderTitle-tmpl",{}, "#headerTitle");
 }
-=======
-
->>>>>>> master
-
