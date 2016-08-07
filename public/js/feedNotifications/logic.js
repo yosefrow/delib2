@@ -54,7 +54,7 @@ function updatesListener() {
                                 if(isOwnerCallReg.feed)
                                     feedBuilder(actualContent,"ownerCalls", ownerCall.val().description);
                             });
-                    }); //.catch(function (error) { console.log(error, "no ownerCalls") })
+                    });
                 }
 
                 // check if sub-entity added, only if registered to Global or Feed. if not registered fo both - move on
