@@ -211,6 +211,7 @@ subsManager.isNotificationsSet = function (isOwnerCall) {
         // if(isOwnerCall)
         // // NEEDED: ownerCall box, and an on/off button
     }
+    debugger;
 };
 
 

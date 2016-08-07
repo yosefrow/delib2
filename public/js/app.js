@@ -1,6 +1,6 @@
 $(function(){
 
-   if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator) {
       console.log('Service Worker is supported');
       navigator.serviceWorker.register('../delib-service-worker.js').then(function() {
          return navigator.serviceWorker.ready;
@@ -11,17 +11,18 @@ $(function(){
       }).catch(function(error) {
          console.log('Service Worker Error :^(', error);
       });
-   }
-
-   //start ripple effect
-   $(".footer-btn").ePulse({
+    }
+    
+    //start ripple effect
+    $(".footer-btn").ePulse({
       bgColor: "#ded9d9",
       size: 'medium'
-
-   });
-   $(".headerMenuBtn").ePulse({
+    
+    });
+    $(".headerMenuBtn").ePulse({
       bgColor: "#ded9d9",
       size: 'medium'
+<<<<<<< HEAD
 
    });
 
@@ -41,6 +42,28 @@ $(function(){
    });
 
 
+=======
+    
+    });
+    
+    var currentUrl = getUrl();
+    
+    
+    routTo(currentUrl, false);
+    //  showPublicGroups();
+    $(window).on('popstate', function() {
+      var currentUrl = getUrl();
+      var back = true;
+      routTo(currentUrl,back);
+    
+    });
+    
+    renderTemplate("#LogoHeaderTitle-tmpl",{},"#headerTitle");
+    renderTemplate("#headerBreadCrumbs-tmpl",{},"#headerBreadCrumbs");
+    renderTemplate("#headerMenu-tmpl",{},"#headerMenu");
+    
+    listenToAuth();
+>>>>>>> activeEntity
 })
 
 // Global General Variables and Constants
@@ -71,6 +94,7 @@ var subsManager = {
     isUpdatesSet: function(){
         this.isFeedSet();
         this.isNotificationsSet();
+        debugger;
     },
     setFeed: function(){},
     isFeedSet: function(){},

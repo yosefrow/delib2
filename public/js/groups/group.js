@@ -93,7 +93,6 @@ function showGroup(groupUid){
    //show wrapper
    DB.child("groups/"+groupUid+"/topics").on("value", showGroupCallback);
    setAcitveEntity("groups", groupUid, "value", showGroupCallback);
-   
 
 
    if(!back){
