@@ -29,7 +29,7 @@ Ubuntu Linux
 - Change to a directory to hold the install
 - Run `git clone https://github.com/delib-org/delib2.git`
 - Run `cd delib2` (the directory that cloning creates)
-- Run `sudo apt-get nodejs npm`
+- Run `sudo apt-get install nodejs npm`
 - Run `sudo npm install -g firebase-tools`
 - Run `cd public`
 - Run `sudo firebase serve`
