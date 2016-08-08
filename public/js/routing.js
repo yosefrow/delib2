@@ -1,8 +1,9 @@
 function getUrl(){  
-  var currentUrl = window.location.href;
-  var locationToCut = currentUrl.indexOf("?");
-  currentUrl = currentUrl.substring(locationToCut+1);
-	return currentUrl;
+   var currentUrl = window.location.href;
+   var locationToCut = currentUrl.indexOf("?");
+   currentUrl = currentUrl.substring(locationToCut+1);
+   return currentUrl;
+
 }
 
 function routTo(currentUrl, back){
@@ -10,8 +11,8 @@ function routTo(currentUrl, back){
    if (back == undefined){back = false};
 
    var slashPostion = currentUrl.indexOf("/");
-//   var currentType = sessionStorage.getItem("_entityType");
-//   var currentEntity = sessionStorage.getItem("_currentEntity");
+   //   var currentType = sessionStorage.getItem("_entityType");
+   //   var currentEntity = sessionStorage.getItem("_currentEntity");
 
    var currentType = currentUrl.slice(0,slashPostion);
    var currentEntity = currentUrl.slice(slashPostion+1);
