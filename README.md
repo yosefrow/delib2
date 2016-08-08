@@ -24,6 +24,34 @@ This project is an integral part of the "Kol Ha'am"(voice of the people) and the
 
 ## Installation
 
+Ubuntu Linux
+
+- Change to a directory to hold the install
+- Run `git clone https://github.com/delib-org/delib2.git`
+- Run `cd delib2` (the directory that cloning creates)
+- Run `sudo apt-get nodejs npm`
+- Run `sudo npm install -g firebase-tools`
+- Run `cd public`
+- Run `sudo firebase serve`
+- proceed with instructions for all systems below
+
+Windows
+
+- Download & Install npm/node from https://nodejs.org/en/download/
+- Open Git Bash (Install git from https://git-scm.com/downloads)
+- cd to a directory to hold the install
+- Run `git clone https://github.com/delib-org/delib2.git`
+- Run `cd delib2` (the directory that cloning creates)
+- Run `npm install -g firebase-tools`
+- Run `cd public`
+- Run `firebase serve`
+- Proceed with instructions for all systems below
+
+All Systems
+
+- Open localhost:5000 in browser
+- Choose account to login to app with
+
 EDIT:Provide code examples and explanations of how to get the project.
 
 
