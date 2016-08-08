@@ -123,7 +123,7 @@ function showEntities(entity, uid){
          showMain(uid);
          break;
       default:
-         showPublicGroups();
+         showMain("public");
    }
 };
 
